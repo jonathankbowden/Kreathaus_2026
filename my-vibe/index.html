@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vibe</title>
+    <meta name="description" content="Discover my vibe — books, music, places, personality, and more. Build your own and see how we compare.">
+    <meta property="og:title" content="My Vibe">
+    <meta property="og:description" content="All the things that have shaped me — the books, the music, the places, and the weird hypotheticals. Explore mine, then build your own.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --color-bg: #ffffff;
+            --color-surface: #f8f9fa;
+            --color-text: #1a1a2e;
+            --color-text-muted: #6b7280;
+            --color-accent: #00355f;
+            --color-accent-light: #1a4a7a;
+            --color-border: #e5e7eb;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --transition: 0.3s ease;
+        }
+
+        /* ===== Reset ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--color-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            transition: color var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-accent);
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem 1.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: var(--font-family);
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            background: var(--color-accent);
+            color: #fff;
+        }
+
+        .btn:hover {
+            background: var(--color-accent-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            background: transparent;
+        }
+
+        /* ===== Hero ===== */
+        .vibe-hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .vibe-hero-content {
+            max-width: 600px;
+        }
+
+        .hero-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--color-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-sub {
+            font-size: 1.125rem;
+            color: var(--color-text-muted);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ===== Main Content ===== */
+        .vibe-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        /* ===== Vibe Sections ===== */
+        .vibe-section {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .vibe-section:last-child {
+            border-bottom: none;
+        }
+
+        .vibe-section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .vibe-icon {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        .vibe-section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-accent);
+        }
+
+        /* ===== Vibe Cards ===== */
+        .vibe-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .vibe-card {
+            padding: 1.5rem;
+            background: var(--color-surface);
+            border-radius: 10px;
+            transition: transform var(--transition);
+        }
+
+        .vibe-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .vibe-card-number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-accent);
+            opacity: 0.5;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .vibe-card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .vibe-card-detail {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+        }
+
+        /* ===== Vibe Pills ===== */
+        .vibe-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.625rem;
+        }
+
+        .vibe-pill {
+            padding: 0.625rem 1.25rem;
+            background: var(--color-surface);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+            transition: all var(--transition);
+        }
+
+        .vibe-pill:hover {
+            background: var(--color-accent);
+            color: #fff;
+        }
+
+        .vibe-pill.dream {
+            background: transparent;
+            border: 1px dashed var(--color-border);
+            color: var(--color-text-muted);
+        }
+
+        .vibe-pill.dream:hover {
+            border-color: var(--color-accent);
+            background: var(--color-accent);
+            color: #fff;
+        }
+
+        .vibe-pill.hobby {
+            background: var(--color-accent);
+            color: #fff;
+            opacity: 0.85;
+        }
+
+        .vibe-pill.hobby:hover {
+            opacity: 1;
+        }
+
+        /* ===== Karaoke ===== */
+        .vibe-section-highlight {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .vibe-section-highlight .vibe-section-header {
+            justify-content: center;
+        }
+
+        .vibe-karaoke {
+            padding: 2.5rem;
+            background: var(--color-accent);
+            border-radius: 12px;
+            color: #fff;
+        }
+
+        .vibe-karaoke-song {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .vibe-karaoke-artist {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* ===== Personality Cards ===== */
+        .vibe-personality-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .vibe-personality-card {
+            padding: 2rem;
+            background: var(--color-surface);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .personality-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .personality-value {
+            display: block;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .personality-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .personality-desc {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== Hypothetical Cards ===== */
+        .vibe-hypothetical-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .vibe-hypothetical-card {
+            padding: 2rem;
+            background: var(--color-surface);
+            border-radius: 12px;
+        }
+
+        .hypothetical-prompt {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .hypothetical-answer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .hypothetical-reason {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== Build Your Own Section ===== */
+        .build-your-own {
+            background: var(--color-surface);
+            padding: 5rem 2rem;
+        }
+
+        .build-header {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .build-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .build-sub {
+            font-size: 1.125rem;
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        .build-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .build-section {
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .build-section-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .build-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .build-hint {
+            font-weight: 400;
+            color: var(--color-text-muted);
+        }
+
+        .build-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 0.9375rem;
+            font-family: var(--font-family);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            background: var(--color-bg);
+            color: var(--color-text);
+            transition: border-color var(--transition);
+        }
+
+        .build-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        .build-input::placeholder {
+            color: var(--color-text-muted);
+            opacity: 0.5;
+        }
+
+        .build-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+
+        .build-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Comparison Section ===== */
+        .comparison-section {
+            padding: 5rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .comparison-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-sub {
+            font-size: 1.125rem;
+            color: var(--color-text-muted);
+        }
+
+        .compare-summary {
+            text-align: center;
+            padding: 3rem;
+            background: var(--color-accent);
+            border-radius: 16px;
+            color: #fff;
+            margin-bottom: 3rem;
+        }
+
+        .compare-score {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-score-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 0.75rem;
+        }
+
+        .compare-score-desc {
+            font-size: 1.125rem;
+            opacity: 0.85;
+        }
+
+        .compare-row {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .compare-row:last-child {
+            border-bottom: none;
+        }
+
+        .compare-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .compare-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .compare-col-name {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-item {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            background: var(--color-surface);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            margin: 0.25rem 0.25rem 0.25rem 0;
+            color: var(--color-text);
+        }
+
+        .compare-item.match {
+            background: var(--color-accent);
+            color: #fff;
+        }
+
+        .compare-item.single {
+            display: block;
+            text-align: left;
+            border-radius: 8px;
+            padding: 0.5rem 0.875rem;
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .compare-item.empty {
+            color: var(--color-text-muted);
+            opacity: 0.5;
+            font-style: italic;
+        }
+
+        .comparison-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Shared Vibe View ===== */
+        .shared-vibe-section {
+            padding: 8rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .shared-vibe-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .shared-vibe-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .shared-vibe-sub {
+            font-size: 1.125rem;
+            color: var(--color-text-muted);
+        }
+
+        .shared-category {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .shared-category:last-child {
+            border-bottom: none;
+        }
+
+        .shared-category-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .shared-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .shared-value {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .shared-vibe-actions {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* ===== Contact ===== */
+        .contact {
+            padding: 8rem 2rem;
+            text-align: center;
+            background: var(--color-bg);
+        }
+
+        .contact-content {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* ===== Toast ===== */
+        .vibe-toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            padding: 0.875rem 1.5rem;
+            background: var(--color-accent);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: var(--font-family);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 200;
+            pointer-events: none;
+        }
+
+        .vibe-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 900px) {
+            .vibe-personality-grid,
+            .vibe-hypothetical-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .compare-columns {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .build-section-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .vibe-hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .vibe-content {
+                padding: 0 1.5rem 3rem;
+            }
+
+            .vibe-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .vibe-section {
+                padding: 2rem 0;
+            }
+
+            .build-your-own {
+                padding: 3rem 1.5rem;
+            }
+
+            .build-actions {
+                flex-direction: column;
+            }
+
+            .build-actions .btn {
+                width: 100%;
+            }
+
+            .comparison-section {
+                padding: 3rem 1.5rem;
+            }
+
+            .shared-vibe-section {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .contact {
+                padding: 5rem 1.5rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="nav-logo">My Vibe</a>
+        <div class="nav-links">
+            <a href="#build-yours" class="nav-link">Build Yours</a>
+            <a href="#contact" class="nav-link">Let's Talk</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="vibe-hero">
+        <div class="vibe-hero-content">
+            <p class="hero-label">Get to Know Me</p>
+            <h1 class="hero-title">My Vibe</h1>
+            <p class="hero-sub">All the things that have shaped me — the books, the music, the places, and the weird hypotheticals. Explore mine, then build your own.</p>
+        </div>
+    </header>
+
+    <!-- Jonathan's Vibe -->
+    <main class="vibe-content">
+
+        <!-- Books -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#128218;</span>
+                <h2 class="vibe-section-title">Favorite Books</h2>
+            </div>
+            <div class="vibe-cards">
+                <div class="vibe-card">
+                    <span class="vibe-card-number">01</span>
+                    <h3 class="vibe-card-title">The Alchemist</h3>
+                    <p class="vibe-card-detail">Paulo Coelho</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">02</span>
+                    <h3 class="vibe-card-title">Shoe Dog</h3>
+                    <p class="vibe-card-detail">Phil Knight</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">03</span>
+                    <h3 class="vibe-card-title">Creative Confidence</h3>
+                    <p class="vibe-card-detail">Tom & David Kelley</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">04</span>
+                    <h3 class="vibe-card-title">Daring Greatly</h3>
+                    <p class="vibe-card-detail">Bren&eacute; Brown</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">05</span>
+                    <h3 class="vibe-card-title">The War of Art</h3>
+                    <p class="vibe-card-detail">Steven Pressfield</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Albums -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#127926;</span>
+                <h2 class="vibe-section-title">Favorite Albums</h2>
+            </div>
+            <div class="vibe-cards">
+                <div class="vibe-card">
+                    <span class="vibe-card-number">01</span>
+                    <h3 class="vibe-card-title">Channel Orange</h3>
+                    <p class="vibe-card-detail">Frank Ocean</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">02</span>
+                    <h3 class="vibe-card-title">The Miseducation of Lauryn Hill</h3>
+                    <p class="vibe-card-detail">Lauryn Hill</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">03</span>
+                    <h3 class="vibe-card-title">good kid, m.A.A.d city</h3>
+                    <p class="vibe-card-detail">Kendrick Lamar</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">04</span>
+                    <h3 class="vibe-card-title">In Rainbows</h3>
+                    <p class="vibe-card-detail">Radiohead</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">05</span>
+                    <h3 class="vibe-card-title">Ctrl</h3>
+                    <p class="vibe-card-detail">SZA</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Concerts -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#127908;</span>
+                <h2 class="vibe-section-title">Favorite Concerts</h2>
+            </div>
+            <div class="vibe-cards">
+                <div class="vibe-card">
+                    <span class="vibe-card-number">01</span>
+                    <h3 class="vibe-card-title">Kendrick Lamar</h3>
+                    <p class="vibe-card-detail">The Big Steppers Tour</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">02</span>
+                    <h3 class="vibe-card-title">Beyonc&eacute;</h3>
+                    <p class="vibe-card-detail">Renaissance World Tour</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">03</span>
+                    <h3 class="vibe-card-title">Radiohead</h3>
+                    <p class="vibe-card-detail">A Moon Shaped Pool Tour</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Movies -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#127916;</span>
+                <h2 class="vibe-section-title">Favorite Movies</h2>
+            </div>
+            <div class="vibe-cards">
+                <div class="vibe-card">
+                    <span class="vibe-card-number">01</span>
+                    <h3 class="vibe-card-title">Inception</h3>
+                    <p class="vibe-card-detail">Christopher Nolan</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">02</span>
+                    <h3 class="vibe-card-title">The Shawshank Redemption</h3>
+                    <p class="vibe-card-detail">Frank Darabont</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">03</span>
+                    <h3 class="vibe-card-title">Eternal Sunshine of the Spotless Mind</h3>
+                    <p class="vibe-card-detail">Michel Gondry</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">04</span>
+                    <h3 class="vibe-card-title">Moonlight</h3>
+                    <p class="vibe-card-detail">Barry Jenkins</p>
+                </div>
+                <div class="vibe-card">
+                    <span class="vibe-card-number">05</span>
+                    <h3 class="vibe-card-title">The Grand Budapest Hotel</h3>
+                    <p class="vibe-card-detail">Wes Anderson</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Past Trips -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#9992;&#65039;</span>
+                <h2 class="vibe-section-title">Past Trips</h2>
+            </div>
+            <div class="vibe-pills">
+                <span class="vibe-pill">Barcelona</span>
+                <span class="vibe-pill">Tokyo</span>
+                <span class="vibe-pill">Costa Rica</span>
+                <span class="vibe-pill">Lisbon</span>
+                <span class="vibe-pill">Iceland</span>
+                <span class="vibe-pill">New York</span>
+                <span class="vibe-pill">Mexico City</span>
+                <span class="vibe-pill">London</span>
+            </div>
+        </section>
+
+        <!-- Dream Trips -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#127758;</span>
+                <h2 class="vibe-section-title">Dream Trips</h2>
+            </div>
+            <div class="vibe-pills">
+                <span class="vibe-pill dream">Patagonia</span>
+                <span class="vibe-pill dream">Kyoto</span>
+                <span class="vibe-pill dream">Amalfi Coast</span>
+                <span class="vibe-pill dream">New Zealand</span>
+                <span class="vibe-pill dream">Safari in Kenya</span>
+                <span class="vibe-pill dream">Greek Islands</span>
+            </div>
+        </section>
+
+        <!-- Hobbies & Sports -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#127939;</span>
+                <h2 class="vibe-section-title">Hobbies & Sports</h2>
+            </div>
+            <div class="vibe-pills">
+                <span class="vibe-pill hobby">Basketball</span>
+                <span class="vibe-pill hobby">Surfing</span>
+                <span class="vibe-pill hobby">Photography</span>
+                <span class="vibe-pill hobby">Cooking</span>
+                <span class="vibe-pill hobby">Hiking</span>
+                <span class="vibe-pill hobby">Design Side Projects</span>
+            </div>
+        </section>
+
+        <!-- Karaoke -->
+        <section class="vibe-section vibe-section-highlight">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#127908;</span>
+                <h2 class="vibe-section-title">Go-To Karaoke Song</h2>
+            </div>
+            <div class="vibe-karaoke">
+                <h3 class="vibe-karaoke-song">"September"</h3>
+                <p class="vibe-karaoke-artist">Earth, Wind & Fire</p>
+            </div>
+        </section>
+
+        <!-- Personality -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#129504;</span>
+                <h2 class="vibe-section-title">Know Thyself</h2>
+            </div>
+            <div class="vibe-personality-grid">
+                <div class="vibe-personality-card">
+                    <h3 class="personality-label">Enneagram Type</h3>
+                    <span class="personality-value">7</span>
+                    <p class="personality-name">The Enthusiast</p>
+                    <p class="personality-desc">Busy, variety-seeking, spontaneous, versatile, acquisitive, and scattered.</p>
+                </div>
+                <div class="vibe-personality-card">
+                    <h3 class="personality-label">Working Genius</h3>
+                    <span class="personality-value">WI</span>
+                    <p class="personality-name">Wonder & Invention</p>
+                    <p class="personality-desc">Energized by pondering big questions and creating original solutions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- If I Could -->
+        <section class="vibe-section">
+            <div class="vibe-section-header">
+                <span class="vibe-icon">&#10024;</span>
+                <h2 class="vibe-section-title">If I Could...</h2>
+            </div>
+            <div class="vibe-hypothetical-grid">
+                <div class="vibe-hypothetical-card">
+                    <p class="hypothetical-prompt">Be any animal</p>
+                    <h3 class="hypothetical-answer">Peregrine Falcon</h3>
+                    <p class="hypothetical-reason">Fastest animal alive. Incredible vision. Total freedom.</p>
+                </div>
+                <div class="vibe-hypothetical-card">
+                    <p class="hypothetical-prompt">Have a superpower</p>
+                    <h3 class="hypothetical-answer">Teleportation</h3>
+                    <p class="hypothetical-reason">Skip the TSA line, be anywhere in the world instantly.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Build Your Own -->
+    <section class="build-your-own" id="build-yours">
+        <div class="build-header">
+            <h2 class="build-title">Now Build Yours</h2>
+            <p class="build-sub">Fill in your own vibes below. When you're done, see how we compare — or share yours with the world.</p>
+        </div>
+
+        <form class="build-form" id="vibeForm">
+            <!-- Books -->
+            <div class="build-section">
+                <label class="build-label">Favorite Books <span class="build-hint">(up to 5, comma-separated)</span></label>
+                <input type="text" class="build-input" name="books" placeholder="The Alchemist, Shoe Dog, Creative Confidence...">
+            </div>
+
+            <!-- Albums -->
+            <div class="build-section">
+                <label class="build-label">Favorite Albums</label>
+                <input type="text" class="build-input" name="albums" placeholder="Channel Orange, In Rainbows, Ctrl...">
+            </div>
+
+            <!-- Concerts -->
+            <div class="build-section">
+                <label class="build-label">Favorite Concerts</label>
+                <input type="text" class="build-input" name="concerts" placeholder="Kendrick Lamar, Beyonc&eacute;, Radiohead...">
+            </div>
+
+            <!-- Movies -->
+            <div class="build-section">
+                <label class="build-label">Favorite Movies</label>
+                <input type="text" class="build-input" name="movies" placeholder="Inception, Moonlight, Grand Budapest Hotel...">
+            </div>
+
+            <!-- Past Trips -->
+            <div class="build-section">
+                <label class="build-label">Past Trips</label>
+                <input type="text" class="build-input" name="pastTrips" placeholder="Barcelona, Tokyo, New York...">
+            </div>
+
+            <!-- Dream Trips -->
+            <div class="build-section">
+                <label class="build-label">Dream Trips</label>
+                <input type="text" class="build-input" name="dreamTrips" placeholder="Patagonia, Kyoto, Greek Islands...">
+            </div>
+
+            <!-- Hobbies -->
+            <div class="build-section">
+                <label class="build-label">Hobbies & Sports</label>
+                <input type="text" class="build-input" name="hobbies" placeholder="Basketball, Photography, Cooking...">
+            </div>
+
+            <!-- Karaoke -->
+            <div class="build-section">
+                <label class="build-label">Go-To Karaoke Song</label>
+                <input type="text" class="build-input" name="karaoke" placeholder="Song — Artist">
+            </div>
+
+            <!-- Enneagram -->
+            <div class="build-section-row">
+                <div class="build-section">
+                    <label class="build-label">Enneagram Type</label>
+                    <select class="build-input build-select" name="enneagram">
+                        <option value="">Select type...</option>
+                        <option value="1 — The Reformer">1 — The Reformer</option>
+                        <option value="2 — The Helper">2 — The Helper</option>
+                        <option value="3 — The Achiever">3 — The Achiever</option>
+                        <option value="4 — The Individualist">4 — The Individualist</option>
+                        <option value="5 — The Investigator">5 — The Investigator</option>
+                        <option value="6 — The Loyalist">6 — The Loyalist</option>
+                        <option value="7 — The Enthusiast">7 — The Enthusiast</option>
+                        <option value="8 — The Challenger">8 — The Challenger</option>
+                        <option value="9 — The Peacemaker">9 — The Peacemaker</option>
+                    </select>
+                </div>
+                <div class="build-section">
+                    <label class="build-label">Working Genius</label>
+                    <input type="text" class="build-input" name="workingGenius" placeholder="e.g. Wonder & Invention">
+                </div>
+            </div>
+
+            <!-- If I Could -->
+            <div class="build-section-row">
+                <div class="build-section">
+                    <label class="build-label">If I could be any animal...</label>
+                    <input type="text" class="build-input" name="animal" placeholder="Peregrine Falcon">
+                </div>
+                <div class="build-section">
+                    <label class="build-label">If I could have a superpower...</label>
+                    <input type="text" class="build-input" name="superpower" placeholder="Teleportation">
+                </div>
+            </div>
+
+            <!-- Your Name -->
+            <div class="build-section">
+                <label class="build-label">Your Name</label>
+                <input type="text" class="build-input" name="name" placeholder="Your name">
+            </div>
+
+            <div class="build-actions">
+                <button type="button" class="btn" id="compareBtn">Compare Our Vibes</button>
+                <button type="button" class="btn btn-outline" id="shareBtn">Share My Vibe</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Comparison View (hidden by default) -->
+    <section class="comparison-section" id="comparisonSection" style="display: none;">
+        <div class="comparison-header">
+            <h2 class="comparison-title">Vibe Check</h2>
+            <p class="comparison-sub">See where we align and where we diverge.</p>
+        </div>
+        <div class="comparison-grid" id="comparisonGrid">
+            <!-- Populated by JS -->
+        </div>
+        <div class="comparison-actions">
+            <button type="button" class="btn" id="shareCompareBtn">Share This Comparison</button>
+            <button type="button" class="btn btn-outline" id="backToFormBtn">Edit My Vibe</button>
+        </div>
+    </section>
+
+    <!-- Shared Vibe View (hidden by default, shown via URL params) -->
+    <section class="shared-vibe-section" id="sharedVibeSection" style="display: none;">
+        <div class="shared-vibe-header">
+            <h2 class="shared-vibe-title" id="sharedVibeName">Someone's Vibe</h2>
+            <p class="shared-vibe-sub">Check out their favorites and see how you compare.</p>
+        </div>
+        <div class="shared-vibe-content" id="sharedVibeContent">
+            <!-- Populated by JS -->
+        </div>
+        <div class="shared-vibe-actions">
+            <a href="#build-yours" class="btn" id="buildOwnFromShared">Build Your Own Vibe</a>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-content">
+            <p class="contact-label">Available for opportunities</p>
+            <h2 class="contact-title">Might we jam?</h2>
+            <div class="contact-links">
+                <a href="mailto:hello@jonathanbowden.com" class="btn">Say Hello</a>
+                <a href="https://linkedin.com/in/jonathankbowden" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Jonathan Bowden</p>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // Jonathan's vibe data
+        var jonathanVibe = {
+            name: 'Jonathan',
+            books: ['The Alchemist', 'Shoe Dog', 'Creative Confidence', 'Daring Greatly', 'The War of Art'],
+            albums: ['Channel Orange', 'The Miseducation of Lauryn Hill', 'good kid, m.A.A.d city', 'In Rainbows', 'Ctrl'],
+            concerts: ['Kendrick Lamar', 'Beyoncé', 'Radiohead'],
+            movies: ['Inception', 'The Shawshank Redemption', 'Eternal Sunshine of the Spotless Mind', 'Moonlight', 'The Grand Budapest Hotel'],
+            pastTrips: ['Barcelona', 'Tokyo', 'Costa Rica', 'Lisbon', 'Iceland', 'New York', 'Mexico City', 'London'],
+            dreamTrips: ['Patagonia', 'Kyoto', 'Amalfi Coast', 'New Zealand', 'Safari in Kenya', 'Greek Islands'],
+            hobbies: ['Basketball', 'Surfing', 'Photography', 'Cooking', 'Hiking', 'Design Side Projects'],
+            karaoke: 'September — Earth, Wind & Fire',
+            enneagram: '7 — The Enthusiast',
+            workingGenius: 'Wonder & Invention',
+            animal: 'Peregrine Falcon',
+            superpower: 'Teleportation'
+        };
+
+        var categories = [
+            { key: 'books', label: 'Books', type: 'list' },
+            { key: 'albums', label: 'Albums', type: 'list' },
+            { key: 'concerts', label: 'Concerts', type: 'list' },
+            { key: 'movies', label: 'Movies', type: 'list' },
+            { key: 'pastTrips', label: 'Past Trips', type: 'pills' },
+            { key: 'dreamTrips', label: 'Dream Trips', type: 'pills' },
+            { key: 'hobbies', label: 'Hobbies & Sports', type: 'pills' },
+            { key: 'karaoke', label: 'Karaoke Song', type: 'single' },
+            { key: 'enneagram', label: 'Enneagram', type: 'single' },
+            { key: 'workingGenius', label: 'Working Genius', type: 'single' },
+            { key: 'animal', label: 'Spirit Animal', type: 'single' },
+            { key: 'superpower', label: 'Superpower', type: 'single' }
+        ];
+
+        function getFormData() {
+            var form = document.getElementById('vibeForm');
+            var data = {};
+            data.name = form.name.value.trim() || 'You';
+            data.books = parseList(form.books.value);
+            data.albums = parseList(form.albums.value);
+            data.concerts = parseList(form.concerts.value);
+            data.movies = parseList(form.movies.value);
+            data.pastTrips = parseList(form.pastTrips.value);
+            data.dreamTrips = parseList(form.dreamTrips.value);
+            data.hobbies = parseList(form.hobbies.value);
+            data.karaoke = form.karaoke.value.trim();
+            data.enneagram = form.enneagram.value;
+            data.workingGenius = form.workingGenius.value.trim();
+            data.animal = form.animal.value.trim();
+            data.superpower = form.superpower.value.trim();
+            return data;
+        }
+
+        function parseList(str) {
+            if (!str) return [];
+            return str.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+        }
+
+        function findOverlap(arr1, arr2) {
+            var set2 = arr2.map(function(s) { return s.toLowerCase(); });
+            return arr1.filter(function(item) {
+                return set2.indexOf(item.toLowerCase()) !== -1;
+            });
+        }
+
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+
+        function buildComparisonRow(cat, jData, uData) {
+            var jVal = jData[cat.key];
+            var uVal = uData[cat.key];
+            var html = '<div class="compare-row">';
+            html += '<div class="compare-label">' + escapeHtml(cat.label) + '</div>';
+            html += '<div class="compare-columns">';
+
+            // Jonathan's column
+            html += '<div class="compare-col compare-col-j">';
+            html += '<span class="compare-col-name">' + escapeHtml(jData.name) + '</span>';
+            if (cat.type === 'list' || cat.type === 'pills') {
+                var overlap = findOverlap(Array.isArray(jVal) ? jVal : [], Array.isArray(uVal) ? uVal : []);
+                (Array.isArray(jVal) ? jVal : []).forEach(function(item) {
+                    var isMatch = overlap.map(function(o) { return o.toLowerCase(); }).indexOf(item.toLowerCase()) !== -1;
+                    html += '<span class="compare-item' + (isMatch ? ' match' : '') + '">' + escapeHtml(item) + '</span>';
+                });
+            } else {
+                var isMatch = jVal && uVal && jVal.toLowerCase() === uVal.toLowerCase();
+                html += '<span class="compare-item single' + (isMatch ? ' match' : '') + '">' + escapeHtml(jVal || '—') + '</span>';
+            }
+            html += '</div>';
+
+            // User's column
+            html += '<div class="compare-col compare-col-u">';
+            html += '<span class="compare-col-name">' + escapeHtml(uData.name) + '</span>';
+            if (cat.type === 'list' || cat.type === 'pills') {
+                var overlap2 = findOverlap(Array.isArray(uVal) ? uVal : [], Array.isArray(jVal) ? jVal : []);
+                (Array.isArray(uVal) ? uVal : []).forEach(function(item) {
+                    var isMatch2 = overlap2.map(function(o) { return o.toLowerCase(); }).indexOf(item.toLowerCase()) !== -1;
+                    html += '<span class="compare-item' + (isMatch2 ? ' match' : '') + '">' + escapeHtml(item) + '</span>';
+                });
+                if (!uVal || uVal.length === 0) {
+                    html += '<span class="compare-item empty">Not filled in</span>';
+                }
+            } else {
+                var isMatch3 = jVal && uVal && jVal.toLowerCase() === uVal.toLowerCase();
+                html += '<span class="compare-item single' + (isMatch3 ? ' match' : '') + '">' + escapeHtml(uVal || '—') + '</span>';
+            }
+            html += '</div>';
+
+            html += '</div></div>';
+            return html;
+        }
+
+        function showComparison() {
+            var userData = getFormData();
+            var grid = document.getElementById('comparisonGrid');
+            var html = '';
+            var totalMatches = 0;
+            var totalCategories = 0;
+
+            categories.forEach(function(cat) {
+                html += buildComparisonRow(cat, jonathanVibe, userData);
+
+                // Count matches
+                var jVal = jonathanVibe[cat.key];
+                var uVal = userData[cat.key];
+                if (cat.type === 'list' || cat.type === 'pills') {
+                    var overlap = findOverlap(Array.isArray(jVal) ? jVal : [], Array.isArray(uVal) ? uVal : []);
+                    if (overlap.length > 0) totalMatches++;
+                } else {
+                    if (jVal && uVal && jVal.toLowerCase() === uVal.toLowerCase()) totalMatches++;
+                }
+                if (uVal && (Array.isArray(uVal) ? uVal.length > 0 : uVal.length > 0)) {
+                    totalCategories++;
+                }
+            });
+
+            // Add match summary at the top
+            var matchPercent = totalCategories > 0 ? Math.round((totalMatches / totalCategories) * 100) : 0;
+            var summary = '<div class="compare-summary">';
+            summary += '<div class="compare-score">' + matchPercent + '%</div>';
+            summary += '<p class="compare-score-label">Vibe Match</p>';
+            if (matchPercent >= 70) {
+                summary += '<p class="compare-score-desc">We\'re basically the same person.</p>';
+            } else if (matchPercent >= 40) {
+                summary += '<p class="compare-score-desc">We complement each other nicely.</p>';
+            } else if (matchPercent > 0) {
+                summary += '<p class="compare-score-desc">Opposites attract — we\'d have a lot to share.</p>';
+            } else {
+                summary += '<p class="compare-score-desc">Fill in more to see how we vibe!</p>';
+            }
+            summary += '</div>';
+
+            grid.innerHTML = summary + html;
+            document.getElementById('comparisonSection').style.display = 'block';
+            document.getElementById('comparisonSection').scrollIntoView({ behavior: 'smooth' });
+
+            // Save to localStorage
+            localStorage.setItem('myVibe', JSON.stringify(userData));
+        }
+
+        function encodeVibeData(data) {
+            try {
+                return btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function decodeVibeData(encoded) {
+            try {
+                return JSON.parse(decodeURIComponent(escape(atob(encoded))));
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function shareVibe() {
+            var userData = getFormData();
+            var encoded = encodeVibeData(userData);
+            var url = window.location.origin + window.location.pathname + '?vibe=' + encoded;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(function() {
+                    showToast('Link copied to clipboard!');
+                }).catch(function() {
+                    showShareFallback(url);
+                });
+            } else {
+                showShareFallback(url);
+            }
+        }
+
+        function showShareFallback(url) {
+            var input = document.createElement('input');
+            input.value = url;
+            input.style.position = 'fixed';
+            input.style.opacity = '0';
+            document.body.appendChild(input);
+            input.select();
+            try {
+                document.execCommand('copy');
+                showToast('Link copied to clipboard!');
+            } catch (e) {
+                prompt('Copy this link to share your vibe:', url);
+            }
+            document.body.removeChild(input);
+        }
+
+        function showToast(message) {
+            var existing = document.querySelector('.vibe-toast');
+            if (existing) existing.remove();
+            var toast = document.createElement('div');
+            toast.className = 'vibe-toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(function() { toast.classList.add('show'); }, 10);
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() { toast.remove(); }, 300);
+            }, 2500);
+        }
+
+        function loadSharedVibe() {
+            var params = new URLSearchParams(window.location.search);
+            var vibeParam = params.get('vibe');
+            if (!vibeParam) return false;
+
+            var data = decodeVibeData(vibeParam);
+            if (!data) return false;
+
+            // Hide Jonathan's vibe and build section, show shared vibe
+            document.querySelector('.vibe-content').style.display = 'none';
+            document.querySelector('.build-your-own').style.display = 'none';
+            var section = document.getElementById('sharedVibeSection');
+            section.style.display = 'block';
+
+            document.getElementById('sharedVibeName').textContent = (data.name || 'Someone') + "'s Vibe";
+
+            var content = document.getElementById('sharedVibeContent');
+            var html = '';
+
+            categories.forEach(function(cat) {
+                var val = data[cat.key];
+                if (!val || (Array.isArray(val) && val.length === 0)) return;
+
+                html += '<div class="shared-category">';
+                html += '<h3 class="shared-category-label">' + escapeHtml(cat.label) + '</h3>';
+                if (cat.type === 'list' || cat.type === 'pills') {
+                    html += '<div class="shared-pills">';
+                    val.forEach(function(item) {
+                        html += '<span class="vibe-pill">' + escapeHtml(item) + '</span>';
+                    });
+                    html += '</div>';
+                } else {
+                    html += '<p class="shared-value">' + escapeHtml(val) + '</p>';
+                }
+                html += '</div>';
+            });
+
+            content.innerHTML = html;
+            return true;
+        }
+
+        function restoreSavedVibe() {
+            var saved = localStorage.getItem('myVibe');
+            if (!saved) return;
+            try {
+                var data = JSON.parse(saved);
+                var form = document.getElementById('vibeForm');
+                if (data.books) form.books.value = data.books.join(', ');
+                if (data.albums) form.albums.value = data.albums.join(', ');
+                if (data.concerts) form.concerts.value = data.concerts.join(', ');
+                if (data.movies) form.movies.value = data.movies.join(', ');
+                if (data.pastTrips) form.pastTrips.value = data.pastTrips.join(', ');
+                if (data.dreamTrips) form.dreamTrips.value = data.dreamTrips.join(', ');
+                if (data.hobbies) form.hobbies.value = data.hobbies.join(', ');
+                if (data.karaoke) form.karaoke.value = data.karaoke;
+                if (data.enneagram) form.enneagram.value = data.enneagram;
+                if (data.workingGenius) form.workingGenius.value = data.workingGenius;
+                if (data.animal) form.animal.value = data.animal;
+                if (data.superpower) form.superpower.value = data.superpower;
+                if (data.name && data.name !== 'You') form.name.value = data.name;
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        // Handle "Build Your Own" from shared view
+        function handleBuildFromShared() {
+            // Clear the URL params and reload to show the full page
+            var cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, '', cleanUrl);
+
+            // Show the hidden sections
+            document.querySelector('.vibe-content').style.display = '';
+            document.querySelector('.build-your-own').style.display = '';
+            document.getElementById('sharedVibeSection').style.display = 'none';
+
+            // Scroll to the build section
+            document.getElementById('build-yours').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', function() {
+            var isShared = loadSharedVibe();
+            if (!isShared) {
+                restoreSavedVibe();
+            }
+
+            document.getElementById('compareBtn').addEventListener('click', showComparison);
+            document.getElementById('shareBtn').addEventListener('click', function() { shareVibe(); });
+            document.getElementById('shareCompareBtn').addEventListener('click', function() { shareVibe(); });
+            document.getElementById('backToFormBtn').addEventListener('click', function() {
+                document.getElementById('comparisonSection').style.display = 'none';
+                document.querySelector('.build-your-own').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            var buildOwnBtn = document.getElementById('buildOwnFromShared');
+            if (buildOwnBtn) {
+                buildOwnBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleBuildFromShared();
+                });
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
