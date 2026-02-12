@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0a0a0f">
 </head>
-<body>
+<body class="case-partnerships">
     <nav class="nav">
         <a href="index.html" class="nav-logo">Jonathan Bowden</a>
         <div class="nav-links">
@@ -43,20 +44,20 @@
 
     <main class="case-content">
         <!-- Hero Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Hero Image">
                 <span>Add image: partnerships-hero.jpg</span>
             </div>
         </section>
 
         <!-- Overview -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Overview</h2>
             <p class="section-text">Travel planning happens everywhere—in conversations with AI assistants, while reading articles, browsing social media. I lead design for Expedia's strategic partnerships, embedding travel experiences into the platforms millions already use daily.</p>
         </section>
 
         <!-- Partner Logos -->
-        <section class="case-partners">
+        <section class="case-partners reveal">
             <span class="partner">OpenAI / ChatGPT</span>
             <span class="partner">Amazon Alexa+</span>
             <span class="partner">Perplexity</span>
@@ -65,26 +66,26 @@
         </section>
 
         <!-- ChatGPT -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">ChatGPT Integration</h2>
             <p class="section-text">We designed the experience for connecting your Expedia account to ChatGPT—letting the AI understand your travel preferences, past trips, and loyalty status. The result: personalized recommendations that feel like they come from a friend who knows exactly how you like to travel.</p>
         </section>
 
         <!-- Full Width Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="ChatGPT Integration">
                 <span>Add image: partnerships-01.jpg</span>
             </div>
         </section>
 
         <!-- Personalization -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Deep Personalization</h2>
             <p class="section-text">Beyond basic preferences, we explored how connected accounts could create truly personalized experiences. Imagine trip recommendations based on your Spotify playlists, Netflix watch history, or Instagram saves—travel that reflects who you actually are.</p>
         </section>
 
         <!-- Image Grid -->
-        <section class="case-image-grid">
+        <section class="case-image reveal-grid">
             <div class="image-placeholder" data-label="Personalization 1">
                 <span>Add image: partnerships-02.jpg</span>
             </div>
@@ -94,26 +95,26 @@
         </section>
 
         <!-- Alexa+ -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Amazon Alexa+</h2>
             <p class="section-text">Voice-first travel planning through Alexa+. We designed conversational flows that let travelers research, compare, and book trips entirely through voice—perfect for hands-free planning at home.</p>
         </section>
 
         <!-- Full Width Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Alexa Integration">
                 <span>Add image: partnerships-04.jpg</span>
             </div>
         </section>
 
         <!-- Condé Nast -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Condé Nast Traveler</h2>
             <p class="section-text">"Take the Trip"—a seamless integration that turns Condé Nast Traveler editorial content into bookable experiences. Read about a destination, then book it without leaving the article. Content becomes commerce.</p>
         </section>
 
         <!-- Image Grid -->
-        <section class="case-image-grid three">
+        <section class="case-image reveal-grid three">
             <div class="image-placeholder" data-label="Condé Nast 1">
                 <span>Add image: partnerships-05.jpg</span>
             </div>
@@ -126,13 +127,13 @@
         </section>
 
         <!-- Perplexity -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Perplexity AI</h2>
             <p class="section-text">Bringing real-time travel inventory into AI search. When someone asks Perplexity about flights to Tokyo, they get actual availability and prices—not just information, but actionable options.</p>
         </section>
 
         <!-- Full Width Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Perplexity">
                 <span>Add image: partnerships-08.jpg</span>
             </div>
@@ -155,7 +156,21 @@
     </section>
 
     <footer class="footer">
-        <p>© 2026 Jonathan Bowden</p>
+        <p>&copy; 2026 Jonathan Bowden</p>
     </footer>
+
+    <script>
+    (function() {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    })();
+    </script>
 </body>
 </html>

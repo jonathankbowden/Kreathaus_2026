@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0a0a0f">
 </head>
-<body>
+<body class="case-intelligence">
     <nav class="nav">
         <a href="index.html" class="nav-logo">Jonathan Bowden</a>
         <div class="nav-links">
@@ -43,26 +44,26 @@
 
     <main class="case-content">
         <!-- Hero Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Hero Image">
                 <span>Add image: intelligence-hero.jpg</span>
             </div>
         </section>
 
         <!-- Overview -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Overview</h2>
             <p class="section-text">In 2021, before ChatGPT launched and AI became mainstream, I led the design of Expedia's first AI-powered search experience. The challenge: reimagine how travelers discover and plan trips through conversational interfaces, without the benefit of established patterns or user expectations.</p>
         </section>
 
         <!-- Approach -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Approach</h2>
             <p class="section-text">We used a dual-track approach—balancing near-term implementation with long-term discovery. This allowed us to ship incremental improvements while exploring bold new interaction models.</p>
         </section>
 
         <!-- Image Grid -->
-        <section class="case-image-grid">
+        <section class="case-image reveal-grid">
             <div class="image-placeholder" data-label="Voice Exploration">
                 <span>Add image: intelligence-01.jpg</span>
             </div>
@@ -72,26 +73,26 @@
         </section>
 
         <!-- Voice Interactions -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Voice Interactions</h2>
             <p class="section-text">We explored conversational voice interfaces that let travelers search naturally—"Find me a beach hotel in Cancun for my anniversary." This work laid the groundwork for how Expedia would later integrate with voice assistants.</p>
         </section>
 
         <!-- Full Width Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Voice Interface">
                 <span>Add image: intelligence-03.jpg</span>
             </div>
         </section>
 
         <!-- Tailored Guides -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Tailored Discovery</h2>
             <p class="section-text">Rather than showing generic results, we designed personalized guides that adapted to each traveler's preferences, past trips, and current context. The experience felt like having a knowledgeable friend who knew exactly what you'd love.</p>
         </section>
 
         <!-- Image Grid -->
-        <section class="case-image-grid three">
+        <section class="case-image reveal-grid three">
             <div class="image-placeholder" data-label="Tailored Guide 1">
                 <span>Add image: intelligence-04.jpg</span>
             </div>
@@ -104,13 +105,13 @@
         </section>
 
         <!-- Dark Mode -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Dark Mode</h2>
             <p class="section-text">As part of our systematic design evolution, we introduced dark mode across the experience—improving accessibility and creating a more immersive browsing experience for late-night trip planning.</p>
         </section>
 
         <!-- Full Width Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Dark Mode">
                 <span>Add image: intelligence-07.jpg</span>
             </div>
@@ -133,7 +134,21 @@
     </section>
 
     <footer class="footer">
-        <p>© 2026 Jonathan Bowden</p>
+        <p>&copy; 2026 Jonathan Bowden</p>
     </footer>
+
+    <script>
+    (function() {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    })();
+    </script>
 </body>
 </html>

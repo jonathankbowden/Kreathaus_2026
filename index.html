@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0a0a0f">
 </head>
 <body>
     <nav class="nav">
@@ -41,7 +42,7 @@
                         <span>Add image: intelligence.jpg</span>
                     </div>
                 </div>
-                <div class="project-info">
+                <div class="project-info reveal">
                     <span class="project-label">01</span>
                     <h2 class="project-title">Intelligence</h2>
                     <p class="project-desc">AI-powered search before AI was mainstream. Now the foundation of experiences across Expedia.</p>
@@ -59,7 +60,7 @@
                         <span>Add image: creators.jpg</span>
                     </div>
                 </div>
-                <div class="project-info">
+                <div class="project-info reveal">
                     <span class="project-label">02</span>
                     <h2 class="project-title">Creators</h2>
                     <p class="project-desc">Built the creator economy platform from scratch. 2k+ Travel Shops launched, 2x conversion rate.</p>
@@ -77,7 +78,7 @@
                         <span>Add image: partnerships.jpg</span>
                     </div>
                 </div>
-                <div class="project-info">
+                <div class="project-info reveal">
                     <span class="project-label">03</span>
                     <h2 class="project-title">Strategic Partnerships</h2>
                     <p class="project-desc">Bringing travel to where people already are—ChatGPT, Alexa+, Perplexity, and Condé Nast.</p>
@@ -88,7 +89,7 @@
         </a>
     </main>
 
-    <section id="contact" class="contact">
+    <section id="contact" class="contact reveal">
         <div class="contact-content">
             <p class="contact-label">Available for opportunities</p>
             <h2 class="contact-title">Might we jam?</h2>
@@ -100,7 +101,21 @@
     </section>
 
     <footer class="footer">
-        <p>© 2026 Jonathan Bowden</p>
+        <p>&copy; 2026 Jonathan Bowden</p>
     </footer>
+
+    <script>
+    (function() {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    })();
+    </script>
 </body>
 </html>

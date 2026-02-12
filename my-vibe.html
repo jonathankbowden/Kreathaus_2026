@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0a0a0f">
 </head>
 <body>
     <nav class="nav">
@@ -31,7 +32,7 @@
     <main class="vibe-content">
 
         <!-- Books -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#128218;</span>
                 <h2 class="vibe-section-title">Favorite Books</h2>
@@ -66,7 +67,7 @@
         </section>
 
         <!-- Albums -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#127926;</span>
                 <h2 class="vibe-section-title">Favorite Albums</h2>
@@ -101,7 +102,7 @@
         </section>
 
         <!-- Concerts -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#127908;</span>
                 <h2 class="vibe-section-title">Favorite Concerts</h2>
@@ -126,7 +127,7 @@
         </section>
 
         <!-- Movies -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#127916;</span>
                 <h2 class="vibe-section-title">Favorite Movies</h2>
@@ -161,7 +162,7 @@
         </section>
 
         <!-- Past Trips -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#9992;&#65039;</span>
                 <h2 class="vibe-section-title">Past Trips</h2>
@@ -179,7 +180,7 @@
         </section>
 
         <!-- Dream Trips -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#127758;</span>
                 <h2 class="vibe-section-title">Dream Trips</h2>
@@ -195,7 +196,7 @@
         </section>
 
         <!-- Hobbies & Sports -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#127939;</span>
                 <h2 class="vibe-section-title">Hobbies & Sports</h2>
@@ -211,7 +212,7 @@
         </section>
 
         <!-- Karaoke -->
-        <section class="vibe-section vibe-section-highlight">
+        <section class="vibe-section vibe-section-highlight reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#127908;</span>
                 <h2 class="vibe-section-title">Go-To Karaoke Song</h2>
@@ -223,7 +224,7 @@
         </section>
 
         <!-- Personality -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#129504;</span>
                 <h2 class="vibe-section-title">Know Thyself</h2>
@@ -245,7 +246,7 @@
         </section>
 
         <!-- If I Could -->
-        <section class="vibe-section">
+        <section class="vibe-section reveal">
             <div class="vibe-section-header">
                 <span class="vibe-icon">&#10024;</span>
                 <h2 class="vibe-section-title">If I Could...</h2>
@@ -705,8 +706,22 @@
             }
         }
 
+        // Scroll reveal
+        function initReveal() {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+        }
+
         // Init
         document.addEventListener('DOMContentLoaded', function() {
+            initReveal();
             var isShared = loadSharedVibe();
             if (!isShared) {
                 restoreSavedVibe();

@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0a0a0f">
 </head>
-<body>
+<body class="case-creators">
     <nav class="nav">
         <a href="index.html" class="nav-logo">Jonathan Bowden</a>
         <div class="nav-links">
@@ -43,20 +44,20 @@
 
     <main class="case-content">
         <!-- Hero Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Hero Image">
                 <span>Add image: creators-hero.jpg</span>
             </div>
         </section>
 
         <!-- Overview -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Overview</h2>
             <p class="section-text">The creator economy was transforming how people discover everything—except travel. I led the design of Expedia's creator platform from zero, building tools that let travel creators monetize their influence while giving travelers authentic recommendations from voices they trust.</p>
         </section>
 
         <!-- Results -->
-        <section class="case-results">
+        <section class="case-results reveal">
             <div class="result-item">
                 <span class="result-value">0→1</span>
                 <span class="result-label">First in Industry</span>
@@ -76,13 +77,13 @@
         </section>
 
         <!-- Design Swarm -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Design Swarm</h2>
             <p class="section-text">We pioneered a "Design Swarm" methodology—intensive collaborative sprints that brought together diverse perspectives rapidly. The 2022 swarm: 2 weeks, 24 participants, 7 specialties, 3 continents. By 2024: 3 weeks, 32 participants, 8 specialties, 5 continents.</p>
         </section>
 
         <!-- Image Grid -->
-        <section class="case-image-grid">
+        <section class="case-image reveal-grid">
             <div class="image-placeholder" data-label="Design Swarm">
                 <span>Add image: creators-01.jpg</span>
             </div>
@@ -92,26 +93,26 @@
         </section>
 
         <!-- Creator Toolbox -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Creator Toolbox</h2>
             <p class="section-text">We built a comprehensive suite of tools for creators: onboarding flows, content management, performance analytics, and monetization dashboards. Every feature was designed to reduce friction and help creators focus on what they do best—inspiring travel.</p>
         </section>
 
         <!-- Full Width Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Creator Toolbox">
                 <span>Add image: creators-03.jpg</span>
             </div>
         </section>
 
         <!-- Travel Shops -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Travel Shops</h2>
             <p class="section-text">Travel Shops became the centerpiece—personalized storefronts where creators curate hotels, experiences, and destinations for their audiences. Each shop reflects the creator's unique perspective and aesthetic.</p>
         </section>
 
         <!-- Image Grid -->
-        <section class="case-image-grid three">
+        <section class="case-image reveal-grid three">
             <div class="image-placeholder" data-label="Travel Shop 1">
                 <span>Add image: creators-04.jpg</span>
             </div>
@@ -124,26 +125,26 @@
         </section>
 
         <!-- AI-Assisted Creation -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">AI-Assisted Creation</h2>
             <p class="section-text">We integrated Romie AI to help creators generate content faster—from trip descriptions to curated guides. The AI learned each creator's voice, ensuring authenticity while dramatically reducing the time to publish.</p>
         </section>
 
         <!-- Full Width Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="AI Creation">
                 <span>Add image: creators-07.jpg</span>
             </div>
         </section>
 
         <!-- Performance Analytics -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Performance Analytics</h2>
             <p class="section-text">Creators needed to understand their impact. We designed analytics dashboards showing audience insights, booking attribution, and revenue performance—giving creators the data they need to grow their business.</p>
         </section>
 
         <!-- Image Grid -->
-        <section class="case-image-grid">
+        <section class="case-image reveal-grid">
             <div class="image-placeholder" data-label="Analytics 1">
                 <span>Add image: creators-08.jpg</span>
             </div>
@@ -153,20 +154,20 @@
         </section>
 
         <!-- Evolution -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">Evolution</h2>
             <p class="section-text">The platform evolved from serving travel bloggers to social-first creators on TikTok, Instagram, and YouTube. Each iteration expanded reach while maintaining the core promise: authentic travel inspiration that converts.</p>
         </section>
 
         <!-- Full Width Image -->
-        <section class="case-image full">
+        <section class="case-image reveal full">
             <div class="image-placeholder" data-label="Platform Evolution">
                 <span>Add image: creators-10.jpg</span>
             </div>
         </section>
 
         <!-- Live Platform -->
-        <section class="case-section">
+        <section class="case-section reveal">
             <h2 class="section-title">See It Live</h2>
             <p class="section-text">The creator platform is live and growing.</p>
             <a href="https://creator.expediagroup.com/" class="section-link" target="_blank" rel="noopener">Visit creator.expediagroup.com →</a>
@@ -182,7 +183,21 @@
     </section>
 
     <footer class="footer">
-        <p>© 2026 Jonathan Bowden</p>
+        <p>&copy; 2026 Jonathan Bowden</p>
     </footer>
+
+    <script>
+    (function() {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    })();
+    </script>
 </body>
 </html>
