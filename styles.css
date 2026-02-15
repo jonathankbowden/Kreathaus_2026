@@ -221,6 +221,10 @@ a {
     line-height: 1.2;
 }
 
+.project-surface {
+    background: #f9f9f9;
+}
+
 .project-desc {
     font-size: 1rem;
     color: var(--color-text-muted);
@@ -501,8 +505,8 @@ a {
         max-width: none;
     }
 
-    .hero-title br {
-        display: none;
+    .hero-title {
+        font-size: 2.5rem;
     }
 
     .hero-sub {
