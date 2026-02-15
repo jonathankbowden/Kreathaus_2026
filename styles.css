@@ -601,14 +601,6 @@ a {
     text-decoration: none;
 }
 
-.project-link-wrapper .project {
-    transition: background var(--transition);
-}
-
-.project-link-wrapper:hover .project-info {
-    background: var(--color-surface);
-}
-
 .view-project {
     font-size: 0.875rem;
     font-weight: 500;
