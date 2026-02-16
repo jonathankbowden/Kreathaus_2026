@@ -54,6 +54,11 @@
                      loading="lazy">
             </div>
         </section>
+        <div class="carousel-dots" id="carouselDots">
+            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
+            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
+            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+        </div>
 
         <!-- Overview -->
         <section class="case-section">
@@ -139,5 +144,29 @@
     <footer class="footer">
         <p>© 2026 Jonathan Bowden</p>
     </footer>
+
+    <script>
+    (function() {
+        var carousel = document.querySelector('.case-image-row.three-up');
+        var dots = document.querySelectorAll('.carousel-dot');
+        if (!carousel || !dots.length) return;
+
+        carousel.addEventListener('scroll', function() {
+            var scrollLeft = carousel.scrollLeft;
+            var width = carousel.offsetWidth;
+            var index = Math.round(scrollLeft / width);
+            dots.forEach(function(dot, i) {
+                dot.classList.toggle('active', i === index);
+            });
+        });
+
+        dots.forEach(function(dot) {
+            dot.addEventListener('click', function() {
+                var index = parseInt(dot.getAttribute('data-index'));
+                carousel.scrollTo({ left: index * carousel.offsetWidth, behavior: 'smooth' });
+            });
+        });
+    })();
+    </script>
 </body>
 </html>
