@@ -431,6 +431,14 @@ a {
         max-width: 1400px;
     }
 
+    .case-image-row.three-up {
+        max-width: 1440px;
+    }
+
+    .case-image-row .case-image-item img {
+        height: 800px;
+    }
+
     .next-project {
         padding: 5rem 4rem;
     }
@@ -822,10 +830,10 @@ a {
 /* 3-up image row (hero phone mockups) */
 .case-image-row.three-up {
     display: flex;
-    gap: 0;
-    padding: 0 30px;
+    gap: 8px;
+    padding: 0;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1036px;
 }
 
 .case-image-row .case-image-item {
@@ -834,7 +842,7 @@ a {
 
 .case-image-row .case-image-item img {
     width: 100%;
-    height: auto;
+    height: 720px;
     display: block;
     object-fit: cover;
 }
@@ -1049,6 +1057,11 @@ a {
 
     .case-image-row.three-up {
         padding: 0;
+        max-width: 676px;
+    }
+
+    .case-image-row .case-image-item img {
+        height: 440px;
     }
 
     .case-image.full img {
@@ -1151,6 +1164,10 @@ a {
     .case-image-row .case-image-item {
         min-width: 100%;
         scroll-snap-align: center;
+    }
+
+    .case-image-row .case-image-item img {
+        height: 520px;
     }
 
     /* Carousel dots */
