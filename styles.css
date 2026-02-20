@@ -89,11 +89,12 @@ a {
 }
 
 .hero-label {
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 1.125rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--color-navy);
+    margin-left: 0.6rem;
 }
 
 .hero-title {
@@ -168,6 +169,7 @@ a {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding-bottom: 88px;
 }
 
 .project-image img {
@@ -216,7 +218,7 @@ a {
 
 .carousel .carousel-dots {
     position: absolute;
-    bottom: 24px;
+    bottom: 32px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -1966,4 +1968,105 @@ a {
     .nav-links {
         gap: 1rem;
     }
+}
+
+/* ===== Play Theme (Dark) ===== */
+.play-theme {
+    background: #111111;
+    color: #ffffff;
+}
+
+.play-theme .nav {
+    background: rgba(17, 17, 17, 0.93);
+}
+
+.play-theme .nav-logo {
+    color: #ffffff;
+}
+
+.play-theme .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.play-theme .nav-link:hover,
+.play-theme .nav-link.active {
+    color: #ffffff;
+}
+
+.play-theme .hero-label {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.play-theme .hero-title {
+    color: #ffffff;
+}
+
+.play-theme .project-surface {
+    background: #1a1a1a;
+}
+
+.play-theme .project {
+    background: #111111;
+}
+
+.play-theme .project-alt {
+    background: #1a1a1a;
+}
+
+.play-theme .project-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.play-theme .project-title {
+    color: #ffffff;
+}
+
+.play-theme .project-desc {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.play-theme .project-meta {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.play-theme .view-project {
+    color: #ffffff;
+}
+
+.play-theme .contact {
+    background: #111111;
+}
+
+.play-theme .contact-label {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.play-theme .contact-title {
+    color: #ffffff;
+}
+
+.play-theme .btn {
+    background: #ffffff;
+    color: #111111;
+}
+
+.play-theme .btn:hover {
+    background: #e0e0e0;
+}
+
+.play-theme .btn-outline {
+    background: transparent;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.play-theme .btn-outline:hover {
+    border-color: #ffffff;
+    color: #ffffff;
+    background: transparent;
+}
+
+.play-theme .footer {
+    color: rgba(255, 255, 255, 0.4);
+    border-top-color: rgba(255, 255, 255, 0.1);
 }

@@ -19,12 +19,13 @@
     </nav>
 
     <section class="hero hero-left">
+        <span class="hero-label">PRINCIPAL DESIGN LEADER</span>
         <h1 class="hero-title">Building 0 &rarr; 1<br>experiences on trust</h1>
     </section>
 
     <section class="projects">
         <!-- Project 1: Creators -->
-        <a href="creators.html" class="project-link-wrapper">
+        <a href="https://tinyurl.com/mr9mupr" class="project-link-wrapper" target="_blank" rel="noopener">
             <div class="project project-surface">
                 <div class="project-image">
                     <div class="carousel" data-carousel>
@@ -49,7 +50,7 @@
         </a>
 
         <!-- Project 2: Partnerships -->
-        <a href="partnerships.html" class="project-link-wrapper">
+        <a href="https://tinyurl.com/mr9mupr" class="project-link-wrapper" target="_blank" rel="noopener">
             <div class="project project-alt">
                 <div class="project-image">
                     <div class="carousel" data-carousel>
@@ -73,7 +74,7 @@
         </a>
 
         <!-- Project 3: Intelligence -->
-        <a href="intelligence.html" class="project-link-wrapper">
+        <a href="https://tinyurl.com/mr9mupr" class="project-link-wrapper" target="_blank" rel="noopener">
             <div class="project project-surface">
                 <div class="project-image">
                     <div class="carousel" data-carousel>
@@ -101,7 +102,7 @@
         <span class="contact-label">COLLABORATE</span>
         <h2 class="contact-title">Might we chat?</h2>
         <div class="contact-links">
-            <a href="mailto:hello@jonathanbowden.com" class="btn">Say Hello</a>
+            <a href="mailto:jonathan.k.bowden@gmail.com" class="btn">Say Hello</a>
             <a href="https://linkedin.com/in/jonathanbowden" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
         </div>
     </section>
@@ -136,7 +137,7 @@
 
             function goToSlide(index) {
                 currentIndex = index;
-                slides[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                track.scrollTo({ left: index * track.offsetWidth, behavior: 'smooth' });
                 updateDots();
             }
 
@@ -161,22 +162,39 @@
                 }, 50);
             });
 
-            // Auto-advance every 4 seconds
-            let autoPlay = setInterval(() => {
-                currentIndex = (currentIndex + 1) % slides.length;
-                goToSlide(currentIndex);
-            }, 4000);
+            // Auto-advance only when visible
+            let autoPlay = null;
+            let isHovered = false;
 
-            // Pause auto-advance on hover/touch
-            carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
-            carousel.addEventListener('mouseleave', () => {
+            function startAutoPlay() {
+                if (autoPlay || isHovered) return;
                 autoPlay = setInterval(() => {
                     currentIndex = (currentIndex + 1) % slides.length;
                     goToSlide(currentIndex);
                 }, 4000);
-            });
+            }
 
-            carousel.addEventListener('touchstart', () => clearInterval(autoPlay), { passive: true });
+            function stopAutoPlay() {
+                clearInterval(autoPlay);
+                autoPlay = null;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startAutoPlay();
+                    } else {
+                        stopAutoPlay();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(carousel);
+
+            // Pause auto-advance on hover/touch
+            carousel.addEventListener('mouseenter', () => { isHovered = true; stopAutoPlay(); });
+            carousel.addEventListener('mouseleave', () => { isHovered = false; startAutoPlay(); });
+            carousel.addEventListener('touchstart', () => { isHovered = true; stopAutoPlay(); }, { passive: true });
         });
     });
     </script>
