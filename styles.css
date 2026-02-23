@@ -2175,22 +2175,17 @@ a {
 
 @media (max-width: 900px) {
     .play-page .project-image {
-        padding: 2rem 1.5rem 0;
+        padding: 0;
+    }
+
+    .play-page .project-image img {
+        object-fit: cover;
+        object-position: center top;
     }
 }
 
 @media (max-width: 480px) {
-    .play-page .project {
-        min-height: auto;
-    }
-
-    .play-page .project-image {
-        min-height: auto;
-        padding: 1.5rem 1rem 0;
-    }
-
     .play-page .project-image img {
-        min-height: auto;
-        height: auto;
+        min-height: 70vh;
     }
 }
