@@ -82,7 +82,7 @@ a {
 
 /* ===== Hero ===== */
 .hero {
-    min-height: 900px;
+    min-height: 744px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2170,9 +2170,26 @@ a {
 }
 
 @media (max-width: 900px) {
+    .play-page .project-image {
+        height: 70vh;
+    }
+
     .play-page .project-image img {
+        height: 100%;
         object-fit: cover;
         object-position: center top;
-        min-height: 70vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .play-page .project-image {
+        height: 70vh;
+    }
+
+    .play-page .project-image img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 0;
     }
 }
