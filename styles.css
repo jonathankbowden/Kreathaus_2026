@@ -2164,28 +2164,15 @@ a {
     padding-bottom: 0;
 }
 
-.play-page .project-image {
-    padding: 3rem;
-}
-
 .play-page .project-image img {
     object-fit: contain;
     object-position: center;
 }
 
 @media (max-width: 900px) {
-    .play-page .project-image {
-        padding: 0;
-    }
-
     .play-page .project-image img {
         object-fit: cover;
         object-position: center top;
-    }
-}
-
-@media (max-width: 480px) {
-    .play-page .project-image img {
         min-height: 70vh;
     }
 }
