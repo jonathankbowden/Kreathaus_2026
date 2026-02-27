@@ -1,0 +1,854 @@
+/* =============================================
+   KREATHAUS ALT — Dynamic Minimalist Design
+   Swiss precision × Japanese aesthetic × Wabi-sabi × Punk rock
+   Apple · Muji · Uncrate · Alpine Modern · Pentagram · Funsize
+   ============================================= */
+
+/* ===== Dynamic Theme Variables (set by JS) ===== */
+:root {
+    /* Background — shifts with time/weather */
+    --bg-primary: #f5f0e8;
+    --bg-secondary: #ede7db;
+    --bg-grain-opacity: 0.035;
+
+    /* Orb colors — dynamic */
+    --orb-color-1: #e8553a;
+    --orb-color-2: #f4a261;
+    --orb-color-3: #264653;
+    --orb-color-4: #1a1a1a;
+    --orb-glow: rgba(232, 85, 58, 0.12);
+
+    /* Text — adapts for contrast */
+    --text-primary: #1a1a1a;
+    --text-secondary: #555555;
+    --text-muted: #999999;
+    --text-accent: #c44a35;
+
+    /* Surfaces */
+    --surface: rgba(255, 255, 255, 0.3);
+    --surface-hover: rgba(255, 255, 255, 0.5);
+    --border: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.04);
+
+    /* Typography — Swiss precision meets Apple clarity */
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    /* Spacing — generous like Apple/Muji */
+    --space-2xs: 0.25rem;
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+    --space-2xl: 10rem;
+
+    /* Layout */
+    --max-width: 1120px;
+    --gutter: clamp(1.5rem, 4vw, 3rem);
+
+    /* Transitions — Apple-level smoothness */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --transition-theme: 1.8s var(--ease-out);
+    --transition-fast: 0.25s var(--ease-out);
+    --transition-med: 0.5s var(--ease-out);
+    --transition-slow: 0.8s var(--ease-out);
+}
+
+/* Dark mode (set by JS based on sun position) */
+[data-theme="dark"] {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #111111;
+    --bg-grain-opacity: 0.05;
+    --text-primary: #e8e4de;
+    --text-secondary: #9a9590;
+    --text-muted: #555250;
+    --text-accent: #e8955a;
+    --surface: rgba(255, 255, 255, 0.03);
+    --surface-hover: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.04);
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background var(--transition-theme), color var(--transition-theme);
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+::selection {
+    background: var(--text-accent);
+    color: white;
+}
+
+/* ===== Grain Overlay — Wabi-sabi texture ===== */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 512px 512px;
+    opacity: var(--bg-grain-opacity);
+    pointer-events: none;
+    z-index: 1000;
+    transition: opacity var(--transition-theme);
+}
+
+/* Pink grit — subtle risograph registration offset (Swiss punk) */
+body::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grit'%3E%3CfeTurbulence type='turbulence' baseFrequency='1.2' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grit)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    opacity: calc(var(--bg-grain-opacity) * 0.4);
+    mix-blend-mode: color-burn;
+    pointer-events: none;
+    z-index: 1001;
+    transition: opacity var(--transition-theme);
+    /* Slight pink tint via color overlay */
+    background-color: rgba(200, 80, 120, 0.015);
+    background-blend-mode: overlay;
+}
+
+/* ===== Navigation — Pentagram/Apple minimal ===== */
+.nav-alt {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem var(--gutter);
+    z-index: 100;
+    transition: all var(--transition-med);
+}
+
+.nav-alt.scrolled {
+    background: rgba(245, 240, 232, 0.8);
+    backdrop-filter: blur(30px) saturate(1.2);
+    -webkit-backdrop-filter: blur(30px) saturate(1.2);
+}
+
+[data-theme="dark"] .nav-alt.scrolled {
+    background: rgba(10, 10, 10, 0.8);
+}
+
+.nav-logo-alt {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+    transition: color var(--transition-theme), opacity var(--transition-fast);
+}
+
+.nav-logo-alt:hover {
+    opacity: 0.6;
+}
+
+.nav-links-alt {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-link-alt {
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--text-muted);
+    transition: color var(--transition-fast);
+    position: relative;
+}
+
+.nav-link-alt:hover {
+    color: var(--text-primary);
+}
+
+/* ===== Weather Badge — Muji understated ===== */
+.weather-badge {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 1s ease, color var(--transition-theme);
+}
+
+.weather-badge.loaded {
+    opacity: 1;
+}
+
+.weather-badge .weather-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-accent);
+    transition: background var(--transition-theme);
+}
+
+/* ===== Hero Section — The Orb ===== */
+.hero-alt {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl) var(--gutter);
+    overflow: hidden;
+}
+
+/* Orb container — generous size, Apple confidence */
+.orb-container {
+    position: relative;
+    width: min(48vw, 440px);
+    height: min(48vw, 440px);
+    margin-bottom: var(--space-xl);
+    cursor: none;
+}
+
+.orb-canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    will-change: filter, transform, opacity;
+}
+
+/* Orb glow — subtle, refined */
+.orb-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130%;
+    height: 130%;
+    border-radius: 50%;
+    background: var(--orb-glow);
+    filter: blur(80px);
+    z-index: -1;
+    transition: background var(--transition-theme);
+    animation: orbPulse 10s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.03); }
+}
+
+/* Hero text — Apple weight contrast + Swiss precision */
+.hero-text-alt {
+    text-align: center;
+    max-width: 640px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-label-alt {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    transition: color var(--transition-theme);
+}
+
+.hero-title-alt {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-weight: 200;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+    transition: color var(--transition-theme);
+}
+
+.hero-title-alt strong {
+    font-weight: 600;
+}
+
+/* Punk accent — raw, imperfect mark */
+.hero-title-alt .punk-accent {
+    position: relative;
+    display: inline-block;
+}
+
+.hero-title-alt .punk-accent::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: -3px;
+    right: -3px;
+    height: 2px;
+    background: var(--text-accent);
+    transform: rotate(-0.8deg) scaleX(1.02);
+    opacity: 0.6;
+    transition: background var(--transition-theme);
+}
+
+.hero-subtitle-alt {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+    transition: color var(--transition-theme);
+}
+
+/* Scroll indicator — Alpine Modern refined */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.5625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    animation: scrollFade 4s ease-in-out infinite;
+}
+
+.scroll-indicator .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--text-muted), transparent);
+    animation: scrollDraw 4s ease-in-out infinite;
+}
+
+@keyframes scrollFade {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes scrollDraw {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ===== Blur Divider ===== */
+.blur-divider {
+    position: relative;
+    height: 20vh;
+}
+
+/* ===== Projects Section — Pentagram editorial ===== */
+.projects-alt {
+    position: relative;
+    padding: 0 var(--gutter);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.projects-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-light);
+    transition: border-color var(--transition-theme);
+}
+
+.projects-header .section-number {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--transition-theme);
+}
+
+.projects-header .section-title {
+    font-family: var(--font-display);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color var(--transition-theme);
+}
+
+/* Project Card — Editorial spread like Pentagram */
+.project-card {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out),
+                border-color var(--transition-theme);
+}
+
+.project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Image — full-bleed, Pentagram/Uncrate dominant */
+.project-card-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    background: var(--surface);
+    aspect-ratio: 3/2;
+    transition: background var(--transition-theme);
+}
+
+.project-card-image .carousel {
+    width: 100%;
+    height: 100%;
+}
+
+.project-card-image .carousel-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    height: 100%;
+}
+
+.project-card-image .carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.project-card-image .carousel-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-card-image .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--ease-out);
+}
+
+.project-card:hover .carousel-slide img {
+    transform: scale(1.03);
+}
+
+/* Dots — minimal like Muji */
+.project-card-image .carousel-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+}
+
+.project-card-image .carousel-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    padding: 0;
+}
+
+.project-card-image .carousel-dot.active {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.4);
+}
+
+/* Project info — Apple typographic hierarchy */
+.project-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-sm) 0;
+}
+
+.project-number {
+    font-size: 0.625rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-xs);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--transition-theme);
+}
+
+.project-title-alt {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    transition: color var(--transition-theme);
+}
+
+.project-desc-alt {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    max-width: 380px;
+    transition: color var(--transition-theme);
+}
+
+.project-meta-alt {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    transition: color var(--transition-theme);
+}
+
+/* CTA — Funsize playful but restrained */
+.project-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+    transition: color var(--transition-fast), gap var(--transition-fast);
+}
+
+.project-cta:hover {
+    color: var(--text-accent);
+    gap: 0.625rem;
+}
+
+.project-cta .arrow {
+    display: inline-block;
+    transition: transform var(--transition-fast);
+    font-size: 0.875rem;
+}
+
+.project-card:hover .project-cta .arrow {
+    transform: translateX(3px);
+}
+
+/* Alternating layout — Pentagram asymmetry */
+.project-card:nth-child(even) {
+    grid-template-columns: 0.8fr 1.2fr;
+}
+
+.project-card:nth-child(even) .project-card-info {
+    order: -1;
+    text-align: right;
+    align-items: flex-end;
+}
+
+/* ===== Contact Section — Apple simplicity ===== */
+.contact-alt {
+    position: relative;
+    padding: var(--space-2xl) var(--gutter);
+    text-align: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.contact-label-alt {
+    display: block;
+    font-size: 0.625rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    transition: color var(--transition-theme);
+}
+
+.contact-title-alt {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+    transition: color var(--transition-theme);
+}
+
+.contact-links-alt {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Buttons — Muji functional, Apple refined */
+.btn-alt {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2.25rem;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    border-radius: 100px;
+    border: none;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.btn-alt-primary {
+    background: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+.btn-alt-primary:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.btn-alt-outline {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn-alt-outline:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+/* ===== Footer — Minimal data bar ===== */
+.footer-alt {
+    padding: var(--space-lg) var(--gutter);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-light);
+    transition: color var(--transition-theme), border-color var(--transition-theme);
+}
+
+.footer-conditions {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.footer-condition {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+/* ===== Scroll-based Blur Effect ===== */
+.scroll-blur-target {
+    will-change: filter, opacity;
+}
+
+/* ===== TeamLab-inspired Interactive Ripple ===== */
+.ripple-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.25;
+    mix-blend-mode: soft-light;
+}
+
+/* ===== Page Transition Mask ===== */
+.page-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-primary);
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 1s var(--ease-out);
+    pointer-events: none;
+}
+
+.page-mask.loaded {
+    opacity: 0;
+}
+
+/* ===== Responsive — Apple-level breakpoints ===== */
+
+/* Large screens — more whitespace */
+@media (min-width: 1400px) {
+    :root {
+        --max-width: 1200px;
+    }
+
+    .orb-container {
+        width: 460px;
+        height: 460px;
+    }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .project-card {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+    .project-card:nth-child(even) {
+        grid-template-columns: 1fr;
+    }
+
+    .project-card:nth-child(even) .project-card-info {
+        order: 0;
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .orb-container {
+        width: min(60vw, 360px);
+        height: min(60vw, 360px);
+    }
+
+    .weather-badge {
+        display: none;
+    }
+
+    .hero-title-alt {
+        font-size: clamp(2rem, 7vw, 3rem);
+    }
+
+    .contact-title-alt {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    :root {
+        --gutter: 1.25rem;
+    }
+
+    .orb-container {
+        width: min(72vw, 280px);
+        height: min(72vw, 280px);
+        margin-bottom: var(--space-lg);
+    }
+
+    .nav-logo-alt {
+        font-size: 0.75rem;
+    }
+
+    .nav-links-alt {
+        gap: 1.5rem;
+    }
+
+    .nav-link-alt {
+        font-size: 0.75rem;
+    }
+
+    .hero-alt {
+        padding: var(--space-lg) var(--gutter);
+    }
+
+    .project-card {
+        padding: var(--space-lg) 0;
+    }
+
+    .project-card-image {
+        aspect-ratio: 4/3;
+        border-radius: 2px;
+    }
+
+    .contact-alt {
+        padding: var(--space-xl) var(--gutter);
+    }
+
+    .footer-alt {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+    }
+
+    .footer-conditions {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-sm);
+    }
+
+    .btn-alt {
+        padding: 0.75rem 2rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 380px) {
+    .orb-container {
+        width: 220px;
+        height: 220px;
+    }
+
+    .hero-title-alt {
+        font-size: 1.75rem;
+    }
+}
