@@ -182,13 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 x: e.clientX,
                 y: e.clientY,
                 radius: 0,
-                maxRadius: 80 + Math.random() * 60,
-                opacity: 0.15,
-                speed: 1 + Math.random() * 0.5,
+                maxRadius: 100 + Math.random() * 80,
+                opacity: 0.22,
+                speed: 1.2 + Math.random() * 0.6,
             });
 
             // Limit ripple count
-            if (ripples.length > 15) ripples.shift();
+            if (ripples.length > 20) ripples.shift();
         });
 
         // Touch ripples
@@ -202,12 +202,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 x: touch.clientX,
                 y: touch.clientY,
                 radius: 0,
-                maxRadius: 100 + Math.random() * 80,
-                opacity: 0.2,
-                speed: 0.8 + Math.random() * 0.4,
+                maxRadius: 120 + Math.random() * 100,
+                opacity: 0.28,
+                speed: 1 + Math.random() * 0.5,
             });
 
-            if (ripples.length > 12) ripples.shift();
+            if (ripples.length > 16) ripples.shift();
         }, { passive: true });
 
         function animateRipples() {
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 rCtx.beginPath();
                 rCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
                 rCtx.strokeStyle = `rgba(255, 255, 255, ${r.opacity})`;
-                rCtx.lineWidth = 1;
+                rCtx.lineWidth = 1.5;
                 rCtx.stroke();
 
                 return true;

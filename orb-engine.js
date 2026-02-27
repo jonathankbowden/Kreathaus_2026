@@ -235,8 +235,8 @@ class OrbEngine {
 
         // === Organic flow layer — the liquid movement ===
         const t = this.time;
-        const flowOffsetX = Math.sin(t * 0.3) * s * 0.15 + (this.mouseX - 0.5) * s * 0.2;
-        const flowOffsetY = Math.cos(t * 0.25) * s * 0.15 + (this.mouseY - 0.5) * s * 0.2;
+        const flowOffsetX = Math.sin(t * 0.3) * s * 0.2 + (this.mouseX - 0.5) * s * 0.25;
+        const flowOffsetY = Math.cos(t * 0.25) * s * 0.2 + (this.mouseY - 0.5) * s * 0.25;
 
         const flowGrad = ctx.createRadialGradient(
             cx + flowOffsetX,
@@ -247,9 +247,9 @@ class OrbEngine {
             r * 0.8
         );
 
-        flowGrad.addColorStop(0, `rgba(${c2.r|0}, ${c2.g|0}, ${c2.b|0}, 0.9)`);
-        flowGrad.addColorStop(0.4, `rgba(${c1.r|0}, ${c1.g|0}, ${c1.b|0}, 0.6)`);
-        flowGrad.addColorStop(0.7, `rgba(${c3.r|0}, ${c3.g|0}, ${c3.b|0}, 0.3)`);
+        flowGrad.addColorStop(0, `rgba(${c2.r|0}, ${c2.g|0}, ${c2.b|0}, 0.95)`);
+        flowGrad.addColorStop(0.4, `rgba(${c1.r|0}, ${c1.g|0}, ${c1.b|0}, 0.7)`);
+        flowGrad.addColorStop(0.7, `rgba(${c3.r|0}, ${c3.g|0}, ${c3.b|0}, 0.4)`);
         flowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
         ctx.globalCompositeOperation = 'overlay';
@@ -291,8 +291,8 @@ class OrbEngine {
             r * 0.7
         );
 
-        flowGrad3.addColorStop(0, `rgba(${c1.r|0}, ${c1.g|0}, ${c1.b|0}, 0.7)`);
-        flowGrad3.addColorStop(0.5, `rgba(${c2.r|0}, ${c2.g|0}, ${c2.b|0}, 0.3)`);
+        flowGrad3.addColorStop(0, `rgba(${c1.r|0}, ${c1.g|0}, ${c1.b|0}, 0.85)`);
+        flowGrad3.addColorStop(0.5, `rgba(${c2.r|0}, ${c2.g|0}, ${c2.b|0}, 0.45)`);
         flowGrad3.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
         ctx.globalCompositeOperation = 'screen';
@@ -328,8 +328,8 @@ class OrbEngine {
             cy,
             r * 0.6
         );
-        glowGrad.addColorStop(0, `rgba(${c2.r|0}, ${c2.g|0}, ${c2.b|0}, 0.5)`);
-        glowGrad.addColorStop(0.5, `rgba(${c1.r|0}, ${c1.g|0}, ${c1.b|0}, 0.2)`);
+        glowGrad.addColorStop(0, `rgba(${c2.r|0}, ${c2.g|0}, ${c2.b|0}, 0.65)`);
+        glowGrad.addColorStop(0.5, `rgba(${c1.r|0}, ${c1.g|0}, ${c1.b|0}, 0.3)`);
         glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
         ctx.fillStyle = glowGrad;
@@ -364,7 +364,7 @@ class OrbEngine {
     }
 
     animate() {
-        this.time += 0.008;
+        this.time += 0.01;
         this.draw();
         this.animationId = requestAnimationFrame(() => this.animate());
     }
