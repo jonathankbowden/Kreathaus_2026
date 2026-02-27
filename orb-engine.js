@@ -75,10 +75,20 @@ class OrbEngine {
 
         for (let i = 0; i < data.length; i += 4) {
             const v = Math.random() * 255;
-            data[i] = v;
-            data[i + 1] = v;
-            data[i + 2] = v;
-            data[i + 3] = 25; // subtle grain
+            const pinkShift = Math.random();
+            // Pink/magenta grit — risograph registration feel
+            if (pinkShift > 0.92) {
+                // ~8% of grain pixels get a pink tint
+                data[i] = Math.min(255, v + 40);     // red boost
+                data[i + 1] = Math.max(0, v - 30);   // green cut
+                data[i + 2] = Math.min(255, v + 20);  // slight blue
+                data[i + 3] = 35;
+            } else {
+                data[i] = v;
+                data[i + 1] = v;
+                data[i + 2] = v;
+                data[i + 3] = 22;
+            }
         }
 
         this.grainCtx.putImageData(imageData, 0, 0);
