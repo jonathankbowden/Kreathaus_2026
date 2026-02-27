@@ -2298,6 +2298,11 @@ a {
     color: var(--color-text-muted);
 }
 
+/* Worked With */
+.diff-worked-pills {
+    justify-content: center;
+}
+
 /* Recommendations */
 .diff-recs {
     background: var(--color-surface);
@@ -2405,8 +2410,27 @@ a {
     }
 
     .diff-rec-list {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1.25rem;
+        margin-right: -2rem;
+        padding-right: 2rem;
+        scrollbar-width: none;
+    }
+
+    .diff-rec-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .diff-rec-list .diff-rec-item {
+        min-width: 65vw;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        background: var(--color-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
     }
 }
 
@@ -2435,5 +2459,30 @@ a {
     .diff-rec-pill {
         font-size: 0.875rem;
         padding: 0.5rem 1rem;
+    }
+
+    /* Full-bleed horizontal carousel for book recs on mobile */
+    .diff-rec-list {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem;
+        margin-right: -1.25rem;
+        padding-right: 1.25rem;
+        scrollbar-width: none;
+    }
+
+    .diff-rec-list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .diff-rec-list .diff-rec-item {
+        min-width: 75vw;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        background: var(--color-bg);
+        padding: 1.25rem;
+        border-radius: 12px;
     }
 }
