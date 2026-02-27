@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan Bowden — Building 0 to 1 Experiences on Trust</title>
+    <link rel="stylesheet" href="styles-alt.css?v=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Page entrance mask -->
+    <div class="page-mask" id="pageMask"></div>
+
+    <!-- TeamLab-inspired ripple layer -->
+    <canvas class="ripple-layer" id="rippleCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav-alt" id="navAlt">
+        <a href="index-alt.html" class="nav-logo-alt">Jonathan Bowden</a>
+        <div class="weather-badge" id="weatherBadge">
+            <span class="weather-dot"></span>
+            <span id="weatherText">Loading conditions...</span>
+        </div>
+        <div class="nav-links-alt">
+            <a href="play.html" class="nav-link-alt">Play</a>
+            <a href="diff.html" class="nav-link-alt">Diff</a>
+            <a href="#contact" class="nav-link-alt">Chat</a>
+        </div>
+    </nav>
+
+    <!-- Hero — The Orb -->
+    <section class="hero-alt" id="heroSection">
+        <div class="orb-container" id="orbContainer">
+            <canvas class="orb-canvas" id="orbCanvas"></canvas>
+        </div>
+        <div class="hero-text-alt scroll-blur-target">
+            <span class="hero-label-alt">Principal Design Leader</span>
+            <h1 class="hero-title-alt">
+                Building <strong class="punk-accent">0 &rarr; 1</strong><br>
+                experiences on trust
+            </h1>
+            <p class="hero-subtitle-alt">Expedia Group &middot; Boulder, CO</p>
+        </div>
+        <div class="scroll-indicator" id="scrollIndicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Blur divider -->
+    <div class="blur-divider"></div>
+
+    <!-- Projects -->
+    <section class="projects-alt" id="projectsSection">
+        <div class="projects-header">
+            <span class="section-number">01</span>
+            <span class="section-title">Selected Work</span>
+        </div>
+
+        <!-- Project 1: Creators -->
+        <a href="https://tinyurl.com/mr9mupr" class="project-card" target="_blank" rel="noopener">
+            <div class="project-card-image">
+                <div class="carousel" data-carousel>
+                    <div class="carousel-track">
+                        <div class="carousel-slide"><img src="images/Creators_hero_1@2x.png" alt="Creators - Travel Shop profile" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Creators_hero_2@2x.png" alt="Creators - Shop curation" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Creators_hero_3.png" alt="Creators - Content creation" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Creators_hero_4@2x.png" alt="Creators - Analytics" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Creators_hero_5.png" alt="Creators - Mobile experience" loading="lazy"></div>
+                    </div>
+                    <div class="carousel-dots"></div>
+                </div>
+            </div>
+            <div class="project-card-info">
+                <span class="project-number">01</span>
+                <h2 class="project-title-alt">Creators</h2>
+                <p class="project-desc-alt">Built the creator economy platform from scratch. 2k+ Travel Shops launched, 2x conversion rate.</p>
+                <span class="project-meta-alt">2022&ndash;Present &middot; Web + Mobile</span>
+                <span class="project-cta">View Case Study <span class="arrow">&rarr;</span></span>
+            </div>
+        </a>
+
+        <!-- Project 2: Partnerships -->
+        <a href="https://tinyurl.com/mr9mupr" class="project-card" target="_blank" rel="noopener">
+            <div class="project-card-image">
+                <div class="carousel" data-carousel>
+                    <div class="carousel-track">
+                        <div class="carousel-slide"><img src="images/Partnerships_hero_1@2x.png" alt="Partnerships - ChatGPT" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Partnerships_hero_2@2x.png" alt="Partnerships - Alexa+" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Partnerships_hero_3@2x.png" alt="Partnerships - Perplexity" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Partnerships_hero_4@2x.png" alt="Partnerships - Condé Nast" loading="lazy"></div>
+                    </div>
+                    <div class="carousel-dots"></div>
+                </div>
+            </div>
+            <div class="project-card-info">
+                <span class="project-number">02</span>
+                <h2 class="project-title-alt">Partnerships</h2>
+                <p class="project-desc-alt">Bringing travel to where people already are&mdash;ChatGPT, Alexa+, Perplexity, and Cond&eacute; Nast.</p>
+                <span class="project-meta-alt">2024&ndash;Present &middot; Cross-Platform</span>
+                <span class="project-cta">View Case Study <span class="arrow">&rarr;</span></span>
+            </div>
+        </a>
+
+        <!-- Project 3: Intelligence -->
+        <a href="intelligence.html" class="project-card">
+            <div class="project-card-image">
+                <div class="carousel" data-carousel>
+                    <div class="carousel-track">
+                        <div class="carousel-slide"><img src="images/Intelligence_hero_1@2x.png" alt="Intelligence - AI search" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Intelligence_hero_2@2x.png" alt="Intelligence - Results" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Intelligence_hero_3@2x.png" alt="Intelligence - Recommendations" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="images/Intelligence_hero_4@2x.png" alt="Intelligence - Mobile" loading="lazy"></div>
+                    </div>
+                    <div class="carousel-dots"></div>
+                </div>
+            </div>
+            <div class="project-card-info">
+                <span class="project-number">03</span>
+                <h2 class="project-title-alt">Intelligence</h2>
+                <p class="project-desc-alt">AI-powered search before AI was mainstream. Now the foundation of experiences across Expedia.</p>
+                <span class="project-meta-alt">2021&ndash;2022 &middot; Native + Web</span>
+                <span class="project-cta">View Case Study <span class="arrow">&rarr;</span></span>
+            </div>
+        </a>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-alt">
+        <span class="contact-label-alt">Collaborate</span>
+        <h2 class="contact-title-alt">Might we chat?</h2>
+        <div class="contact-links-alt">
+            <a href="mailto:jonathan.k.bowden@gmail.com" class="btn-alt btn-alt-primary">Say Hello</a>
+            <a href="https://linkedin.com/in/jonathanbowden" class="btn-alt btn-alt-outline" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+    </section>
+
+    <!-- Footer with live conditions -->
+    <footer class="footer-alt">
+        <span>&copy; 2026 Jonathan Bowden</span>
+        <div class="footer-conditions" id="footerConditions">
+            <span class="footer-condition" id="footerTime"></span>
+            <span class="footer-condition" id="footerWeather"></span>
+            <span class="footer-condition" id="footerSeason"></span>
+        </div>
+    </footer>
+
+    <!-- Scripts loaded at end -->
+    <script src="orb-engine.js"></script>
+    <script src="weather-engine.js"></script>
+    <script src="interaction-engine.js"></script>
+</body>
+</html>
