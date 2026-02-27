@@ -405,6 +405,7 @@ a {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--color-navy);
+    margin-bottom: 0.5rem;
 }
 
 .contact-title {
@@ -2191,5 +2192,870 @@ a {
         object-fit: cover;
         object-position: center top;
         border-radius: 0;
+    }
+}
+
+/* ===== Diff Page ===== */
+
+/* Diff Hero — Hot Takes Carousel (extends .hero .hero-left) */
+/* Hero — Image + Intro Split */
+.diff-hero-split {
+    display: flex;
+    align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 6rem var(--px) 5rem;
+    gap: 5rem;
+    min-height: 80vh;
+}
+
+.diff-hero-image {
+    flex: 0 0 340px;
+    width: 340px;
+    height: 340px;
+}
+
+.diff-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.diff-hero-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.diff-hero-text .hero-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.2;
+    max-width: 580px;
+    font-weight: 400;
+    color: var(--color-text);
+}
+
+.diff-hero-body p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+    max-width: 520px;
+}
+
+.diff-hero-body p + p {
+    margin-top: 1rem;
+}
+
+/* Hero responsive — stack on mobile */
+@media (max-width: 900px) {
+    .diff-hero-split {
+        flex-direction: column;
+        min-height: auto;
+        padding-top: 5rem;
+        gap: 2.5rem;
+        align-items: flex-start;
+    }
+
+    .diff-hero-image {
+        flex: 0 0 260px;
+        width: 260px;
+        height: 260px;
+    }
+}
+
+@media (max-width: 480px) {
+    .diff-hero-split {
+        padding: 4.5rem 1.25rem 3rem;
+        gap: 2rem;
+    }
+
+    .diff-hero-image {
+        flex: 0 0 200px;
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* Recommendation Cover Cards */
+.diff-rec-covers {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2.5rem;
+}
+
+.diff-rec-cover-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.diff-rec-cover-img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    background: var(--color-border);
+    margin-bottom: 1rem;
+}
+
+.diff-rec-cover-img.diff-rec-cover-square {
+    aspect-ratio: 1/1;
+}
+
+/* Advice Carousel */
+.diff-advice-carousel {
+    position: relative;
+    min-height: 100px;
+    overflow: hidden;
+}
+
+.diff-advice {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+    padding: 1.5rem 2rem;
+    background: var(--color-bg);
+    border-left: 3px solid var(--color-navy);
+    border-radius: 0 8px 8px 0;
+}
+
+.diff-advice.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    position: relative;
+}
+
+.diff-advice p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    font-style: italic;
+}
+
+.diff-advice-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.diff-advice-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-border);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.diff-advice-dot.active {
+    background: var(--color-navy);
+    transform: scale(1.25);
+}
+
+/* Tools Section */
+.diff-tools {
+    background: var(--color-bg);
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.diff-hero-take.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    position: relative;
+    visibility: visible;
+}
+
+.diff-hero-take em {
+    font-style: italic;
+}
+
+.diff-hero-counter {
+    font-family: var(--font-family);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.diff-hero-current {
+    color: var(--color-navy);
+    font-weight: 700;
+    min-width: 1.25em;
+}
+
+.diff-hero-divider {
+    opacity: 0.3;
+}
+
+.diff-hero-total {
+    opacity: 0.4;
+}
+
+.diff-section {
+    padding: 7.5rem 2rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.diff-section:last-of-type {
+    border-bottom: none;
+}
+
+.diff-section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.diff-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-navy);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.diff-heading {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--color-text);
+    margin-bottom: 3rem;
+}
+
+.diff-body p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.diff-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Philosophy */
+.diff-philosophy {
+    background: var(--color-surface);
+}
+
+.diff-principles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.diff-principle {
+    padding: 2rem 0;
+}
+
+.diff-principle-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+}
+
+.diff-principle-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+}
+
+.diff-principle-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+
+/* Services */
+.diff-services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 4rem;
+}
+
+.diff-service {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.diff-service-number {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--color-navy);
+}
+
+.diff-service-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.diff-service-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+
+/* Recommendations */
+.diff-recs {
+    background: var(--color-surface);
+}
+
+.diff-rec-group {
+    margin-bottom: 3rem;
+}
+
+.diff-rec-group:last-child {
+    margin-bottom: 0;
+}
+
+.diff-rec-category {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.diff-rec-category-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--color-text);
+}
+
+.diff-rec-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.diff-rec-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.diff-rec-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.15rem;
+}
+
+.diff-rec-title a,
+.diff-rec-cover-img-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.diff-rec-title a:hover {
+    text-decoration: underline;
+}
+
+.diff-rec-by {
+    font-size: 0.875rem;
+    color: var(--color-navy);
+    font-weight: 500;
+}
+
+.diff-rec-why {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-top: 0.25rem;
+}
+
+.diff-rec-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+}
+
+.diff-rec-pill {
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.diff-rec-quotes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.diff-rec-quote {
+    padding: 1.5rem 2rem;
+    background: var(--color-bg);
+    border-left: 3px solid var(--color-navy);
+    border-radius: 0 8px 8px 0;
+}
+
+.diff-rec-quote p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    font-style: italic;
+}
+
+/* Impact Metrics */
+.diff-impact {
+    background: var(--color-surface);
+}
+
+.diff-metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem 2.5rem;
+}
+
+.diff-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.diff-metric-number {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--color-navy);
+    letter-spacing: -0.02em;
+}
+
+.diff-metric-label {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+}
+
+/* Client Logos */
+.diff-clients {
+    border-bottom: none;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.diff-clients .diff-label,
+.diff-tools .diff-label {
+    margin-bottom: 3rem;
+}
+
+.diff-logo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.diff-logo-mark {
+    font-family: var(--font-family);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    opacity: 0.4;
+    text-align: center;
+    letter-spacing: 0.02em;
+    padding: 1.25rem 0.5rem;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.diff-logo-mark svg {
+    width: 48px;
+    height: 48px;
+    transition: fill 0.3s ease;
+}
+
+.diff-logo-mark[data-brand="condenast"] svg {
+    width: 225px;
+    height: auto;
+}
+
+.diff-logo-mark[data-brand="vrbo"] svg {
+    width: 150px;
+    height: auto;
+}
+
+.diff-logo-mark[data-brand="tesco"] svg {
+    width: 72px;
+    height: 72px;
+}
+
+.diff-logo-mark[data-brand="nike"] svg {
+    width: 72px;
+    height: auto;
+}
+
+.diff-logo-mark[data-brand="alexa"] svg {
+    width: 75px;
+    height: auto;
+}
+
+.diff-logo-wordmark {
+    font-family: var(--font-family);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+}
+
+.diff-logo-mark:hover { opacity: 1; }
+
+/* Brand colors on hover */
+.diff-logo-mark[data-brand="expedia"]:hover { color: #FBCC33; }
+.diff-logo-mark[data-brand="openai"]:hover { color: #412991; }
+.diff-logo-mark[data-brand="condenast"]:hover { color: #C6A664; }
+.diff-logo-mark[data-brand="tesco"]:hover { color: #00539F; }
+.diff-logo-mark[data-brand="alexa"]:hover { color: #00CAFF; }
+.diff-logo-mark[data-brand="nike"]:hover { color: #111111; }
+.diff-logo-mark[data-brand="hotels"]:hover { color: #D32F2F; }
+.diff-logo-mark[data-brand="vrbo"]:hover { color: #3145F5; }
+
+/* Tools Logo Grid */
+.diff-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.diff-tool-mark {
+    font-family: var(--font-family);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    opacity: 0.4;
+    text-align: center;
+    padding: 1rem 0.5rem;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diff-tool-mark svg {
+    width: 28px;
+    height: 28px;
+    transition: fill 0.3s ease;
+}
+
+.diff-tool-mark[data-brand="pencil"] svg {
+    width: 80px;
+    height: auto;
+}
+
+.diff-tool-mark:hover { opacity: 1; }
+
+/* Tool brand colors on hover */
+.diff-tool-mark[data-brand="figma"]:hover { color: #F24E1E; }
+.diff-tool-mark[data-brand="claude"]:hover { color: #D97757; }
+.diff-tool-mark[data-brand="cursor"]:hover { color: #111111; }
+.diff-tool-mark[data-brand="swiftui"]:hover { color: #F05138; }
+.diff-tool-mark[data-brand="pencil"]:hover { color: #64927B; }
+.diff-tool-mark[data-brand="miro"]:hover { color: #FFD02F; }
+
+/* Testimonials — Carousel */
+.diff-testimonials {
+    background: var(--color-text);
+    border-bottom-color: rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+.diff-testimonials .diff-label {
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 3rem;
+}
+
+.diff-testimonial-carousel {
+    position: relative;
+    min-height: 440px;
+}
+
+.diff-testimonial {
+    border: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.diff-testimonial.active {
+    opacity: 1;
+    pointer-events: auto;
+    position: relative;
+}
+
+.diff-testimonial-text {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.45;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
+    padding-left: 0;
+}
+
+.diff-testimonial-text::before {
+    content: '\201C';
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(5rem, 10vw, 8rem);
+    font-style: normal;
+    color: rgba(255,255,255,0.2);
+    position: absolute;
+    top: -0.1em;
+    left: -0.08em;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.diff-testimonial-footer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.diff-testimonial-avatar {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.6);
+    font-family: var(--font-family);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+}
+
+.diff-testimonial-cite {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-family: var(--font-family);
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+}
+
+.diff-testimonial-role {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.35);
+}
+
+.diff-testimonial-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+}
+
+.diff-testimonial-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diff-testimonial-arrow:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
+}
+
+.diff-testimonial-counter {
+    font-family: var(--font-family);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.35);
+}
+
+/* Diff Responsive — Tablet */
+@media (max-width: 900px) {
+    .diff-section {
+        padding: 5.5rem 2rem;
+    }
+
+    .diff-principles {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .diff-services-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .diff-rec-list {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .diff-metrics-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem 2rem;
+    }
+
+    .diff-testimonial-text {
+        font-size: 1.75rem;
+    }
+
+    .diff-logo-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .diff-tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .diff-testimonial-carousel {
+        min-height: 420px;
+    }
+
+    .diff-hero-carousel {
+        min-height: 220px;
+    }
+
+    .diff-rec-covers {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .diff-rec-cover-card {
+        flex: 0 0 140px;
+        scroll-snap-align: start;
+    }
+}
+
+/* Diff Responsive — Mobile */
+@media (max-width: 480px) {
+    .diff-section {
+        padding: 4.5rem 1.25rem;
+    }
+
+    .diff-heading {
+        font-size: 2rem;
+    }
+
+    .diff-body p {
+        font-size: 1rem;
+    }
+
+    .diff-rec-quote {
+        padding: 1.25rem 1.5rem;
+    }
+
+    .diff-rec-pills {
+        gap: 0.5rem;
+    }
+
+    .diff-rec-pill {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .diff-metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .diff-metric-number {
+        font-size: 6.25rem;
+    }
+
+    .diff-testimonial-text {
+        font-size: 1.5rem;
+    }
+
+    .diff-logo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .diff-logo-mark {
+        font-size: 0.9375rem;
+        padding: 0.75rem 0.25rem;
+    }
+
+    .diff-tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .diff-testimonial-carousel {
+        min-height: 480px;
+    }
+
+    .diff-testimonial-text::before {
+        font-size: 5rem;
+    }
+
+    .diff-rec-cover-card {
+        flex: 0 0 120px;
+    }
+
+    .diff-hero-carousel {
+        min-height: 180px;
     }
 }
