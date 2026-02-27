@@ -24,38 +24,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
-    // ===== Scroll-based Orb Blur =====
-    const orbCanvas = document.getElementById('orbCanvas');
+    // ===== Orb follows scroll + parallax blur =====
+    const orbBg = document.getElementById('orbContainer');
     const heroSection = document.getElementById('heroSection');
     const scrollIndicator = document.getElementById('scrollIndicator');
 
-    if (orbCanvas && heroSection) {
+    if (orbBg && heroSection) {
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
             const heroH = heroSection.offsetHeight;
-            const progress = Math.min(scrollY / (heroH * 0.6), 1);
+            const progress = Math.min(scrollY / (heroH * 0.8), 1);
 
-            // Blur the orb as user scrolls
-            const blurAmount = progress * 20;
-            const scale = 1 - progress * 0.1;
-            const opacity = 1 - progress * 0.5;
-            orbCanvas.style.filter = `blur(${blurAmount}px)`;
-            orbCanvas.style.transform = `scale(${scale})`;
-            orbCanvas.style.opacity = opacity;
+            // Orb follows scroll at 40% speed (parallax) and slowly blurs/fades
+            const orbY = scrollY * 0.4;
+            const blurAmount = progress * 16;
+            const opacity = 1 - progress * 0.6;
+            const scale = 1 - progress * 0.08;
+            orbBg.style.transform = `translate(-50%, calc(-50% + ${orbY}px)) scale(${scale})`;
+            orbBg.style.filter = `blur(${blurAmount}px)`;
+            orbBg.style.opacity = opacity;
 
             // Fade scroll indicator
             if (scrollIndicator) {
                 scrollIndicator.style.opacity = Math.max(0, 1 - progress * 3);
             }
-
-            // Blur hero text elements
-            const blurTargets = heroSection.querySelectorAll('.scroll-blur-target');
-            blurTargets.forEach(el => {
-                const textBlur = progress * 12;
-                const textOpacity = 1 - progress * 0.8;
-                el.style.filter = `blur(${textBlur}px)`;
-                el.style.opacity = textOpacity;
-            });
         }, { passive: true });
     }
 

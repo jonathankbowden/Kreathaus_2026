@@ -9,14 +9,14 @@
     /* Background — shifts with time/weather */
     --bg-primary: #f5f0e8;
     --bg-secondary: #ede7db;
-    --bg-grain-opacity: 0.035;
+    --bg-grain-opacity: 0.06;
 
     /* Orb colors — dynamic */
     --orb-color-1: #e8553a;
     --orb-color-2: #f4a261;
     --orb-color-3: #264653;
     --orb-color-4: #1a1a1a;
-    --orb-glow: rgba(232, 85, 58, 0.18);
+    --orb-glow: rgba(232, 85, 58, 0.25);
 
     /* Text — adapts for contrast */
     --text-primary: #1a1a1a;
@@ -30,9 +30,10 @@
     --border: rgba(0, 0, 0, 0.08);
     --border-light: rgba(0, 0, 0, 0.04);
 
-    /* Typography — Swiss precision meets Apple clarity */
+    /* Typography — Swiss sans × editorial serif tension */
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
 
     /* Spacing — generous like Apple/Muji */
     --space-2xs: 0.25rem;
@@ -241,7 +242,7 @@ body::after {
     transition: background var(--transition-theme);
 }
 
-/* ===== Hero Section — The Orb ===== */
+/* ===== Hero Section — Orb behind text ===== */
 .hero-alt {
     position: relative;
     min-height: 100vh;
@@ -251,16 +252,20 @@ body::after {
     align-items: center;
     justify-content: center;
     padding: var(--space-xl) var(--gutter);
-    overflow: hidden;
+    overflow: visible;
 }
 
-/* Orb container — generous size, Apple confidence */
-.orb-container {
-    position: relative;
-    width: min(48vw, 440px);
-    height: min(48vw, 440px);
-    margin-bottom: var(--space-xl);
+/* Orb — positioned behind hero text, follows scroll */
+.orb-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(55vw, 520px);
+    height: min(55vw, 520px);
+    z-index: 1;
     cursor: none;
+    will-change: transform;
 }
 
 .orb-canvas {
@@ -271,31 +276,31 @@ body::after {
 }
 
 /* Orb glow — warm halo, alive */
-.orb-container::after {
+.orb-bg::after {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 145%;
-    height: 145%;
+    width: 160%;
+    height: 160%;
     border-radius: 50%;
     background: var(--orb-glow);
-    filter: blur(70px);
+    filter: blur(60px);
     z-index: -1;
     transition: background var(--transition-theme);
-    animation: orbPulse 8s ease-in-out infinite;
+    animation: orbPulse 7s ease-in-out infinite;
 }
 
 @keyframes orbPulse {
-    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-    50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.06); }
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.08); }
 }
 
-/* Hero text — Apple weight contrast + Swiss precision */
+/* Hero text — serif headlines over the orb */
 .hero-text-alt {
     text-align: center;
-    max-width: 640px;
+    max-width: 740px;
     position: relative;
     z-index: 2;
 }
@@ -303,27 +308,28 @@ body::after {
 .hero-label-alt {
     display: block;
     font-size: 0.6875rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
     transition: color var(--transition-theme);
 }
 
 .hero-title-alt {
-    font-family: var(--font-display);
-    font-size: clamp(2.25rem, 5vw, 3.75rem);
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+    font-family: var(--font-serif);
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
     transition: color var(--transition-theme);
 }
 
 .hero-title-alt strong {
-    font-weight: 700;
+    font-weight: 400;
+    font-style: italic;
 }
 
 /* Punk accent — raw, imperfect mark */
@@ -335,22 +341,22 @@ body::after {
 .hero-title-alt .punk-accent::after {
     content: '';
     position: absolute;
-    bottom: 2px;
-    left: -5px;
-    right: -5px;
-    height: 3px;
+    bottom: 4px;
+    left: -6px;
+    right: -6px;
+    height: 4px;
     background: var(--text-accent);
-    transform: rotate(-1.2deg) scaleX(1.04);
-    opacity: 0.85;
+    transform: rotate(-1.5deg) scaleX(1.05);
+    opacity: 0.9;
     border-radius: 2px;
     transition: background var(--transition-theme);
 }
 
 .hero-subtitle-alt {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     font-weight: 400;
-    color: var(--text-muted);
-    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
     transition: color var(--transition-theme);
 }
 
@@ -456,10 +462,14 @@ body::after {
 .project-card-image {
     position: relative;
     overflow: hidden;
-    border-radius: 3px;
+    border-radius: 4px;
     background: var(--surface);
     aspect-ratio: 3/2;
-    transition: background var(--transition-theme);
+    transition: background var(--transition-theme), box-shadow var(--transition-med);
+}
+
+.project-card:hover .project-card-image {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
 }
 
 .project-card-image .carousel {
@@ -545,11 +555,11 @@ body::after {
 }
 
 .project-title-alt {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
     margin-bottom: 1rem;
     color: var(--text-primary);
     transition: color var(--transition-theme);
@@ -598,7 +608,11 @@ body::after {
 }
 
 .project-card:hover .project-cta .arrow {
-    transform: translateX(3px);
+    transform: translateX(6px);
+}
+
+.project-card:hover .project-cta {
+    color: var(--text-accent);
 }
 
 /* Alternating layout — Pentagram asymmetry */
@@ -633,10 +647,11 @@ body::after {
 }
 
 .contact-title-alt {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 300;
-    letter-spacing: -0.03em;
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.02em;
     margin-bottom: var(--space-md);
     color: var(--text-primary);
     transition: color var(--transition-theme);
@@ -733,32 +748,32 @@ body::after {
 }
 
 /* ===== Hero Entrance — staggered reveal ===== */
-.hero-alt .orb-container {
+.hero-alt .orb-bg {
     opacity: 0;
-    transform: scale(0.92);
-    animation: heroOrbIn 1.6s var(--ease-out) 0.3s forwards;
+    animation: heroOrbIn 2s var(--ease-out) 0.2s forwards;
 }
 
 @keyframes heroOrbIn {
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 .hero-label-alt {
     opacity: 0;
-    transform: translateY(18px);
-    animation: heroTextIn 1s var(--ease-out) 0.9s forwards;
+    transform: translateY(24px);
+    animation: heroTextIn 1.2s var(--ease-out) 0.7s forwards;
 }
 
 .hero-title-alt {
     opacity: 0;
-    transform: translateY(22px);
-    animation: heroTextIn 1s var(--ease-out) 1.1s forwards;
+    transform: translateY(30px);
+    animation: heroTextIn 1.2s var(--ease-out) 0.95s forwards;
 }
 
 .hero-subtitle-alt {
     opacity: 0;
-    transform: translateY(16px);
-    animation: heroTextIn 1s var(--ease-out) 1.35s forwards;
+    transform: translateY(20px);
+    animation: heroTextIn 1s var(--ease-out) 1.25s forwards;
 }
 
 @keyframes heroTextIn {
@@ -791,9 +806,9 @@ body::after {
         --max-width: 1200px;
     }
 
-    .orb-container {
-        width: 460px;
-        height: 460px;
+    .orb-bg {
+        width: 580px;
+        height: 580px;
     }
 }
 
@@ -814,9 +829,9 @@ body::after {
         align-items: flex-start;
     }
 
-    .orb-container {
-        width: min(60vw, 360px);
-        height: min(60vw, 360px);
+    .orb-bg {
+        width: min(70vw, 400px);
+        height: min(70vw, 400px);
     }
 
     .weather-badge {
@@ -824,11 +839,11 @@ body::after {
     }
 
     .hero-title-alt {
-        font-size: clamp(2rem, 7vw, 3rem);
+        font-size: clamp(2.25rem, 8vw, 3.5rem);
     }
 
     .contact-title-alt {
-        font-size: clamp(2rem, 8vw, 3rem);
+        font-size: clamp(2.25rem, 9vw, 3.5rem);
     }
 }
 
@@ -838,10 +853,9 @@ body::after {
         --gutter: 1.25rem;
     }
 
-    .orb-container {
-        width: min(72vw, 280px);
-        height: min(72vw, 280px);
-        margin-bottom: var(--space-lg);
+    .orb-bg {
+        width: min(85vw, 320px);
+        height: min(85vw, 320px);
     }
 
     .nav-logo-alt {
@@ -893,12 +907,12 @@ body::after {
 
 /* Small mobile */
 @media (max-width: 380px) {
-    .orb-container {
-        width: 220px;
-        height: 220px;
+    .orb-bg {
+        width: 240px;
+        height: 240px;
     }
 
     .hero-title-alt {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
 }
