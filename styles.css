@@ -1080,6 +1080,201 @@ a {
     border-radius: 8px;
 }
 
+/* ===== Case Block Sections (full-width with alternating backgrounds) ===== */
+.case-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.case-block--white {
+    background: #ffffff;
+}
+
+.case-block--light {
+    background: #fcfcfc;
+}
+
+/* Center the case-section inside case-block */
+.case-block .case-section {
+    padding: 3rem 0 5rem;
+}
+
+/* ===== 1-Up Image ===== */
+.case-image-1up {
+    width: 100%;
+    max-width: 1440px;
+    height: 800px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.case-image-1up img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.case-image-1up--cover img {
+    object-fit: cover;
+    mix-blend-mode: multiply;
+}
+
+/* ===== Section Divider ===== */
+.case-divider {
+    width: calc(100% - 184px);
+    max-width: 1256px;
+    height: 1px;
+    background: var(--color-border);
+    margin: 0 auto;
+}
+
+/* ===== Banners ===== */
+.case-banner {
+    width: 100%;
+    min-height: 840px;
+    padding: 0 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    overflow: hidden;
+}
+
+.case-banner--light {
+    background: #f8f8f8;
+}
+
+.case-banner--dark {
+    background: #191e3b;
+    flex-direction: row;
+    align-items: center;
+}
+
+.case-banner-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.case-banner-label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1.92px;
+    color: var(--color-text);
+    text-transform: uppercase;
+}
+
+.case-banner-title {
+    font-size: 7.5rem;
+    font-weight: 200;
+    line-height: 1.05;
+    color: var(--color-text);
+    max-width: 1120px;
+}
+
+.case-banner-title-dark {
+    font-size: 5rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #fddb32;
+}
+
+.case-banner-icon {
+    width: 88px;
+    height: 88px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.case-banner-icon svg {
+    width: 64px;
+    height: 64px;
+}
+
+/* ===== Video Embed ===== */
+.case-video-embed {
+    width: 100%;
+    max-width: 1440px;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.case-video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ===== Large Results Section ===== */
+.case-results-large {
+    width: 100%;
+    background: #191e3b;
+    padding: 0 10rem;
+    min-height: 960px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4rem;
+    overflow: hidden;
+}
+
+.case-results-large .results-label {
+    font-size: 1.3125rem;
+    font-weight: 700;
+    letter-spacing: 2.31px;
+    color: #fddb32;
+    text-transform: uppercase;
+}
+
+.case-results-large .results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    width: 100%;
+}
+
+.case-results-large .results-row {
+    display: flex;
+    gap: 2.5rem;
+    width: 100%;
+}
+
+.case-results-large .result-item-large {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex: 1;
+}
+
+.case-results-large .result-value-large {
+    font-size: 10rem;
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -6.4px;
+    color: white;
+}
+
+.case-results-large .result-label-large {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -1.08px;
+    color: white;
+}
+
 /* ===== Case Results ===== */
 .case-results {
     display: grid;
@@ -1251,6 +1446,77 @@ a {
         gap: 1.5rem;
         padding: 2rem;
     }
+
+    /* Case block responsive — tablet */
+    .case-block .case-section {
+        padding: 3rem 2rem 4rem;
+    }
+
+    .case-image-1up {
+        height: 500px;
+        max-width: 100%;
+    }
+
+    .case-image-row.three-up {
+        max-width: 100%;
+    }
+
+    .case-divider {
+        width: calc(100% - 4rem);
+    }
+
+    .case-banner {
+        min-height: auto;
+        padding: 5rem 2rem;
+    }
+
+    .case-banner-title {
+        font-size: 3.5rem;
+        line-height: 1.1;
+    }
+
+    .case-banner-title-dark {
+        font-size: 3rem;
+    }
+
+    .case-banner--dark {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .case-banner-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .case-banner-icon svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .case-video-embed {
+        max-width: 100%;
+    }
+
+    .case-results-large {
+        padding: 4rem 2rem;
+        min-height: auto;
+        gap: 3rem;
+    }
+
+    .case-results-large .results-row {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .case-results-large .result-value-large {
+        font-size: 5rem;
+        letter-spacing: -3px;
+    }
+
+    .case-results-large .result-label-large {
+        font-size: 1.25rem;
+    }
 }
 
 @media (max-width: 600px) {
@@ -1408,6 +1674,84 @@ a {
 
     .case-section.outcome {
         padding: 2rem 1.25rem;
+    }
+
+    /* Case block responsive — mobile */
+    .case-block .case-section {
+        padding: 2rem 1.25rem 3.5rem;
+        max-width: 100%;
+    }
+
+    .case-image-1up {
+        height: 300px;
+        max-width: 100%;
+    }
+
+    .case-image-row.three-up {
+        max-width: 100%;
+    }
+
+    .case-divider {
+        width: calc(100% - 2.5rem);
+    }
+
+    .case-banner {
+        min-height: auto;
+        padding: 3rem 1.25rem;
+    }
+
+    .case-banner-label {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .case-banner-title {
+        font-size: 2rem;
+        line-height: 1.15;
+    }
+
+    .case-banner-title-dark {
+        font-size: 2rem;
+    }
+
+    .case-banner--dark {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 3rem 1.25rem;
+    }
+
+    .case-banner-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .case-banner-icon svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .case-video-embed {
+        max-width: 100%;
+    }
+
+    .case-results-large {
+        padding: 3rem 1.25rem;
+        min-height: auto;
+        gap: 2.5rem;
+    }
+
+    .case-results-large .results-row {
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .case-results-large .result-value-large {
+        font-size: 4rem;
+        letter-spacing: -2px;
+    }
+
+    .case-results-large .result-label-large {
+        font-size: 1.125rem;
     }
 }
 
