@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoPlay — Guided Outdoor Adventures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #0A0A0A;
+            font-family: -apple-system, 'Inter', system-ui, sans-serif;
+            color: #FAFAFA;
+        }
+
+        /* Hero */
+        .goplay-hero {
+            padding: 80px 40px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .goplay-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(124,181,24,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .goplay-hero-label {
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #7CB518;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .goplay-hero h1 {
+            font-size: clamp(64px, 12vw, 120px);
+            font-weight: 900;
+            line-height: 0.9;
+            margin: 0 0 24px;
+            letter-spacing: -3px;
+        }
+
+        .goplay-hero h1 span {
+            color: #7CB518;
+        }
+
+        .goplay-hero p {
+            font-size: 20px;
+            color: #888;
+            max-width: 480px;
+            margin: 0 auto 48px;
+            line-height: 1.5;
+        }
+
+        .goplay-hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(124,181,24,0.1);
+            border: 1px solid rgba(124,181,24,0.3);
+            border-radius: 100px;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #7CB518;
+        }
+
+        /* Grid */
+        .goplay-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .goplay-card {
+            background: #111;
+            border: 1px solid #1A1A1A;
+            border-radius: 20px;
+            padding: 28px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .goplay-card:hover {
+            background: #161616;
+            border-color: #333;
+            transform: translateY(-2px);
+        }
+
+        .goplay-card.selected {
+            transform: translateY(-2px);
+        }
+
+        .goplay-card.selected:hover {
+            /* Override hover when selected — keep selected styles */
+        }
+
+        .goplay-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            border-radius: 100px;
+            padding: 3px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .goplay-emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+            line-height: 1;
+            display: inline-block;
+        }
+
+        .goplay-card h2 {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0 0 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .goplay-tagline {
+            font-size: 13px;
+            margin: 0 0 12px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .goplay-desc {
+            font-size: 14px;
+            color: #777;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .goplay-btn {
+            display: inline-block;
+            border-radius: 100px;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s;
+            margin-top: 24px;
+        }
+
+        /* Footer */
+        .goplay-footer {
+            border-top: 1px solid #1A1A1A;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .goplay-footer p:first-child {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .goplay-footer p:nth-child(2) {
+            color: #333;
+            font-size: 13px;
+            font-style: italic;
+            margin-bottom: 32px;
+        }
+
+        .goplay-footer-btn {
+            display: inline-block;
+            background: #7CB518;
+            color: #000;
+            border-radius: 100px;
+            padding: 14px 36px;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <div class="goplay-hero">
+        <div class="goplay-hero-label">Boulder County, Colorado</div>
+        <h1>Go<span>Play</span></h1>
+        <p>Guided outdoor adventures for adults ready to remember what it feels like to be a kid outside.</p>
+        <div class="goplay-hero-cta">
+            &darr; Pick your adventure
+        </div>
+    </div>
+
+    <!-- Activity Grid -->
+    <div class="goplay-grid" id="goplay-grid"></div>
+
+    <!-- Footer -->
+    <div class="goplay-footer">
+        <p>Based in Boulder County &middot; Expert local guides &middot; Small groups only</p>
+        <p>Optional: reflective &amp; spiritual guidance available on any adventure</p>
+        <a href="mailto:jonathan.k.bowden@gmail.com?subject=GoPlay%20—%20Book%20a%20Trip" class="goplay-footer-btn">Book a trip &rarr;</a>
+    </div>
+
+    <script>
+    (function() {
+        var activities = [
+            {
+                id: "mtb",
+                emoji: "\uD83D\uDEB5",
+                title: "Mountain Biking",
+                tagline: "Shred the trails like you mean it",
+                description: "Expert-guided singletrack adventures across Boulder County\u2019s best terrain. From beginner flow trails to technical descents.",
+                color: "#2D5016",
+                accent: "#7CB518",
+                badge: "Most Popular"
+            },
+            {
+                id: "gravel",
+                emoji: "\uD83D\uDEB4",
+                title: "Gravel Biking",
+                tagline: "Miles of wide open Colorado sky",
+                description: "Guided gravel routes through rolling foothills and farm roads. Conversation flows as easy as the terrain.",
+                color: "#5C3D11",
+                accent: "#E8A838",
+                badge: null
+            },
+            {
+                id: "hiking",
+                emoji: "\uD83E\uDD7E",
+                title: "Hiking",
+                tagline: "Slow down. Look up. Go deep.",
+                description: "Trail hikes with a guide who knows every switchback \u2014 and isn\u2019t afraid to pause for the view. Optional reflective guidance available.",
+                color: "#1A3A4A",
+                accent: "#4ECDC4",
+                badge: "Most Meaningful"
+            },
+            {
+                id: "sup",
+                emoji: "\uD83C\uDFC4",
+                title: "Stand-Up Paddling",
+                tagline: "Find your balance on the water",
+                description: "Guided SUP on Boulder Reservoir and nearby lakes. Calm mornings, glassy water, and that feeling of pure play.",
+                color: "#1B3A6B",
+                accent: "#60A5FA",
+                badge: null
+            },
+            {
+                id: "backpacking",
+                emoji: "\u26FA",
+                title: "Backpacking",
+                tagline: "Maroon Bells. Diamond Lake. RMNP.",
+                description: "Multi-day wilderness adventures to Colorado\u2019s most majestic places. You carry the pack. I carry the beta.",
+                color: "#2D1B4E",
+                accent: "#A78BFA",
+                badge: "Bucket List"
+            }
+        ];
+
+        var selected = null;
+        var grid = document.getElementById('goplay-grid');
+
+        function render() {
+            grid.innerHTML = '';
+            activities.forEach(function(a) {
+                var isSelected = selected === a.id;
+                var card = document.createElement('div');
+                card.className = 'goplay-card' + (isSelected ? ' selected' : '');
+                card.style.background = isSelected
+                    ? 'linear-gradient(135deg, ' + a.color + '99, #111)'
+                    : '#111';
+                card.style.borderColor = isSelected ? a.accent + '66' : '#1A1A1A';
+
+                var html = '';
+
+                if (a.badge) {
+                    html += '<div class="goplay-badge" style="background:' + a.accent + '22;border:1px solid ' + a.accent + '44;color:' + a.accent + '">' + a.badge + '</div>';
+                }
+
+                html += '<div class="goplay-emoji">' + a.emoji + '</div>';
+                html += '<h2>' + a.title + '</h2>';
+                html += '<p class="goplay-tagline" style="color:' + a.accent + '">' + a.tagline + '</p>';
+                html += '<p class="goplay-desc">' + a.description + '</p>';
+
+                var btnBg = isSelected ? a.accent : a.accent + '22';
+                var btnColor = isSelected ? '#000' : a.accent;
+                var btnBorder = a.accent + '44';
+                var btnText = isSelected ? '\u2713 I\u2019m in' : 'Let\u2019s go \u2192';
+                html += '<span class="goplay-btn" style="background:' + btnBg + ';color:' + btnColor + ';border:1px solid ' + btnBorder + '">' + btnText + '</span>';
+
+                card.innerHTML = html;
+
+                card.addEventListener('click', function() {
+                    selected = isSelected ? null : a.id;
+                    render();
+                });
+
+                grid.appendChild(card);
+            });
+        }
+
+        render();
+    })();
+    </script>
+
+</body>
+</html>
