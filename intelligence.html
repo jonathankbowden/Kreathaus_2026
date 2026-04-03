@@ -4,10 +4,309 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intelligence — Jonathan Bowden</title>
-    <link rel="stylesheet" href="styles.css?v=4">
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-99253GG63F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-99253GG63F');
+    </script>
+    <link rel="stylesheet" href="styles.css?v=9">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Intelligence-specific styles (mirrors creators.html) ===== */
+
+        /* Remove parent constraints so breakout sections work */
+        .case-content {
+            max-width: none;
+            padding: 0;
+        }
+
+        /* Section wrapper — full-width background, centered content */
+        .case-section-wrap {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            padding-bottom: 56px;
+        }
+
+        /* 3-up images — desktop: side-by-side, mobile: carousel */
+        .case-images-3up {
+            position: relative;
+            width: 100%;
+            max-width: 1440px;
+            height: 800px;
+            overflow: hidden;
+        }
+
+        .case-images-3up .carousel-track {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .case-images-3up .carousel-slide {
+            flex: 1 1 0;
+            min-width: 0;
+            height: 100%;
+        }
+
+        .case-images-3up .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Hide dots on desktop */
+        .case-images-3up .carousel-dots {
+            display: none;
+        }
+
+        /* Full-width single image */
+        .case-image-solo {
+            width: 100%;
+            max-width: 1100px;
+            overflow: hidden;
+        }
+
+        .case-image-solo img {
+            width: 100%;
+            height: 800px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .case-image-solo.contain img {
+            object-fit: contain;
+            height: auto;
+            max-height: 800px;
+        }
+
+        .case-image-solo.blend img {
+            mix-blend-mode: multiply;
+        }
+
+        /* Divider line */
+        .case-divider {
+            width: 1256px;
+            max-width: 87%;
+            height: 1px;
+            background: #e5e7eb;
+            margin: 0 auto;
+        }
+
+        /* Large type banner (light bg) */
+        .case-banner-light {
+            width: 100%;
+            min-height: 840px;
+            background: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 24px;
+            padding: 80px 160px;
+            overflow: hidden;
+        }
+
+        .case-banner-light .banner-label {
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .case-banner-light .banner-heading {
+            font-family: 'Inter', sans-serif;
+            font-weight: 200;
+            font-size: clamp(3rem, 8.3vw, 7.5rem);
+            line-height: 1.05;
+            color: #1a1a2e;
+        }
+
+        /* Dark category banner */
+        .case-banner-dark {
+            width: 100%;
+            min-height: 840px;
+            background: #191e3b;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 80px 160px;
+            overflow: hidden;
+        }
+
+        .case-banner-dark .banner-icon {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            font-size: clamp(2.5rem, 5.5vw, 5rem);
+        }
+
+        .case-banner-dark .banner-icon img {
+            height: 0.72em;
+            width: auto;
+        }
+
+        .case-banner-dark .banner-heading {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 5.5vw, 5rem);
+            line-height: 1.45;
+            color: #fddb32;
+        }
+
+        /* Responsive — Tablet: switch 3-up to carousel */
+        @media (max-width: 900px) {
+            .case-images-3up {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .case-images-3up .carousel-track {
+                gap: 0;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                flex: 1;
+                height: auto;
+            }
+
+            .case-images-3up .carousel-track::-webkit-scrollbar {
+                display: none;
+            }
+
+            .case-images-3up .carousel-slide {
+                flex: 0 0 100%;
+                scroll-snap-align: start;
+                height: auto;
+            }
+
+            .case-images-3up .carousel-slide img {
+                height: auto;
+                aspect-ratio: 3 / 4;
+                object-position: center top;
+                border-radius: 12px;
+            }
+
+            .case-images-3up .carousel-dots {
+                display: flex;
+                position: static;
+                justify-content: center;
+                padding: 16px 0;
+                gap: 8px;
+                z-index: 10;
+            }
+
+            .case-images-3up .carousel-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                background: rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+            }
+
+            .case-images-3up .carousel-dot.active {
+                background: rgba(0, 0, 0, 0.8);
+                width: 24px;
+                border-radius: 4px;
+            }
+
+            .case-image-solo {
+                max-width: 85%;
+            }
+
+            .case-image-solo img {
+                height: 520px;
+            }
+
+            .case-banner-light,
+            .case-banner-dark {
+                padding: 60px 32px;
+                min-height: 500px;
+            }
+        }
+
+        /* Scroll-triggered fade-in */
+        .case-section-wrap,
+        .case-banner-light,
+        .case-banner-dark,
+        .diff-section {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .case-section-wrap.visible,
+        .case-banner-light.visible,
+        .case-banner-dark.visible,
+        .diff-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Impact metrics — large screens: 2x2 grid */
+        .diff-impact {
+            background: #ffffff !important;
+        }
+
+        @media (min-width: 901px) {
+            .diff-impact {
+                padding: 7.5rem 10rem;
+                border-bottom: none;
+            }
+
+            .diff-impact .diff-section-inner {
+                max-width: none;
+            }
+
+            .diff-metrics-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem 184px;
+            }
+
+            .diff-metric-number {
+                font-size: clamp(4rem, 8vw, 7rem);
+            }
+
+            .diff-metric-label {
+                font-size: 1.0625rem;
+                line-height: 1.5;
+            }
+        }
+
+        /* Responsive — Mobile */
+        @media (max-width: 600px) {
+            .case-image-solo {
+                max-width: 90%;
+            }
+
+            .case-image-solo img {
+                height: 400px;
+            }
+
+            .case-banner-light,
+            .case-banner-dark {
+                padding: 48px 20px;
+                min-height: 400px;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="nav">
@@ -19,18 +318,22 @@
         </div>
     </nav>
 
-    <header class="case-hero case-hero-centered">
+    <header class="case-hero">
         <h1 class="case-title">Intelligence</h1>
-        <p class="case-question">How do you introduce a new way of exploring, before anyone had ever heard of &lsquo;AI&rsquo;?</p>
+        <p class="case-question">Breaking brand new paradigms, before anyone had heard of ai.</p>
 
         <div class="case-meta">
             <div class="meta-item">
                 <span class="meta-label">Role</span>
-                <span class="meta-value">Principal Designer</span>
+                <span class="meta-value">Principal Designer Director</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">XD Team</span>
+                <span class="meta-value">5 Total</span>
             </div>
             <div class="meta-item">
                 <span class="meta-label">Timeline</span>
-                <span class="meta-value">2021&ndash;2022</span>
+                <span class="meta-value">2021 &ndash; 2024</span>
             </div>
             <div class="meta-item">
                 <span class="meta-label">Platform</span>
@@ -40,249 +343,254 @@
     </header>
 
     <main class="case-content">
-        <!-- 3-Up Hero Images -->
-        <section class="case-image-row three-up">
-            <div class="case-image-item">
-                <img src="images/Intel_1_1.png"
-                     alt="Intelligence — AI search mobile interface"
-                     loading="lazy">
+
+        <!-- ═══ Section 1 (#fcfcfc): Hero 3-Up + Overview ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/Intel_1_1.png" alt="Intelligence — AI search mobile interface" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/Intel_1_2.png" alt="Intelligence — AI search results" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/Intel_1_3.png" alt="Intelligence — AI personalization" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
-            <div class="case-image-item">
-                <img src="images/Intel_1_2.png"
-                     srcset="images/Intel_1_2.png 1x, images/Intel_1_2@2x.png 2x"
-                     alt="Intelligence — AI search results"
-                     loading="lazy">
-            </div>
-            <div class="case-image-item">
-                <img src="images/Intel_1_3.png"
-                     srcset="images/Intel_1_3.png 1x, images/Intel_1_3@2x.png 2x"
-                     alt="Intelligence — AI personalization"
-                     loading="lazy">
-            </div>
-        </section>
-        <div class="carousel-dots">
-            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+            <section class="case-section">
+                <h2 class="section-title">Overview</h2>
+                <p class="section-text">In 2021 we were asked to explore new interaction methods for helping customers browse and book within the Expedia app&mdash;months before ChatGPT made conversational AI mainstream.</p>
+                <p class="section-text">The team prioritized the highest-impact implementations, covering two new interaction types: natural-language text entry and voice.</p>
+            </section>
         </div>
 
-        <!-- Overview -->
-        <section class="case-section">
-            <h2 class="section-title">Overview</h2>
-            <p class="section-text">In 2021 we were asked to explore new interaction methods for helping customers browse and book within the Expedia app&mdash;months before ChatGPT made conversational AI mainstream. The team prioritized the highest-impact implementations, covering two new interaction types: natural-language text entry and voice.</p>
-        </section>
-
-        <!-- First Explorations -->
-        <section class="case-section">
-            <h2 class="section-title">First Explorations</h2>
-            <p class="section-text">Our earliest concepts pushed boundaries&mdash;hero sliders that surfaced AI recommendations on the home screen, full takeovers that transformed the browse experience, and broad text-entry fields that invited natural-language search for the first time.</p>
-        </section>
-
-        <!-- First Explorations 3-up -->
-        <section class="case-image-row three-up">
-            <div class="case-image-item">
-                <img src="images/intelligence/hero_1.png"
-                     srcset="images/intelligence/hero_1.png 1x, images/intelligence/hero_1@2x.png 2x"
-                     alt="First explorations — hero slider"
-                     loading="lazy">
+        <!-- ═══ Section 2 (white): First Explorations 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/intelligence/hero_1.png" srcset="images/intelligence/hero_1.png 1x, images/intelligence/hero_1@2x.png 2x" alt="First explorations — hero slider" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/hero_2.png" srcset="images/intelligence/hero_2.png 1x, images/intelligence/hero_2@2x.png 2x" alt="First explorations — home takeover" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/hero_3.png" srcset="images/intelligence/hero_3.png 1x, images/intelligence/hero_3@2x.png 2x" alt="First explorations — broad text entry" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/hero_2.png"
-                     srcset="images/intelligence/hero_2.png 1x, images/intelligence/hero_2@2x.png 2x"
-                     alt="First explorations — home takeover"
-                     loading="lazy">
-            </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/hero_3.png"
-                     srcset="images/intelligence/hero_3.png 1x, images/intelligence/hero_3@2x.png 2x"
-                     alt="First explorations — broad text entry"
-                     loading="lazy">
-            </div>
-        </section>
-        <div class="carousel-dots">
-            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">First Explorations</h2>
+                <p class="section-text">Our earliest concepts pushed boundaries&mdash;hero sliders that surfaced AI recommendations on the home screen, full takeovers that transformed the browse experience, and broad text-entry fields that invited natural-language search for the first time.</p>
+            </section>
         </div>
 
-        <!-- Refined Entry Points -->
-        <section class="case-section">
-            <h2 class="section-title">Refined Entry Points</h2>
-            <p class="section-text">As the work matured we explored how intelligence could integrate more seamlessly&mdash;lodging-search takeovers that felt native to the existing flow, quick-link conversation starters that lowered the barrier to entry, and contextual prompts that appeared at exactly the right moment.</p>
-        </section>
-
-        <!-- Entry Points 3-up -->
-        <section class="case-image-row three-up">
-            <div class="case-image-item">
-                <img src="images/intelligence/01_1.png"
-                     srcset="images/intelligence/01_1.png 1x, images/intelligence/01_1@2x.png 2x"
-                     alt="Refined entry points — lodging search takeover"
-                     loading="lazy">
+        <!-- ═══ Section 3 (#fcfcfc): Refined Entry Points 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/intelligence/01_1.png" srcset="images/intelligence/01_1.png 1x, images/intelligence/01_1@2x.png 2x" alt="Refined entry points — lodging search takeover" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/01_2.png" srcset="images/intelligence/01_2.png 1x, images/intelligence/01_2@2x.png 2x" alt="Refined entry points — quick links" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/01_3.png" srcset="images/intelligence/01_3.png 1x, images/intelligence/01_3@2x.png 2x" alt="Refined entry points — conversation starters" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/01_2.png"
-                     srcset="images/intelligence/01_2.png 1x, images/intelligence/01_2@2x.png 2x"
-                     alt="Refined entry points — quick links"
-                     loading="lazy">
-            </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/01_3.png"
-                     srcset="images/intelligence/01_3.png 1x, images/intelligence/01_3@2x.png 2x"
-                     alt="Refined entry points — conversation starters"
-                     loading="lazy">
-            </div>
-        </section>
-        <div class="carousel-dots">
-            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">Refined Entry Points</h2>
+                <p class="section-text">As the work matured we explored how intelligence could integrate more seamlessly&mdash;lodging-search takeovers that felt native to the existing flow, quick-link conversation starters that lowered the barrier to entry, and contextual prompts that appeared at exactly the right moment.</p>
+            </section>
         </div>
 
-        <!-- Voice Interactions -->
-        <section class="case-section">
-            <h2 class="section-title">Voice Interactions</h2>
-            <p class="section-text">Voice wasn&rsquo;t just another input method&mdash;it was woven throughout the experience. From searching amenities by simply asking, to getting tailored recommendations during the booking flow, voice became a thread connecting every touchpoint.</p>
-        </section>
-
-        <!-- Voice 3-up -->
-        <section class="case-image-row three-up">
-            <div class="case-image-item">
-                <img src="images/intelligence/02_1.png"
-                     srcset="images/intelligence/02_1.png 1x, images/intelligence/02_1@2x.png 2x"
-                     alt="Voice interactions — experience selection"
-                     loading="lazy">
-            </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/02_2.png"
-                     srcset="images/intelligence/02_2.png 1x, images/intelligence/02_2@2x.png 2x"
-                     alt="Voice interactions — amenities search"
-                     loading="lazy">
-            </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/02_3.png"
-                     srcset="images/intelligence/02_3.png 1x, images/intelligence/02_3@2x.png 2x"
-                     alt="Voice interactions — tailored results"
-                     loading="lazy">
-            </div>
-        </section>
-        <div class="carousel-dots">
-            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+        <!-- ═══ Interaction Banner ═══ -->
+        <div class="case-banner-light">
+            <span class="banner-label">New Interaction Paradigms</span>
+            <h2 class="banner-heading">What happens when you can just ask?</h2>
         </div>
 
-        <!-- Tailored Discovery -->
-        <section class="case-section">
-            <h2 class="section-title">Tailored Discovery</h2>
-            <p class="section-text">The real magic happened when AI met content. Capsule-style browsing for quick inspiration, immersive destination guides that felt like editorial, and suggested itineraries that adapted to each traveler&rsquo;s preferences&mdash;personalization that felt personal, not algorithmic.</p>
-        </section>
-
-        <!-- Tailored Discovery 3-up -->
-        <section class="case-image-row three-up">
-            <div class="case-image-item">
-                <img src="images/intelligence/03_1.png"
-                     srcset="images/intelligence/03_1.png 1x, images/intelligence/03_1@2x.png 2x"
-                     alt="Tailored discovery — capsule browsing"
-                     loading="lazy">
+        <!-- ═══ Section 4 (white): Voice Interactions 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/intelligence/02_1.png" srcset="images/intelligence/02_1.png 1x, images/intelligence/02_1@2x.png 2x" alt="Voice interactions — experience selection" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/02_2.png" srcset="images/intelligence/02_2.png 1x, images/intelligence/02_2@2x.png 2x" alt="Voice interactions — amenities search" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/02_3.png" srcset="images/intelligence/02_3.png 1x, images/intelligence/02_3@2x.png 2x" alt="Voice interactions — tailored results" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/03_2.png"
-                     srcset="images/intelligence/03_2.png 1x, images/intelligence/03_2@2x.png 2x"
-                     alt="Tailored discovery — immersive guides"
-                     loading="lazy">
-            </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/03_3.png"
-                     srcset="images/intelligence/03_3.png 1x, images/intelligence/03_3@2x.png 2x"
-                     alt="Tailored discovery — suggested itineraries"
-                     loading="lazy">
-            </div>
-        </section>
-        <div class="carousel-dots">
-            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">Voice Interactions</h2>
+                <p class="section-text">Voice wasn&rsquo;t just another input method&mdash;it was woven throughout the experience. From searching amenities by simply asking, to getting tailored recommendations during the booking flow, voice became a thread connecting every touchpoint.</p>
+            </section>
         </div>
 
-        <!-- Dark Mode -->
-        <section class="case-section">
-            <h2 class="section-title">Dark Mode</h2>
-            <p class="section-text">A fully realized dark mode that went beyond color inversion. We used elevation, transparency, and subtle gradients to create depth&mdash;turning the late-night travel browsing session into something atmospheric and inviting.</p>
-        </section>
-
-        <!-- Dark Mode 3-up -->
-        <section class="case-image-row three-up">
-            <div class="case-image-item">
-                <img src="images/intelligence/06_1.png"
-                     srcset="images/intelligence/06_1.png 1x, images/intelligence/06_1@2x.png 2x"
-                     alt="Dark mode — explore screen"
-                     loading="lazy">
+        <!-- ═══ Section 5 (#fcfcfc): Tailored Discovery 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/intelligence/03_1.png" srcset="images/intelligence/03_1.png 1x, images/intelligence/03_1@2x.png 2x" alt="Tailored discovery — capsule browsing" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/03_2.png" srcset="images/intelligence/03_2.png 1x, images/intelligence/03_2@2x.png 2x" alt="Tailored discovery — immersive guides" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/03_3.png" srcset="images/intelligence/03_3.png 1x, images/intelligence/03_3@2x.png 2x" alt="Tailored discovery — suggested itineraries" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/06_2.png"
-                     srcset="images/intelligence/06_2.png 1x, images/intelligence/06_2@2x.png 2x"
-                     alt="Dark mode — traveler selection"
-                     loading="lazy">
-            </div>
-            <div class="case-image-item">
-                <img src="images/intelligence/06_3.png"
-                     srcset="images/intelligence/06_3.png 1x, images/intelligence/06_3@2x.png 2x"
-                     alt="Dark mode — finding results"
-                     loading="lazy">
-            </div>
-        </section>
-        <div class="carousel-dots">
-            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">Tailored Discovery</h2>
+                <p class="section-text">The real magic happened when AI met content. Capsule-style browsing for quick inspiration, immersive destination guides that felt like editorial, and suggested itineraries that adapted to each traveler&rsquo;s preferences&mdash;personalization that felt personal, not algorithmic.</p>
+            </section>
         </div>
 
-        <!-- Outcome -->
-        <section class="case-section outcome">
-            <h2 class="section-title">Outcome</h2>
-            <p class="section-text large">We built the future before the future arrived.</p>
-            <p class="section-text">What started as exploratory research became the foundation for Expedia&rsquo;s current AI-powered features. The patterns, components, and interaction models we established in 2021&ndash;2022 are now integrated across the platform&mdash;years before the industry caught up.</p>
+        <!-- ═══ Section 6 (white): Dark Mode 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/intelligence/06_1.png" srcset="images/intelligence/06_1.png 1x, images/intelligence/06_1@2x.png 2x" alt="Dark mode — explore screen" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/06_2.png" srcset="images/intelligence/06_2.png 1x, images/intelligence/06_2@2x.png 2x" alt="Dark mode — traveler selection" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/intelligence/06_3.png" srcset="images/intelligence/06_3.png 1x, images/intelligence/06_3@2x.png 2x" alt="Dark mode — finding results" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">Dark Mode</h2>
+                <p class="section-text">A fully realized dark mode that went beyond color inversion. We used elevation, transparency, and subtle gradients to create depth&mdash;turning the late-night travel browsing session into something atmospheric and inviting.</p>
+            </section>
+        </div>
+
+        <!-- ═══ Impact ═══ -->
+        <section class="diff-section diff-impact">
+            <div class="diff-section-inner">
+                <span class="diff-label">IMPACT</span>
+                <h2 class="diff-heading">Measurable results</h2>
+                <div class="diff-metrics-grid">
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">0 &rarr; 1</span>
+                        <span class="diff-metric-label">AI-powered travel search built from scratch, months before ChatGPT launched</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">Foundation</span>
+                        <span class="diff-metric-label">This work is now the foundation of AI experiences across Expedia today</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">2</span>
+                        <span class="diff-metric-label">New interaction paradigms shipped: natural-language text and voice</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">5</span>
+                        <span class="diff-metric-label">Person design team leading vision, prototyping, and production</span>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- Next Project -->
-    <section class="next-project">
-        <a href="creators.html" class="next-project-link">
-            <span class="next-label">Next Project</span>
-            <span class="next-title">Creators →</span>
-        </a>
+    <!-- Footer -->
+    <section id="contact" class="case-footer">
+        <div class="case-footer-left">
+            <span class="contact-label">COLLABORATE</span>
+            <h2 class="contact-title">Might we chat?</h2>
+            <div class="contact-links">
+                <a href="mailto:jonathan.k.bowden@gmail.com" class="btn">Say Hello</a>
+                <a href="https://www.linkedin.com/in/jonathankbowden/" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+        <div class="case-footer-right">
+            <span class="explore-label">EXPLORE MORE</span>
+            <a href="creators.html" class="explore-title">Creators &rarr;</a>
+        </div>
     </section>
 
-    <footer class="footer">
-        <p>&copy; 2026 Jonathan Bowden</p>
-    </footer>
-
     <script>
-    (function() {
-        var carousels = document.querySelectorAll('.case-image-row.three-up');
-        carousels.forEach(function(carousel) {
-            var dotsContainer = carousel.nextElementSibling;
-            if (!dotsContainer || !dotsContainer.classList.contains('carousel-dots')) return;
-            var dots = dotsContainer.querySelectorAll('.carousel-dot');
-            if (!dots.length) return;
+    /* Carousel — same as creators.html */
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-carousel]').forEach(carousel => {
+            const track = carousel.querySelector('.carousel-track');
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+            let currentIndex = 0;
 
-            carousel.addEventListener('scroll', function() {
-                var scrollLeft = carousel.scrollLeft;
-                var width = carousel.offsetWidth;
-                var index = Math.round(scrollLeft / width);
-                dots.forEach(function(dot, i) {
-                    dot.classList.toggle('active', i === index);
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    goToSlide(i);
                 });
+                dotsContainer.appendChild(dot);
             });
 
-            dots.forEach(function(dot) {
-                dot.addEventListener('click', function() {
-                    var index = parseInt(dot.getAttribute('data-index'));
-                    carousel.scrollTo({ left: index * carousel.offsetWidth, behavior: 'smooth' });
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+            function goToSlide(index) {
+                currentIndex = index;
+                track.scrollTo({ left: index * track.offsetWidth, behavior: 'smooth' });
+                updateDots();
+            }
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
                 });
+            }
+
+            let scrollTimeout;
+            track.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    const scrollLeft = track.scrollLeft;
+                    const slideWidth = track.offsetWidth;
+                    const newIndex = Math.round(scrollLeft / slideWidth);
+                    if (newIndex !== currentIndex && newIndex >= 0 && newIndex < slides.length) {
+                        currentIndex = newIndex;
+                        updateDots();
+                    }
+                }, 50);
             });
+
+            let autoPlay = null;
+            let isHovered = false;
+
+            function startAutoPlay() {
+                if (autoPlay || isHovered) return;
+                autoPlay = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    goToSlide(currentIndex);
+                }, 4000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlay);
+                autoPlay = null;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) startAutoPlay();
+                    else stopAutoPlay();
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(carousel);
+
+            carousel.addEventListener('mouseenter', () => { isHovered = true; stopAutoPlay(); });
+            carousel.addEventListener('mouseleave', () => { isHovered = false; startAutoPlay(); });
+            carousel.addEventListener('touchstart', () => { isHovered = true; stopAutoPlay(); }, { passive: true });
         });
+    });
+    </script>
+    <script>
+    /* Scroll fade-in */
+    (function() {
+        const targets = document.querySelectorAll('.case-section-wrap, .case-banner-light, .case-banner-dark, .diff-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        targets.forEach(el => observer.observe(el));
     })();
     </script>
+    <script src="analytics.js"></script>
 </body>
 </html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Option 1 -- 3D Phone Carousel</title>
+    <link rel="stylesheet" href="styles.css?v=11">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hero-reel {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 0 3rem;
+        }
+
+        .hero-reel-text {
+            position: relative;
+            z-index: 10;
+            max-width: 620px;
+            padding-left: 2rem;
+        }
+
+        .hero-reel-text .hero-label {
+            font-size: 1.125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-navy);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .hero-reel-text .hero-title {
+            font-size: clamp(2rem, 4vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            color: var(--color-navy);
+        }
+
+        /* 3D Carousel */
+        .phone-carousel-wrapper {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55%;
+            height: 80vh;
+            perspective: 1200px;
+            z-index: 5;
+        }
+
+        .phone-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: carouselSpin 30s linear infinite;
+        }
+
+        @keyframes carouselSpin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(-360deg); }
+        }
+
+        .phone-carousel:hover {
+            animation-play-state: paused;
+        }
+
+        .phone-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 220px;
+            margin-left: -110px;
+            margin-top: -240px;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+
+        .phone-frame {
+            position: relative;
+            width: 220px;
+            height: 476px;
+            background: #1e1e20;
+            border-radius: 32px;
+            padding: 8px;
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.15),
+                0 10px 20px rgba(0,0,0,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .phone-screen video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Dynamic Island */
+        .phone-notch {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 64px;
+            height: 20px;
+            background: #0f0f0f;
+            border-radius: 10px;
+            z-index: 2;
+        }
+
+        /* Fade edges */
+        .phone-carousel-wrapper::before,
+        .phone-carousel-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 120px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .phone-carousel-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--color-surface, #fdfcfa), transparent);
+        }
+        .phone-carousel-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--color-surface, #fdfcfa), transparent);
+        }
+
+        @media (max-width: 900px) {
+            .hero-reel {
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                min-height: auto;
+            }
+            .hero-reel-text {
+                padding-left: 0;
+                max-width: none;
+                margin-bottom: 2rem;
+            }
+            .phone-carousel-wrapper {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo active">Jonathan Bowden</a>
+        <div class="nav-links">
+            <a href="play.html" class="nav-link">PLAY</a>
+            <a href="diff.html" class="nav-link">DIFF</a>
+            <a href="#contact" class="nav-link">BUILD</a>
+        </div>
+    </nav>
+
+    <section class="hero-reel">
+        <div class="hero-reel-text">
+            <span class="hero-label">PRINCIPAL DESIGN DIRECTOR</span>
+            <h1 class="hero-title">Building 0&rarr;1 experiences @ Expedia via OpenAI, Cond&eacute; Nast, Alexa+ &amp; more</h1>
+        </div>
+
+        <div class="phone-carousel-wrapper">
+            <div class="phone-carousel" id="phoneCarousel">
+                <!-- 6 phones arranged in a circle -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+    (function() {
+        var videos = [
+            'images/creators_video_1@1x.mp4',
+            'images/partners_video_1@1x.mp4',
+            'images/intel_video_1@1x.mp4',
+            'images/flo_video_1@1x.mp4',
+            'images/partners_video_2@1x.mp4',
+            'images/creators_video_2@1x.mp4'
+        ];
+
+        var carousel = document.getElementById('phoneCarousel');
+        var count = videos.length;
+        var radius = 400;
+
+        videos.forEach(function(src, i) {
+            var angle = (360 / count) * i;
+            var item = document.createElement('div');
+            item.className = 'phone-item';
+            item.style.transform = 'rotateY(' + angle + 'deg) translateZ(' + radius + 'px)';
+
+            item.innerHTML =
+                '<div class="phone-frame">' +
+                    '<div class="phone-notch"></div>' +
+                    '<div class="phone-screen">' +
+                        '<video muted loop playsinline autoplay preload="auto">' +
+                            '<source src="' + src + '" type="video/mp4">' +
+                        '</video>' +
+                    '</div>' +
+                '</div>';
+
+            carousel.appendChild(item);
+        });
+
+        // Start all videos
+        setTimeout(function() {
+            carousel.querySelectorAll('video').forEach(function(v) {
+                v.play().catch(function(){});
+            });
+        }, 500);
+    })();
+    </script>
+</body>
+</html>

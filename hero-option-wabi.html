@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Alt 2 — Wabi Sabi</title>
+    <link rel="stylesheet" href="styles.css?v=12">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* ---- Nav override ---- */
+        .nav {
+            background: rgba(243, 238, 228, 0.91);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(120, 100, 72, 0.08);
+        }
+        .nav-logo {
+            color: #2c2418;
+        }
+        .nav-logo.active::before {
+            background: rgba(44, 36, 24, 0.35);
+        }
+        .nav-link {
+            color: rgba(44, 36, 24, 0.38);
+            font-size: 0.6875rem;
+            letter-spacing: 2px;
+        }
+        .nav-link:hover {
+            color: rgba(44, 36, 24, 0.8);
+        }
+
+        /* ---- Hero override ---- */
+        .hero.hero-split {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            background-color: #f3ede4;
+        }
+
+        /* Linen texture layer — the wabi-sabi photo as a very faint wash */
+        .hero.hero-split::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('images/shaped_wabi_sabi.jpeg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.055;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Dot grid overlay — radially fades from center, barely there */
+        .hero.hero-split::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(
+                circle,
+                rgba(90, 72, 48, 0.18) 1px,
+                transparent 1px
+            );
+            background-size: 22px 22px;
+            -webkit-mask-image: radial-gradient(
+                ellipse 75% 65% at 38% 50%,
+                rgba(0,0,0,0.55) 0%,
+                rgba(0,0,0,0.18) 55%,
+                transparent 80%
+            );
+            mask-image: radial-gradient(
+                ellipse 75% 65% at 38% 50%,
+                rgba(0,0,0,0.55) 0%,
+                rgba(0,0,0,0.18) 55%,
+                transparent 80%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-text,
+        .hero-reel {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .hero-label {
+            color: rgba(44, 36, 24, 0.38);
+        }
+
+        .hero-title {
+            color: #1e1810;
+        }
+
+        .hero-scroll-hint {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-scroll-label,
+        .hero-scroll-arrow {
+            color: rgba(44, 36, 24, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo active">Jonathan Bowden</a>
+        <div class="nav-links">
+            <a href="play.html" class="nav-link">PLAY</a>
+            <a href="diff.html" class="nav-link">DIFF</a>
+            <a href="#contact" class="nav-link">BUILD</a>
+        </div>
+    </nav>
+
+    <section class="hero hero-left hero-split">
+        <div class="hero-text">
+            <span class="hero-label">PRINCIPAL DESIGN DIRECTOR</span>
+            <h1 class="hero-title">Building 0&rarr;1 @ Expedia via OpenAI, Cond&eacute; Nast &amp; Alexa+</h1>
+        </div>
+        <div class="hero-reel">
+            <video class="hero-reel-video" autoplay muted loop playsinline>
+                <source src="images/hero-reel.webm" type="video/webm">
+                <source src="images/hero-reel.mp4?v=5" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-scroll-hint">
+            <span class="hero-scroll-arrow">&#8964;</span>
+            <span class="hero-scroll-label">Swipe to explore</span>
+            <span class="hero-scroll-arrow">&#8964;</span>
+        </div>
+    </section>
+</body>
+</html>

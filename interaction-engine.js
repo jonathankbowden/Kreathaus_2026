@@ -103,6 +103,17 @@ document.addEventListener('DOMContentLoaded', () => {
             currentIndex = index;
             track.scrollTo({ left: index * track.offsetWidth, behavior: 'smooth' });
             updateDots();
+            // Pause all videos, play only the active one
+            slides.forEach((slide, i) => {
+                const vid = slide.querySelector('video');
+                if (!vid) return;
+                if (i === index) {
+                    vid.currentTime = 0;
+                    vid.play().catch(() => {});
+                } else {
+                    vid.pause();
+                }
+            });
         }
 
         function updateDots() {
@@ -122,6 +133,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (newIndex !== currentIndex && newIndex >= 0 && newIndex < slides.length) {
                     currentIndex = newIndex;
                     updateDots();
+                    // Pause/play videos on manual scroll
+                    slides.forEach((slide, i) => {
+                        const vid = slide.querySelector('video');
+                        if (!vid) return;
+                        if (i === currentIndex) {
+                            vid.currentTime = 0;
+                            vid.play().catch(() => {});
+                        } else {
+                            vid.pause();
+                        }
+                    });
                 }
             }, 50);
         });
@@ -130,16 +152,31 @@ document.addEventListener('DOMContentLoaded', () => {
         let autoPlay = null;
         let isHovered = false;
 
-        function startAutoPlay() {
-            if (autoPlay || isHovered) return;
-            autoPlay = setInterval(() => {
+        function getSlideDelay(index) {
+            const video = slides[index].querySelector('video');
+            if (video && video.duration && isFinite(video.duration)) {
+                return video.duration * 1000 + 1000;
+            }
+            return 4000;
+        }
+
+        function scheduleNext() {
+            if (isHovered) return;
+            const delay = getSlideDelay(currentIndex);
+            autoPlay = setTimeout(() => {
                 currentIndex = (currentIndex + 1) % slides.length;
                 goToSlide(currentIndex);
-            }, 4000);
+                scheduleNext();
+            }, delay);
+        }
+
+        function startAutoPlay() {
+            if (autoPlay || isHovered) return;
+            scheduleNext();
         }
 
         function stopAutoPlay() {
-            clearInterval(autoPlay);
+            clearTimeout(autoPlay);
             autoPlay = null;
         }
 

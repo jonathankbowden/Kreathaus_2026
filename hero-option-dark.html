@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Alt 1 — Dark Grid</title>
+    <link rel="stylesheet" href="styles.css?v=12">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* ---- Nav override ---- */
+        .nav {
+            background: rgba(9, 12, 22, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+        }
+        .nav-logo {
+            color: rgba(255, 255, 255, 0.88);
+        }
+        .nav-logo.active::before {
+            background: rgba(255, 255, 255, 0.55);
+        }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 0.6875rem;
+            letter-spacing: 2px;
+        }
+        .nav-link:hover {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* ---- Hero override ---- */
+        .hero.hero-split {
+            background: linear-gradient(
+                to bottom,
+                #090c16 0%,
+                #0c1020 55%,
+                #101828 75%,
+                #f8f9fa 100%
+            );
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        /* Grid paper layer — fades top to bottom */
+        .hero.hero-split::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.032) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.032) 1px, transparent 1px);
+            background-size: 36px 36px;
+            background-position: center center;
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.9) 0%,
+                rgba(0,0,0,0.6) 45%,
+                rgba(0,0,0,0.1) 72%,
+                transparent 88%
+            );
+            mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.9) 0%,
+                rgba(0,0,0,0.6) 45%,
+                rgba(0,0,0,0.1) 72%,
+                transparent 88%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Very faint radial glow behind text */
+        .hero.hero-split::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 12%;
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(ellipse at center, rgba(0, 53, 95, 0.22) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-text,
+        .hero-reel {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        .hero-label {
+            color: rgba(255, 255, 255, 0.38);
+        }
+
+        .hero-title {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Scroll hint in dark context */
+        .hero-scroll-hint {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-scroll-label,
+        .hero-scroll-arrow {
+            color: rgba(255, 255, 255, 0.35);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo active">Jonathan Bowden</a>
+        <div class="nav-links">
+            <a href="play.html" class="nav-link">PLAY</a>
+            <a href="diff.html" class="nav-link">DIFF</a>
+            <a href="#contact" class="nav-link">BUILD</a>
+        </div>
+    </nav>
+
+    <section class="hero hero-left hero-split">
+        <div class="hero-text">
+            <span class="hero-label">PRINCIPAL DESIGN DIRECTOR</span>
+            <h1 class="hero-title">Building 0&rarr;1 @ Expedia via OpenAI, Cond&eacute; Nast &amp; Alexa+</h1>
+        </div>
+        <div class="hero-reel">
+            <video class="hero-reel-video" autoplay muted loop playsinline>
+                <source src="images/hero-reel.webm" type="video/webm">
+                <source src="images/hero-reel.mp4?v=5" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-scroll-hint">
+            <span class="hero-scroll-arrow">&#8964;</span>
+            <span class="hero-scroll-label">Swipe to explore</span>
+            <span class="hero-scroll-arrow">&#8964;</span>
+        </div>
+    </section>
+</body>
+</html>

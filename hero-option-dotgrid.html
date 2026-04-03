@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Alt — Dot Grid</title>
+    <link rel="stylesheet" href="styles.css?v=12">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* ---- Nav override ---- */
+        .nav {
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .nav-logo {
+            color: rgba(255, 255, 255, 0.88);
+        }
+        .nav-logo.active::before {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.6875rem;
+            letter-spacing: 2px;
+        }
+        .nav-link:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ---- Hero override ---- */
+        .hero.hero-split {
+            background: #000000;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        /* Super subtle light gradient angled to top-left */
+        .hero.hero-split::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                315deg,
+                transparent 0%,
+                transparent 40%,
+                rgba(255, 255, 255, 0.022) 65%,
+                rgba(255, 255, 255, 0.04) 85%,
+                rgba(255, 255, 255, 0.05) 100%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Dot grid pattern */
+        .hero.hero-split::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(
+                circle,
+                rgba(255, 255, 255, 0.045) 1px,
+                transparent 1px
+            );
+            background-size: 28px 28px;
+            background-position: 14px 14px;
+            -webkit-mask-image: linear-gradient(
+                315deg,
+                rgba(0,0,0,0.7) 0%,
+                rgba(0,0,0,0.5) 30%,
+                rgba(0,0,0,0.25) 60%,
+                rgba(0,0,0,0.08) 80%,
+                transparent 100%
+            );
+            mask-image: linear-gradient(
+                315deg,
+                rgba(0,0,0,0.7) 0%,
+                rgba(0,0,0,0.5) 30%,
+                rgba(0,0,0,0.25) 60%,
+                rgba(0,0,0,0.08) 80%,
+                transparent 100%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-text,
+        .hero-reel {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .hero-title {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Scroll hint in dark context */
+        .hero-scroll-hint {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-scroll-label,
+        .hero-scroll-arrow {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ---- Logo bar ---- */
+        .logo-bar {
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2.5rem 6rem;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        .logo-bar-label {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.22);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .logo-bar-logos {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex: 1;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .logo-bar-logos span {
+            font-family: var(--font-family);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.25);
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+            transition: color 0.3s ease;
+            flex-shrink: 0;
+        }
+        .logo-bar-logos span:hover {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 900px) {
+            .logo-bar {
+                padding: 2rem 2rem;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .logo-bar-logos {
+                justify-content: center;
+                gap: 1.5rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo active">Jonathan Bowden</a>
+        <div class="nav-links">
+            <a href="play.html" class="nav-link">PLAY</a>
+            <a href="diff.html" class="nav-link">DIFF</a>
+            <a href="#contact" class="nav-link">BUILD</a>
+        </div>
+    </nav>
+
+    <section class="hero hero-left hero-split">
+        <div class="hero-text">
+            <span class="hero-label">PRINCIPAL DESIGN DIRECTOR</span>
+            <h1 class="hero-title">Building 0&rarr;1 @ Expedia via OpenAI, Cond&eacute; Nast &amp; Alexa+</h1>
+        </div>
+        <div class="hero-reel hero-reel-wiggle">
+            <video class="hero-reel-video" autoplay muted loop playsinline>
+                <source src="images/hero-reel.webm" type="video/webm">
+                <source src="images/hero-reel.mp4?v=5" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-scroll-hint">
+            <span class="hero-scroll-arrow">&#8964;</span>
+            <span class="hero-scroll-label">Swipe to explore</span>
+            <span class="hero-scroll-arrow">&#8964;</span>
+        </div>
+    </section>
+
+    <!-- Logo bar -->
+    <section class="logo-bar">
+        <span class="logo-bar-label">Shipped with</span>
+        <div class="logo-bar-logos">
+            <span>Expedia</span>
+            <span>OpenAI</span>
+            <span>Cond&eacute; Nast</span>
+            <span>Vrbo</span>
+            <span>Netflix</span>
+            <span>Nike</span>
+            <span>Welldoc</span>
+            <span>Amazon Alexa</span>
+        </div>
+    </section>
+</body>
+</html>
