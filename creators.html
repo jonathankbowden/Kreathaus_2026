@@ -4,10 +4,366 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creators — Jonathan Bowden</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-99253GG63F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-99253GG63F');
+    </script>
+    <link rel="stylesheet" href="styles.css?v=9">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Creators-specific styles ===== */
+
+        /* Remove parent constraints so breakout sections work */
+        .case-content {
+            max-width: none;
+            padding: 0;
+        }
+
+        /* Section wrapper — full-width background, centered content */
+        .case-section-wrap {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            padding-bottom: 56px;
+        }
+
+        /* 3-up images — desktop: side-by-side, mobile: carousel */
+        .case-images-3up {
+            position: relative;
+            width: 100%;
+            max-width: 1440px;
+            height: 800px;
+            overflow: hidden;
+        }
+
+        .case-images-3up .carousel-track {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .case-images-3up .carousel-slide {
+            flex: 1 1 0;
+            min-width: 0;
+            height: 100%;
+        }
+
+        .case-images-3up .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Hide dots on desktop */
+        .case-images-3up .carousel-dots {
+            display: none;
+        }
+
+        /* Full-width single image */
+        .case-image-solo {
+            width: 100%;
+            max-width: 1100px;
+            overflow: hidden;
+        }
+
+        .case-image-solo img {
+            width: 100%;
+            height: 800px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .case-image-solo.contain img {
+            object-fit: contain;
+            height: auto;
+            max-height: 800px;
+        }
+
+        .case-image-solo.blend img {
+            mix-blend-mode: multiply;
+        }
+
+        /* Responsive video embed */
+        .case-video-embed {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            padding-bottom: 42.5%;  /* 16:9 constrained to max-width */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .case-video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Overlay images (two images stacked) */
+        .case-image-overlay {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            overflow: hidden;
+        }
+
+        .case-image-overlay img {
+            width: 100%;
+            display: block;
+        }
+
+        .case-image-overlay img:first-child {
+            mix-blend-mode: multiply;
+        }
+
+        .case-image-overlay img:last-child {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Divider line */
+        .case-divider {
+            width: 1256px;
+            max-width: 87%;
+            height: 1px;
+            background: #e5e7eb;
+            margin: 0 auto;
+        }
+
+        /* Large type banner (light bg) */
+        .case-banner-light {
+            width: 100%;
+            min-height: 840px;
+            background: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 24px;
+            padding: 80px 160px;
+            overflow: hidden;
+        }
+
+        .case-banner-light .banner-label {
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .case-banner-light .banner-heading {
+            font-family: 'Inter', sans-serif;
+            font-weight: 200;
+            font-size: clamp(3rem, 8.3vw, 7.5rem);
+            line-height: 1.05;
+            color: #1a1a2e;
+        }
+
+        /* Dark category banner */
+        .case-banner-dark {
+            width: 100%;
+            min-height: 840px;
+            background: #191e3b;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 80px 160px;
+            overflow: hidden;
+        }
+
+        .case-banner-dark .banner-icon {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            font-size: clamp(2.5rem, 5.5vw, 5rem);
+        }
+
+        .case-banner-dark .banner-icon img {
+            height: 0.72em;
+            width: auto;
+        }
+
+        .case-banner-dark .banner-heading {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 5.5vw, 5rem);
+            line-height: 1.45;
+            color: #fddb32;
+        }
+
+        /* Responsive — Tablet: switch 3-up to carousel */
+        @media (max-width: 900px) {
+            .case-images-3up {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .case-images-3up .carousel-track {
+                gap: 0;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                flex: 1;
+                height: auto;
+            }
+
+            .case-images-3up .carousel-track::-webkit-scrollbar {
+                display: none;
+            }
+
+            .case-images-3up .carousel-slide {
+                flex: 0 0 100%;
+                scroll-snap-align: start;
+                height: auto;
+            }
+
+            .case-images-3up .carousel-slide img {
+                height: auto;
+                aspect-ratio: 3 / 4;
+                object-position: center top;
+                border-radius: 12px;
+            }
+
+            .case-images-3up .carousel-dots {
+                display: flex;
+                position: static;
+                justify-content: center;
+                padding: 16px 0;
+                gap: 8px;
+                z-index: 10;
+            }
+
+            .case-images-3up .carousel-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                background: rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+            }
+
+            .case-images-3up .carousel-dot.active {
+                background: rgba(0, 0, 0, 0.8);
+                width: 24px;
+                border-radius: 4px;
+            }
+
+            .case-image-solo {
+                max-width: 85%;
+            }
+
+            .case-image-solo img {
+                height: 520px;
+            }
+
+            .case-image-overlay {
+                max-width: 85%;
+            }
+
+            .case-video-embed {
+                padding-bottom: 56.25%;
+            }
+
+            .case-banner-light,
+            .case-banner-dark {
+                padding: 60px 32px;
+                min-height: 500px;
+            }
+        }
+
+        /* Scroll-triggered fade-in */
+        .case-section-wrap,
+        .case-banner-light,
+        .case-banner-dark,
+        .diff-section {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .case-section-wrap.visible,
+        .case-banner-light.visible,
+        .case-banner-dark.visible,
+        .diff-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Impact metrics — large screens: 2×2 grid, larger type, aligned to footer */
+        .diff-impact {
+            background: #ffffff !important;
+        }
+
+        @media (min-width: 901px) {
+            .diff-impact {
+                padding: 7.5rem 10rem;
+                border-bottom: none;
+            }
+
+            .diff-impact .diff-section-inner {
+                max-width: none;
+            }
+
+            .diff-metrics-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem 184px;
+            }
+
+            .diff-metric-number {
+                font-size: clamp(4rem, 8vw, 7rem);
+            }
+
+            .diff-metric-label {
+                font-size: 1.0625rem;
+                line-height: 1.5;
+            }
+        }
+
+        /* Responsive — Mobile */
+        @media (max-width: 600px) {
+            .case-image-solo {
+                max-width: 90%;
+            }
+
+            .case-image-solo img {
+                height: 400px;
+            }
+
+            .case-image-overlay {
+                max-width: 90%;
+            }
+
+            .case-banner-light,
+            .case-banner-dark {
+                padding: 48px 20px;
+                min-height: 400px;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="nav">
@@ -19,179 +375,397 @@
         </div>
     </nav>
 
-    <header class="case-hero case-hero-centered">
+    <header class="case-hero">
         <h1 class="case-title">Creators</h1>
-        <p class="case-question">How do you connect travelers to the most trusted voices in travel?</p>
+        <p class="case-question">Connecting to travelers through social creators.</p>
 
         <div class="case-meta">
             <div class="meta-item">
                 <span class="meta-label">Role</span>
-                <span class="meta-value">Principal Design Leader</span>
+                <span class="meta-value">Principal Designer Director</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">XD Team</span>
+                <span class="meta-value">8 Total</span>
             </div>
             <div class="meta-item">
                 <span class="meta-label">Timeline</span>
-                <span class="meta-value">2022–Present</span>
+                <span class="meta-value">2022 – Present</span>
             </div>
             <div class="meta-item">
                 <span class="meta-label">Platform</span>
-                <span class="meta-value">Web + Mobile</span>
+                <span class="meta-value">Native + Web</span>
             </div>
         </div>
     </header>
 
     <main class="case-content">
-        <!-- Hero Image -->
-        <section class="case-image full case-image-wide">
-            <img src="images/creators/hero.png"
-                 srcset="images/creators/hero.png 1x, images/creators/hero@2x.png 2x"
-                 alt="Creators platform hero"
-                 loading="lazy">
-        </section>
 
-        <!-- Overview -->
-        <section class="case-section">
-            <h2 class="section-title">Overview</h2>
-            <p class="section-text">The creator economy was transforming how people discover everything—except travel. I led the design of Expedia's creator platform from zero, building tools that let travel creators monetize their influence while giving travelers authentic recommendations from voices they trust.</p>
-        </section>
-
-        <!-- Results -->
-        <section class="case-results">
-            <div class="result-item">
-                <span class="result-value">0→1</span>
-                <span class="result-label">First in Industry</span>
+        <!-- ═══ Section 1 (#fcfcfc): Hero 3-Up + Overview ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/creators_v2/hero_1.png" alt="Creator content — travel shop" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_shop_v1_2@2x.png" alt="Creator storefront" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/hero_3.png" alt="Creator mobile booking" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
-            <div class="result-item">
-                <span class="result-value">2k+</span>
-                <span class="result-label">Travel Shops Launched</span>
+            <section class="case-section">
+                <h2 class="section-title">Overview</h2>
+                <p class="section-text">In 2022, we started with a simple question:</p>
+                <p class="section-text">How do you connect to travelers,<br>through the most trusted voices?</p>
+                <p class="section-text">This trusted voice part is crucial, and also tricky, as it's different for everyone. If you're a big basketball fan, visiting Indiana, you may look to Caitlin Clark for recommendations... or for you, the trusted voice may be a musician, an actor, a scholar, or an influencer.</p>
+            </section>
+        </div>
+
+        <!-- ═══ Section 2 (white): Swarm Image + Overview ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff; padding-top: 80px;">
+            <div class="case-image-solo contain">
+                <img src="images/creators_v2/overview_full.png" alt="Creator platform overview" loading="lazy">
             </div>
-            <div class="result-item">
-                <span class="result-value">2x</span>
-                <span class="result-label">Conversion Rate</span>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">The Swarm</h2>
+                <p class="section-text">We kicked off with what we call "The Swarm"—a cross-functional deep dive bringing together product, engineering, data science, and design to map the creator landscape.</p>
+                <p class="section-text">The goal: understand where creator content could most meaningfully influence traveler decisions, and identify the highest-leverage opportunities to build around.</p>
+            </section>
+        </div>
+
+        <!-- ═══ Section 3 (#fcfcfc): Tooling + Begin with Solid Tooling ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc; padding-top: 96px;">
+            <div class="case-image-solo contain">
+                <img src="images/1st_Mile_1@2x.png" alt="Creator onboarding tooling" loading="lazy">
             </div>
-            <div class="result-item">
-                <span class="result-value">3x</span>
-                <span class="result-label">Save Rate</span>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">Begin with Solid Tooling</h2>
+                <p class="section-text">Coming out of the swarm, we knew we needed to drastically uplevel the foundational tooling. We started with a clear and concise first-mile onboarding experience.</p>
+            </section>
+        </div>
+
+        <!-- ═══ Section 4 (white): Embedded + Embedded Tools on Platform ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff; padding-top: 96px;">
+            <div class="case-image-solo contain">
+                <img src="images/Toolbox_v1_2@2x.png" alt="Embedded platform tools" loading="lazy">
             </div>
-        </section>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">Embedded Tools on Platform</h2>
+                <p class="section-text">We built tools utilizing single sign on for creators to quickly access proprietary data and insights, as well as links, directly inside of Expedia, Hotels.com and Vrbo.</p>
+            </section>
+        </div>
 
-        <!-- Design Swarm -->
-        <section class="case-section">
-            <h2 class="section-title">Design Swarm</h2>
-            <p class="section-text">We pioneered a "Design Swarm" methodology—intensive collaborative sprints that brought together diverse perspectives rapidly. The 2022 swarm: 2 weeks, 24 participants, 7 specialties, 3 continents. By 2024: 3 weeks, 32 participants, 8 specialties, 5 continents.</p>
-        </section>
+        <!-- ═══ Section 5 (#fcfcfc): Money + Show Them the Money ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc; padding-top: 96px;">
+            <div class="case-image-solo contain">
+                <img src="images/performance_dashboard@2x.png" alt="Performance dashboard" loading="lazy">
+            </div>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">Show Them the Money</h2>
+                <p class="section-text">We overhauled the performance dashboard, with both past performance, as well as insights and suggestions.</p>
+            </section>
+        </div>
 
-        <!-- Image Grid -->
-        <section class="case-image-grid">
-            <img src="images/creators/01.png"
-                 srcset="images/creators/01.png 1x, images/creators/01@2x.png 2x"
-                 alt="Design swarm collaboration"
-                 loading="lazy">
-            <img src="images/creators/02.png"
-                 srcset="images/creators/02.png 1x, images/creators/02@2x.png 2x"
-                 alt="User personas"
-                 loading="lazy">
-        </section>
+        <!-- ═══ Section 6 (white): Vision 3-Up + Vision Storefront ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/creators_v2/money_1.png" alt="Hitha Palepu MyExpedia Shop" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/money_2.png" alt="Jalen Hurts Opinion storefront" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/money_3.png" alt="Room service bliss creator story" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+            <section class="case-section">
+                <h2 class="section-title">Vision – An Expedia Storefront for All</h2>
+                <p class="section-text">How might we provide creators with more than just links and insights? What if we provided their own stores on Expedia, fully customizable with their own flair, with collections, videos, curated trips and more?</p>
+            </section>
+        </div>
 
-        <!-- Creator Toolbox -->
-        <section class="case-section">
-            <h2 class="section-title">Creator Toolbox</h2>
-            <p class="section-text">We built a comprehensive suite of tools for creators: onboarding flows, content management, performance analytics, and monetization dashboards. Every feature was designed to reduce friction and help creators focus on what they do best—inspiring travel.</p>
-        </section>
+        <!-- ═══ Section 7 (#fcfcfc): Shops v1 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/creators_v2/vision_1.png" alt="Brett Conti Travel Youtuber shop" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_shop_v1_2@2x.png" alt="Visit Madeira with Renee Roaming" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/hero_3.png" alt="Oneika's Travel Faves COQ Hotel Paris" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+            <section class="case-section">
+                <h2 class="section-title">Travel Shops v1</h2>
+                <p class="section-text">We shipped the first version in under six months. V1 focused on the essentials — a customizable storefront, curated collections, and affiliate links — giving creators a real presence on Expedia for the first time.</p>
+            </section>
+        </div>
 
-        <!-- Full Width Image -->
-        <section class="case-image full case-image-wide">
-            <img src="images/creators/03.png"
-                 srcset="images/creators/03.png 1x, images/creators/03@2x.png 2x"
-                 alt="Creator toolbox dashboard"
-                 loading="lazy">
-        </section>
+        <!-- ═══ Section 8 (white): Shops Future 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/creators_v2/shopfuture_1.png" alt="Brett Conti's Travel Picks storefront" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/shopfuture_2.png" alt="The Mercer Hotel creator content" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/shopfuture_3.png" alt="Explore curated destinations" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+            <section class="case-section">
+                <h2 class="section-title">Travel Shops — What's Next</h2>
+                <p class="section-text">With v1 validated, we expanded the vision. Richer customization, video integration, and AI-powered recommendations are turning Travel Shops into dynamic storefronts that evolve with each creator's audience.</p>
+            </section>
+        </div>
 
-        <!-- Travel Shops -->
-        <section class="case-section">
-            <h2 class="section-title">Travel Shops</h2>
-            <p class="section-text">Travel Shops became the centerpiece—personalized storefronts where creators curate hotels, experiences, and destinations for their audiences. Each shop reflects the creator's unique perspective and aesthetic.</p>
-        </section>
+        <!-- ═══ Curation Banner ═══ -->
+        <div class="case-banner-light">
+            <span class="banner-label">Curation Across the Platform</span>
+            <h2 class="banner-heading">Where might creator content be most valuable?</h2>
+        </div>
 
-        <!-- Image Grid -->
-        <section class="case-image-grid three">
-            <img src="images/creators/04.png"
-                 srcset="images/creators/04.png 1x, images/creators/04@2x.png 2x"
-                 alt="Travel shop example 1"
-                 loading="lazy">
-            <img src="images/creators/05.png"
-                 srcset="images/creators/05.png 1x, images/creators/05@2x.png 2x"
-                 alt="Travel shop example 2"
-                 loading="lazy">
-            <img src="images/creators/06.png"
-                 srcset="images/creators/06.png 1x, images/creators/06@2x.png 2x"
-                 alt="Curated guides"
-                 loading="lazy">
-        </section>
+        <!-- ═══ Section 9 (white): Deep Collaboration (2024 swarm) ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff; padding-top: 80px;">
+            <div class="case-image-overlay">
+                <img src="images/creators_v2/overview_full.png" alt="2024 Experience Swarm background" loading="lazy">
+                <img src="images/creators_v2/swarm_2024_full.png" alt="2024 Experience Swarm collaboration" loading="lazy">
+            </div>
+            <div class="case-divider"></div>
+            <section class="case-section">
+                <h2 class="section-title">Deep Collaboration</h2>
+                <p class="section-text">How to tackle such a huge problem? We gathered the cross-functional team of designers, strategists, engineers, marketers, stakeholders and more, to deep dive into the current experience, and then dream up what could be.</p>
+            </section>
+        </div>
 
-        <!-- AI-Assisted Creation -->
-        <section class="case-section">
-            <h2 class="section-title">AI-Assisted Creation</h2>
-            <p class="section-text">We integrated Romie AI to help creators generate content faster—from trip descriptions to curated guides. The AI learned each creator's voice, ensuring authenticity while dramatically reducing the time to publish.</p>
-        </section>
+        <!-- ═══ Section 10 (#fcfcfc): Vision Video ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc; padding-top: 64px;">
+            <div class="case-video-embed">
+                <iframe src="https://www.loom.com/embed/305613af8e9a4f4489c245f41cc653ed" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+            <section class="case-section">
+                <h2 class="section-title">Vision Video</h2>
+                <p class="section-text">We crafted a vision video to align leadership and rally the broader organization. It painted a picture of what creator-powered travel could become — not just a product pitch, but a north star for the team.</p>
+            </section>
+        </div>
 
-        <!-- Full Width Image -->
-        <section class="case-image full case-image-wide">
-            <img src="images/creators/07.png"
-                 srcset="images/creators/07.png 1x, images/creators/07@2x.png 2x"
-                 alt="AI-assisted creation interface"
-                 loading="lazy">
-        </section>
+        <!-- ═══ Shopping Banner ═══ -->
+        <div class="case-banner-dark">
+            <div class="banner-icon">
+                <img src="images/creators_v2/icon_search.svg" alt="">
+            </div>
+            <h2 class="banner-heading">Shopping</h2>
+        </div>
 
-        <!-- Performance Analytics -->
-        <section class="case-section">
-            <h2 class="section-title">Performance Analytics</h2>
-            <p class="section-text">Creators needed to understand their impact. We designed analytics dashboards showing audience insights, booking attribution, and revenue performance—giving creators the data they need to grow their business.</p>
-        </section>
+        <!-- ═══ Section 11 (white): Curated Trips 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/creators_v2/shopping_1.png" alt="Curated trip 1" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/shopping_2.png" alt="Curated trip 2" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/shopping_3.png" alt="Curated trip 3" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+            <section class="case-section">
+                <h2 class="section-title">Curated Trips</h2>
+                <p class="section-text">Curated Trips let creators bundle flights, hotels, and activities into bookable itineraries. Travelers get a trusted recommendation; creators get a seamless way to monetize their expertise.</p>
+            </section>
+        </div>
 
-        <!-- Image Grid -->
-        <section class="case-image-grid">
-            <img src="images/creators/08.png"
-                 srcset="images/creators/08.png 1x, images/creators/08@2x.png 2x"
-                 alt="Performance analytics dashboard"
-                 loading="lazy">
-            <img src="images/creators/09.png"
-                 srcset="images/creators/09.png 1x, images/creators/09@2x.png 2x"
-                 alt="Performance reporting"
-                 loading="lazy">
-        </section>
+        <!-- ═══ Section 12 (#fcfcfc): Curation Throughout Shopping 3-Up ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/creators_v2/curated_1.png" alt="Shopping experience 1" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/curated_2.png" alt="Shopping experience 2" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/curated_3.png" alt="Shopping experience 3" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+            <section class="case-section">
+                <h2 class="section-title">Curation Throughout Shopping</h2>
+                <p class="section-text">Creator content doesn't live in a silo. We wove it into search results, property pages, and checkout — surfacing trusted recommendations at the moments travelers are actually making decisions.</p>
+            </section>
+        </div>
 
-        <!-- Evolution -->
-        <section class="case-section">
-            <h2 class="section-title">Evolution</h2>
-            <p class="section-text">The platform evolved from serving travel bloggers to social-first creators on TikTok, Instagram, and YouTube. Each iteration expanded reach while maintaining the core promise: authentic travel inspiration that converts.</p>
-        </section>
+        <!-- ═══ Creator Tooling Banner ═══ -->
+        <div class="case-banner-dark">
+            <div class="banner-icon">
+                <img src="images/creators_v2/icon_flash.svg" alt="">
+            </div>
+            <h2 class="banner-heading">Creator Tooling</h2>
+        </div>
 
-        <!-- Full Width Image -->
-        <section class="case-image full case-image-wide">
-            <img src="images/creators/10.png"
-                 srcset="images/creators/10.png 1x, images/creators/10@2x.png 2x"
-                 alt="Platform evolution - curated trips"
-                 loading="lazy">
-        </section>
+        <!-- ═══ Section 13 (white): Creator Tooling 3-Up set 1 ═══ -->
+        <div class="case-section-wrap" style="background: #ffffff;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/creators_v2/tooling2_1.png" alt="Creator tooling 1" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/tooling2_2.png" alt="Creator tooling 2" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/tooling2_3.png" alt="Creator tooling 3" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+            <section class="case-section">
+                <h2 class="section-title">Creator Hub</h2>
+                <p class="section-text">The Creator Hub centralizes everything — analytics, content management, link generation, and payouts. One login, one dashboard, built to scale from micro-influencers to major media partners.</p>
+            </section>
+        </div>
 
-        <!-- Live Platform -->
-        <section class="case-section">
-            <h2 class="section-title">See It Live</h2>
-            <p class="section-text">The creator platform is live and growing.</p>
-            <a href="https://creator.expediagroup.com/" class="section-link" target="_blank" rel="noopener">Visit creator.expediagroup.com →</a>
+        <!-- ═══ Section 14 (#fcfcfc): Creator Tooling 3-Up set 2 ═══ -->
+        <div class="case-section-wrap" style="background: #fcfcfc;">
+            <div class="case-images-3up" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/creators_v2/tooling3_1.png" alt="Creator tooling detail 1" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/tooling3_2.png" alt="Creator tooling detail 2" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/creators_v2/tooling3_3.png" alt="Creator tooling detail 3" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+            <section class="case-section">
+                <h2 class="section-title">Content & Analytics</h2>
+                <p class="section-text">Real-time performance data gives creators visibility into what's working. Click-through rates, booking conversions, and earnings breakdowns help them refine their content strategy over time.</p>
+            </section>
+        </div>
+
+        <!-- ═══ Impact ═══ -->
+        <section class="diff-section diff-impact">
+            <div class="diff-section-inner">
+                <span class="diff-label">IMPACT</span>
+                <h2 class="diff-heading">Measurable results</h2>
+                <div class="diff-metrics-grid">
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">0 &rarr; 1</span>
+                        <span class="diff-metric-label">First-in-industry creator economy platform built from scratch</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">10k+</span>
+                        <span class="diff-metric-label">Travel Shops launched across the Expedia platform</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">2x</span>
+                        <span class="diff-metric-label">Booking conversion rate with creator content vs. standard listings</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">3x</span>
+                        <span class="diff-metric-label">Save rate with creator content driving traveler intent</span>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- Next Project -->
-    <section class="next-project">
-        <a href="partnerships.html" class="next-project-link">
-            <span class="next-label">Next Project</span>
-            <span class="next-title">Strategic Partnerships →</span>
-        </a>
+    <!-- Footer -->
+    <section id="contact" class="case-footer">
+        <div class="case-footer-left">
+            <span class="contact-label">COLLABORATE</span>
+            <h2 class="contact-title">Might we chat?</h2>
+            <div class="contact-links">
+                <a href="mailto:jonathan.k.bowden@gmail.com" class="btn">Say Hello</a>
+                <a href="https://www.linkedin.com/in/jonathankbowden/" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+        <!-- TODO: Restore when case studies are ready
+        <div class="case-footer-right">
+            <span class="explore-label">EXPLORE MORE</span>
+            <a href="partnerships.html" class="explore-title">Partnerships &rarr;</a>
+        </div>
+        -->
     </section>
+    <script>
+    /* Carousel — same as index.html */
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-carousel]').forEach(carousel => {
+            const track = carousel.querySelector('.carousel-track');
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+            let currentIndex = 0;
 
-    <footer class="footer">
-        <p>© 2026 Jonathan Bowden</p>
-    </footer>
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    goToSlide(i);
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+            function goToSlide(index) {
+                currentIndex = index;
+                track.scrollTo({ left: index * track.offsetWidth, behavior: 'smooth' });
+                updateDots();
+            }
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            let scrollTimeout;
+            track.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    const scrollLeft = track.scrollLeft;
+                    const slideWidth = track.offsetWidth;
+                    const newIndex = Math.round(scrollLeft / slideWidth);
+                    if (newIndex !== currentIndex && newIndex >= 0 && newIndex < slides.length) {
+                        currentIndex = newIndex;
+                        updateDots();
+                    }
+                }, 50);
+            });
+
+            let autoPlay = null;
+            let isHovered = false;
+
+            function startAutoPlay() {
+                if (autoPlay || isHovered) return;
+                autoPlay = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    goToSlide(currentIndex);
+                }, 4000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlay);
+                autoPlay = null;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) startAutoPlay();
+                    else stopAutoPlay();
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(carousel);
+
+            carousel.addEventListener('mouseenter', () => { isHovered = true; stopAutoPlay(); });
+            carousel.addEventListener('mouseleave', () => { isHovered = false; startAutoPlay(); });
+            carousel.addEventListener('touchstart', () => { isHovered = true; stopAutoPlay(); }, { passive: true });
+        });
+    });
+    </script>
+    <script>
+    /* Scroll fade-in */
+    (function() {
+        const targets = document.querySelectorAll('.case-section-wrap, .case-banner-light, .case-banner-dark, .diff-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        targets.forEach(el => observer.observe(el));
+    })();
+    </script>
+    <script src="analytics.js"></script>
 </body>
 </html>

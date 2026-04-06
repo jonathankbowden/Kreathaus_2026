@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan Bowden — Building 0 to 1 on Trust</title>
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-99253GG63F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-99253GG63F');
+    </script>
+    <link rel="stylesheet" href="styles.css?v=12">
+    <style>
+        .clip-cta {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-navy);
+            cursor: pointer;
+            transition: opacity var(--transition);
+        }
+        .clip-cta:hover {
+            opacity: 0.6;
+        }
+        .project-ctas {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.75rem;
+        }
+        @media (max-width: 600px) {
+            .project-ctas {
+                gap: 1.5rem;
+            }
+        }
+        .video-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        .video-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .video-modal {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+        }
+        .video-modal-close {
+            position: absolute;
+            top: -2.5rem;
+            right: 0;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .video-modal-close:hover {
+            opacity: 1;
+        }
+        .video-modal-embed {
+            position: relative;
+            padding-bottom: 56.13%;
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .video-modal-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo active">Jonathan Bowden</a>
+        <div class="nav-links">
+            <a href="play.html" class="nav-link">PLAY</a>
+            <a href="diff.html" class="nav-link">DIFF</a>
+            <a href="#contact" class="nav-link">BUILD</a>
+        </div>
+    </nav>
+
+    <section class="hero hero-left hero-split">
+        <div class="hero-text">
+            <span class="hero-label">PRINCIPAL DESIGN DIRECTOR</span>
+            <h1 class="hero-title">Building 0&rarr;1 @ Expedia via OpenAI, Cond&eacute; Nast &amp; Alexa+</h1>
+        </div>
+        <div class="hero-reel">
+            <video class="hero-reel-video" autoplay muted loop playsinline>
+                <source src="images/hero-reel-3d.mp4?v=1" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-scroll-hint">
+            <span class="hero-scroll-arrow">&#8964;</span>
+            <span class="hero-scroll-label">Swipe to explore</span>
+            <span class="hero-scroll-arrow">&#8964;</span>
+        </div>
+    </section>
+
+    <section class="projects">
+        <!-- Project 1: Creators -->
+        <div class="project-link-wrapper">
+            <div class="project project-surface">
+                <div class="project-image">
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="carousel-slide carousel-slide-video" data-duration="19"><video muted playsinline preload="none" data-src-2x="images/creators_video_1@2x.mp4" data-src-1x="images/creators_video_1@1x.mp4"><source src="images/creators_video_1@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide"><img src="images/creators_shop_v1_2@2x.png" alt="Creators - Shop curation"></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="17"><video muted playsinline preload="none" data-src-2x="images/creators_video_2@2x.mp4" data-src-1x="images/creators_video_2@1x.mp4"><source src="images/creators_video_2@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide"><img src="images/Creators_hero_5.png" alt="Creators - Mobile experience"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-label">01</span>
+                    <h2 class="project-title">Creators</h2>
+                    <p class="project-desc">Expedia needed to grow its customer base, with users starting discovery on social platforms. Though it is a beloved legacy platform, new generations of travelers were completely unaware of the value Expedia provided.<br><br>I led a team of 9 XD professionals to build a dual sided platform from scratch. 10k+ Travel Shops launched, 2x conversion rate, 3x save rate.</p>
+                    <a href="https://creator.expediagroup.com" class="project-meta" target="_blank" rel="noopener" style="display:inline-block; margin-top:0.25rem;">creator.expediagroup.com &rarr;</a>
+                    <span class="project-meta">2022 - Present &nbsp; &middot; &nbsp; Web + Mobile</span>
+                    <div class="project-ctas" onclick="event.stopPropagation();">
+                        <span class="clip-cta" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('https://www.loom.com/embed/ef340366ebbd41efbcbfe26e5dd16636');">Watch Case Study &rarr;</span>
+                        <a href="https://tinyurl.com/5c6r34yc" class="clip-cta" onclick="event.stopPropagation();" target="_blank" rel="noopener">Deep Dive &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2: Partnerships -->
+        <div class="project-link-wrapper">
+            <div class="project project-alt">
+                <div class="project-image">
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="carousel-slide carousel-slide-video" data-duration="16"><video muted playsinline preload="none" data-src-2x="images/partners_video_1@2x.mp4" data-src-1x="images/partners_video_1@1x.mp4"><source src="images/partners_video_1@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="26"><video muted playsinline preload="none" data-src-2x="images/partners_video_2@2x.mp4" data-src-1x="images/partners_video_2@1x.mp4"><source src="images/partners_video_2@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="10"><video muted playsinline preload="none" data-src-2x="images/partners_video_3@2x.mp4" data-src-1x="images/partners_video_3@1x.mp4"><source src="images/partners_video_3@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="6"><video muted playsinline preload="none" data-src-2x="images/partners_video_4@2x.mp4" data-src-1x="images/partners_video_4@1x.mp4"><source src="images/partners_video_4@1x.mp4" type="video/mp4"></video></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-label">02</span>
+                    <h2 class="project-title">Partnerships</h2>
+                    <p class="project-desc">The next billion travelers are not starting their journey on Expedia --they are starting on ChatGPT, Alexa+, Cond&eacute; Nast and more.<br><br>I lead the XD team to work with partners product and commercial teams, to ideate and execute on both incremental improvements and grand visions. We saw over $7 billion revenue in 2025 alone, and we&rsquo;re just getting started.</p>
+                    <span class="project-meta">2022 - Present &nbsp; &middot; &nbsp; Web + Mobile</span>
+                    <div class="project-ctas" onclick="event.stopPropagation();">
+                        <span class="clip-cta" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('https://www.loom.com/embed/6ae92d813c184d3a8b235775a7dc48a1');">Watch Case Study &rarr;</span>
+                        <a href="https://tinyurl.com/5c6r34yc" class="clip-cta" onclick="event.stopPropagation();" target="_blank" rel="noopener">Deep Dive &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 3: Intelligence -->
+        <div class="project-link-wrapper">
+            <div class="project project-surface">
+                <div class="project-image">
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="carousel-slide carousel-slide-video" data-duration="5"><video muted playsinline preload="none" data-src-2x="images/intel_video_1@2x.mp4" data-src-1x="images/intel_video_1@1x.mp4"><source src="images/intel_video_1@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="8"><video muted playsinline preload="none" data-src-2x="images/intel_video_2@2x.mp4" data-src-1x="images/intel_video_2@1x.mp4"><source src="images/intel_video_2@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="14"><video muted playsinline preload="none" data-src-2x="images/intel_video_3@2x.mp4" data-src-1x="images/intel_video_3@1x.mp4"><source src="images/intel_video_3@1x.mp4" type="video/mp4"></video></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-label">03</span>
+                    <h2 class="project-title">Intelligence</h2>
+                    <p class="project-desc">Expedia&rsquo;s search in 2021 was playing out the org chart --flights, hotels, cars --like a bad script out of &lsquo;what not to do.&rsquo; We had a new tech capability for open-ended search via voice or text, but no one had heard of &lsquo;AI&rsquo; or understood what it could do.<br><br>I led an XD team of 5 to explore both incremental and breakthrough ways to introduce this to millions of travelers. It became the foundation for Expedia&rsquo;s AI roadmap</p>
+                    <span class="project-meta">2021 - 2023 &nbsp; &middot; &nbsp; Web + Mobile</span>
+                    <div class="project-ctas" onclick="event.stopPropagation();">
+                        <span class="clip-cta" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('https://www.loom.com/embed/174aa2848fee4856a108b6b304577630');">Watch Case Study &rarr;</span>
+                        <a href="https://tinyurl.com/5c6r34yc" class="clip-cta" onclick="event.stopPropagation();" target="_blank" rel="noopener">Deep Dive &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <span class="contact-label">COLLABORATE</span>
+        <h2 class="contact-title">What to build?</h2>
+        <div class="contact-links">
+            <a href="mailto:jonathan.k.bowden@gmail.com" class="btn">Say Hello</a>
+            <a href="https://www.linkedin.com/in/jonathankbowden/" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+    </section>
+
+
+
+    <!-- Video Modal -->
+    <div class="video-modal-overlay" id="videoModal">
+        <div class="video-modal">
+            <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Close">&times;</button>
+            <div class="video-modal-embed">
+                <iframe id="videoIframe" src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function openVideoModal(url) {
+        var modal = document.getElementById('videoModal');
+        var iframe = document.getElementById('videoIframe');
+        iframe.src = url;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeVideoModal() {
+        var modal = document.getElementById('videoModal');
+        var iframe = document.getElementById('videoIframe');
+        modal.classList.remove('active');
+        iframe.src = '';
+        document.body.style.overflow = '';
+    }
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+        if (e.target === this) closeVideoModal();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeVideoModal();
+    });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-carousel]').forEach(carousel => {
+            const track = carousel.querySelector('.carousel-track');
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+            let currentIndex = 0;
+
+            slides[0].classList.add('active');
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    goToSlide(i);
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+            function goToSlide(index) {
+                currentIndex = index;
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === currentIndex);
+                });
+                updateDots();
+                manageVideos();
+            }
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function manageVideos() {
+                slides.forEach((slide, i) => {
+                    const video = slide.querySelector('video');
+                    if (!video) return;
+                    if (i === currentIndex) {
+                        if (video.preload === 'none') {
+                            var src2x = video.getAttribute('data-src-2x');
+                            var src1x = video.getAttribute('data-src-1x');
+                            if (src2x && src1x) {
+                                var use2x = window.innerWidth > 767;
+                                var source = video.querySelector('source');
+                                source.src = use2x ? src2x : src1x;
+                                video.load();
+                            }
+                            video.preload = 'auto';
+                        }
+                        video.currentTime = 0;
+                        video.play().catch(() => {});
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+            }
+
+            let autoPlayTimer = null;
+            let isHovered = false;
+
+            function scheduleNext() {
+                if (autoPlayTimer || isHovered) return;
+                var slide = slides[currentIndex];
+                var duration = slide ? slide.getAttribute('data-duration') : null;
+                var delay = duration ? parseInt(duration) * 1000 : 4000;
+                autoPlayTimer = setTimeout(() => {
+                    autoPlayTimer = null;
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    goToSlide(currentIndex);
+                    scheduleNext();
+                }, delay);
+            }
+
+            function startAutoPlay() {
+                if (autoPlayTimer || isHovered) return;
+                scheduleNext();
+            }
+
+            function stopAutoPlay() {
+                clearTimeout(autoPlayTimer);
+                autoPlayTimer = null;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startAutoPlay();
+                        manageVideos();
+                    } else {
+                        stopAutoPlay();
+                        slides.forEach(slide => {
+                            const v = slide.querySelector('video');
+                            if (v) { v.pause(); v.currentTime = 0; }
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(carousel);
+
+            carousel.addEventListener('mouseenter', () => { isHovered = true; stopAutoPlay(); });
+            carousel.addEventListener('mouseleave', () => { isHovered = false; startAutoPlay(); });
+
+            // Swipe/drag gesture support (touch + mouse)
+            let dragStartX = 0;
+            let dragStartY = 0;
+            let isDragging = false;
+
+            function handleSwipe(dx, dy) {
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                    if (dx < 0 && currentIndex < slides.length - 1) {
+                        goToSlide(currentIndex + 1);
+                    } else if (dx > 0 && currentIndex > 0) {
+                        goToSlide(currentIndex - 1);
+                    }
+                }
+            }
+
+            // Touch events
+            carousel.addEventListener('touchstart', (e) => {
+                dragStartX = e.touches[0].clientX;
+                dragStartY = e.touches[0].clientY;
+                stopAutoPlay();
+            }, { passive: true });
+            carousel.addEventListener('touchend', (e) => {
+                handleSwipe(e.changedTouches[0].clientX - dragStartX, e.changedTouches[0].clientY - dragStartY);
+                startAutoPlay();
+            }, { passive: true });
+
+            // Mouse drag events
+            carousel.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                e.preventDefault();
+            });
+            document.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                handleSwipe(e.clientX - dragStartX, e.clientY - dragStartY);
+            });
+
+            // Trackpad two-finger swipe (wheel events)
+            let wheelAccum = 0;
+            let wheelTimer = null;
+            let wheelLocked = false;
+            carousel.addEventListener('wheel', (e) => {
+                var dx = Math.abs(e.deltaX);
+                var dy = Math.abs(e.deltaY);
+                // Use whichever axis has more movement
+                var delta = dx >= dy ? e.deltaX : e.deltaY;
+                if (dx < 5 && dy < 5) return;
+                e.preventDefault();
+                if (wheelLocked) return;
+                wheelAccum += delta;
+                clearTimeout(wheelTimer);
+                wheelTimer = setTimeout(() => {
+                    if (Math.abs(wheelAccum) > 20) {
+                        wheelLocked = true;
+                        handleSwipe(-wheelAccum, 0);
+                        setTimeout(() => { wheelLocked = false; }, 600);
+                    }
+                    wheelAccum = 0;
+                }, 80);
+            }, { passive: false });
+        });
+    });
+    </script>
+    <script>
+    (function() {
+        var hint = document.querySelector('.hero-scroll-hint');
+        if (!hint) return;
+        var dismissed = false;
+        window.addEventListener('scroll', function() {
+            if (!dismissed && window.scrollY > 10) {
+                dismissed = true;
+                hint.classList.add('hidden');
+            }
+        }, { passive: true });
+    })();
+    </script>
+    <script src="analytics.js"></script>
+</body>
+</html>

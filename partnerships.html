@@ -4,10 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partnerships — Jonathan Bowden</title>
-    <link rel="stylesheet" href="styles.css?v=4">
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-99253GG63F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-99253GG63F');
+    </script>
+    <link rel="stylesheet" href="styles.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+    <style>
+        /* Remove parent constraints so breakout sections work (match creators) */
+        .case-content {
+            max-width: none;
+            padding: 0;
+        }
+
+        /* Grey blocks: parent is already full-width, no breakout needed */
+        .case-block-grey {
+            width: 100%;
+            margin-left: 0;
+            padding: 0;
+        }
+
+        /* Impact section — grey background, full-width */
+        .diff-impact {
+            background: var(--color-surface) !important;
+            width: 100%;
+            margin-left: 0;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        @media (min-width: 901px) {
+            .diff-impact {
+                padding: 7.5rem 10rem;
+                border-bottom: none;
+            }
+            .diff-impact .diff-section-inner {
+                max-width: none;
+            }
+            .diff-impact .diff-metrics-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem 184px;
+            }
+            .diff-impact .diff-metric-number {
+                font-size: clamp(4rem, 8vw, 7rem);
+            }
+            .diff-impact .diff-metric-label {
+                font-size: 1.0625rem;
+                line-height: 1.5;
+            }
+        }
+
+        /* Alexa solo image — contain, don't crop */
+        .case-image-solo-wide {
+            width: 100%;
+            max-width: 1440px;
+        }
+        .case-image-solo-wide img {
+            width: 100%;
+            height: auto;
+            max-height: 700px;
+            object-fit: contain;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <nav class="nav">
@@ -19,173 +83,248 @@
         </div>
     </nav>
 
-    <header class="case-hero case-hero-centered">
+    <header class="case-hero">
         <h1 class="case-title">Partnerships</h1>
-        <p class="case-question">Connecting to travelers via OpenAI, Cond&eacute; Nast, Amazon Alexa+ and more</p>
+        <p class="case-question">Connecting to travelers through their most trusted voices.</p>
 
         <div class="case-meta">
             <div class="meta-item">
                 <span class="meta-label">Role</span>
-                <span class="meta-value">Principal Designer</span>
+                <span class="meta-value">Principal Design Director</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">XD Team</span>
+                <span class="meta-value">8 Total</span>
             </div>
             <div class="meta-item">
                 <span class="meta-label">Timeline</span>
-                <span class="meta-value">2024–Present</span>
+                <span class="meta-value">2022 – Present</span>
             </div>
             <div class="meta-item">
                 <span class="meta-label">Platform</span>
-                <span class="meta-value">Cross-Platform</span>
+                <span class="meta-value">Native + Web</span>
             </div>
         </div>
     </header>
 
     <main class="case-content">
-        <!-- Hero Image -->
-        <section class="case-image full case-image-wide">
-            <img src="images/partnerships/hero.png"
-                 srcset="images/partnerships/hero.png 1x, images/partnerships/hero@2x.png 2x"
-                 alt="Partnerships overview — ChatGPT, Alexa+, Cond&eacute; Nast integrations"
-                 loading="lazy">
-        </section>
-
-        <!-- Overview -->
-        <section class="case-section">
-            <h2 class="section-title">Overview</h2>
-            <p class="section-text">Travel planning happens everywhere—in conversations with AI assistants, while reading articles, browsing social media. I lead design for Expedia's strategic partnerships, embedding travel experiences into the platforms millions already use daily. Two pillars guide the work: Discovery and Creation on partner platforms, and deep Platform Integration.</p>
-        </section>
-
-        <!-- Partner Logos -->
-        <section class="case-partners">
-            <span class="partner">OpenAI / ChatGPT</span>
-            <span class="partner">Amazon Alexa+</span>
-            <span class="partner">Perplexity</span>
-            <span class="partner">Lenovo</span>
-            <span class="partner">Cond&eacute; Nast</span>
-        </section>
-
-        <!-- Cond&eacute; Nast Traveler -->
-        <section class="case-section">
-            <h2 class="section-title">Cond&eacute; Nast Traveler</h2>
-            <p class="section-text">What if you combined the most trusted source of travel inspiration with the AI of the most trusted booking platform? We designed "Take the Trip"—a seamless integration turning Cond&eacute; Nast Traveler articles into bookable experiences. Readers move from an existing article to Make It Yours to a fully curated trip without ever leaving the content.</p>
-        </section>
-
-        <!-- Cond&eacute; Nast 3-up -->
-        <section class="case-image-row three-up">
-            <div class="case-image-item">
-                <img src="images/partnerships/01_1.png"
-                     srcset="images/partnerships/01_1.png 1x, images/partnerships/01_1@2x.png 2x"
-                     alt="Cond&eacute; Nast — existing article"
-                     loading="lazy">
+        <!-- Hero 3-Up Images -->
+        <div class="case-carousel three-up-full">
+            <div class="carousel" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/partnerships/hero_1.png" alt="Partnership platform — mobile experience" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/hero_2.png" alt="Partnership platform — travel discovery" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/hero_3.png" alt="Partnership platform — booking flow" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
-            <div class="case-image-item">
-                <img src="images/partnerships/01_2.png"
-                     srcset="images/partnerships/01_2.png 1x, images/partnerships/01_2@2x.png 2x"
-                     alt="Cond&eacute; Nast — Make It Yours"
-                     loading="lazy">
-            </div>
-            <div class="case-image-item">
-                <img src="images/partnerships/01_3.png"
-                     srcset="images/partnerships/01_3.png 1x, images/partnerships/01_3@2x.png 2x"
-                     alt="Cond&eacute; Nast — curated trip"
-                     loading="lazy">
-            </div>
-        </section>
-        <div class="carousel-dots">
-            <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
-            <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
         </div>
 
-        <!-- OpenAI / ChatGPT -->
+        <!-- Overview — Trusted Voices -->
         <section class="case-section">
-            <h2 class="section-title">OpenAI / ChatGPT</h2>
-            <p class="section-text">As humanity begins to test how much to trust AI, how might connected accounts bring unexpected delight? We designed the experience for connecting your Expedia account to ChatGPT—letting the AI understand your travel preferences, past trips, and loyalty status. A few weeks later: "Thought you might like..." becomes "A trip just for you."</p>
+            <h2 class="section-title">Trusted Voices</h2>
+            <p class="section-text">In addition to social creators, Expedia partners with a variety of trusted platforms, to meet travelers where they are – AI platforms like OpenAI, Amazon Alexa+, Lenovo, Perplexity and more, as well as publishers like Cond&eacute; Nast, loyalty platforms including Tesco, and much more.</p>
         </section>
 
-        <!-- OpenAI 1-up -->
-        <section class="case-image full case-image-wide">
-            <div class="image-placeholder" data-label="ChatGPT">
-                <span>OpenAI — Connected accounts integration</span>
+        <div class="case-block-grey">
+        <!-- Condé Nast — 3-Up Images -->
+        <div class="case-carousel three-up-full">
+            <div class="carousel" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/partnerships/condenast_1.png" alt="Cond&eacute; Nast Traveler — article integration" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/condenast_2.png" alt="Cond&eacute; Nast Traveler — Make It Yours" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/condenast_3.png" alt="Cond&eacute; Nast Traveler — curated trip" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
             </div>
+        </div>
+
+        <!-- Condé Nast Text -->
+        <section class="case-section">
+            <h2 class="section-title">Cond&eacute; Nast</h2>
+            <p class="section-text">As humanity's trust in AI is just emerging, how might connected accounts, with legacy platforms like Expedia, ESPN, Spotify and more shift the overall experience... from creepy to curated and trustworthy?</p>
+        </section>
+        </div>
+
+        <!-- OpenAI — 4-Up Images -->
+        <div class="case-carousel four-up-full">
+            <div class="carousel" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/partnerships/openai_1.png" alt="OpenAI ChatGPT — connected accounts" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/row3_1.png" alt="AI partnership — dark mode travel planning" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/row3_2.png" alt="AI partnership — trip suggestions" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/partnerships_openai_4.png" alt="AI partnership — destination discovery" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+        </div>
+
+        <!-- OpenAI Text -->
+        <section class="case-section">
+            <h2 class="section-title">OpenAI</h2>
+            <p class="section-text">As humanity's trust in AI is just emerging, how might connected accounts, with legacy platforms like Expedia, ESPN, Spotify and more shift the overall experience... from creepy to curated and trustworthy?</p>
         </section>
 
-        <!-- Tesco Loyalty -->
+        <div class="case-block-grey">
+        <!-- Tesco — 4-Up Images -->
+        <div class="case-carousel four-up-full">
+            <div class="carousel" data-carousel>
+                <div class="carousel-track">
+                    <div class="carousel-slide"><img src="images/partnerships/tesco_1.png" alt="Tesco Clubcard — loyalty points exchange" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/tesco_row_1.png" alt="Tesco partnership — offer in app" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/tesco_row_2.png" alt="Tesco partnership — points exchange" loading="lazy"></div>
+                    <div class="carousel-slide"><img src="images/partnerships/tesco_row_3.png" alt="Tesco partnership — trip planning" loading="lazy"></div>
+                </div>
+                <div class="carousel-dots"></div>
+            </div>
+        </div>
+
+        <!-- Tesco Loyalty Text -->
         <section class="case-section">
             <h2 class="section-title">Tesco Loyalty</h2>
-            <p class="section-text">What if you could turn grocery shopping points into the Paris dream trip, tailored to your shopping history? We designed the Tesco Clubcard to OneKey points exchange—an offer surfaces in the Tesco App, exchanged in the Hotels.com App, and personalized trip planning begins.</p>
+            <p class="section-text">What if you could turn those grocery shopping points... into the Paris dream trip, tailored to your shopping history? And what if your purchase history could then inform your travel discovery? Let's go!</p>
         </section>
+        </div>
 
-        <!-- Tesco 3-up -->
-        <section class="case-image-grid three">
-            <div class="image-placeholder" data-label="Tesco App">
-                <span>Tesco — Offer on Tesco App</span>
-            </div>
-            <div class="image-placeholder" data-label="Exchange">
-                <span>Tesco — Hotels.com Exchange</span>
-            </div>
-            <div class="image-placeholder" data-label="Let's Go">
-                <span>Tesco — Let's get started</span>
-            </div>
-        </section>
+        <!-- Amazon Alexa+ — Single Image -->
+        <div class="case-image-solo-wide">
+            <img src="images/partnerships/hero_2.png" alt="Amazon Alexa+ — voice-first travel" loading="lazy">
+        </div>
 
-        <!-- Amazon Alexa+ -->
         <section class="case-section">
             <h2 class="section-title">Amazon Alexa+</h2>
-            <p class="section-text">When to save? When to explore more? When to book? When to suggest? Voice-first travel planning through Alexa+ required designing conversational flows that balance helpfulness with restraint—knowing when to prompt and when to listen.</p>
+            <p class="section-text">When to save for later? When to explore more? When to book? When to suggest personalized alternatives? A delicate balance for sure, as we partnered with the Alexa+ team to find just the moments to delight.</p>
         </section>
 
-        <!-- Alexa 1-up -->
-        <section class="case-image full case-image-wide">
-            <div class="image-placeholder" data-label="Alexa+">
-                <span>Amazon Alexa+ — Conversational travel planning</span>
+        <!-- Results — Impact Style -->
+        <section class="diff-section diff-impact">
+            <div class="diff-section-inner">
+                <span class="diff-label">IMPACT</span>
+                <h2 class="diff-heading">Measurable results</h2>
+                <div class="diff-metrics-grid">
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">$7b+</span>
+                        <span class="diff-metric-label">2025 Revenue</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">5+</span>
+                        <span class="diff-metric-label">AI Partnerships launching in 2026</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">236%</span>
+                        <span class="diff-metric-label">ROAS</span>
+                    </div>
+                    <div class="diff-metric">
+                        <span class="diff-metric-number">154m+</span>
+                        <span class="diff-metric-label">Visitors via partnerships</span>
+                    </div>
+                </div>
             </div>
-        </section>
-
-        <!-- Philosophy -->
-        <section class="case-section outcome">
-            <h2 class="section-title">Philosophy</h2>
-            <p class="section-text large">Meet travelers where they already are.</p>
-            <p class="section-text">Rather than forcing people to come to Expedia, we're embedding travel planning into the tools and platforms they use every day. Each partnership extends our reach while creating genuinely useful experiences for travelers.</p>
         </section>
     </main>
 
-    <!-- Next Project -->
-    <section class="next-project">
-        <a href="intelligence.html" class="next-project-link">
-            <span class="next-label">Next Project</span>
-            <span class="next-title">Intelligence →</span>
-        </a>
+    <!-- Footer -->
+    <section id="contact" class="case-footer">
+        <div class="case-footer-left">
+            <span class="contact-label">COLLABORATE</span>
+            <h2 class="contact-title">Might we chat?</h2>
+            <div class="contact-links">
+                <a href="mailto:jonathan.k.bowden@gmail.com" class="btn">Say Hello</a>
+                <a href="https://www.linkedin.com/in/jonathankbowden/" class="btn btn-outline" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </div>
+        <div class="case-footer-right">
+            <span class="explore-label">EXPLORE MORE</span>
+            <a href="intelligence.html" class="explore-title">Intelligence &rarr;</a>
+        </div>
     </section>
-
-    <footer class="footer">
-        <p>&copy; 2026 Jonathan Bowden</p>
-    </footer>
     <script>
-    (function() {
-        var carousels = document.querySelectorAll('.case-image-row.three-up');
-        carousels.forEach(function(carousel) {
-            var dotsContainer = carousel.nextElementSibling;
-            if (!dotsContainer || !dotsContainer.classList.contains('carousel-dots')) return;
-            var dots = dotsContainer.querySelectorAll('.carousel-dot');
-            if (!dots.length) return;
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-carousel]').forEach(carousel => {
+            const track = carousel.querySelector('.carousel-track');
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+            let currentIndex = 0;
 
-            carousel.addEventListener('scroll', function() {
-                var scrollLeft = carousel.scrollLeft;
-                var width = carousel.offsetWidth;
-                var index = Math.round(scrollLeft / width);
-                dots.forEach(function(dot, i) {
-                    dot.classList.toggle('active', i === index);
+            // Create dots
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    goToSlide(i);
                 });
+                dotsContainer.appendChild(dot);
             });
 
-            dots.forEach(function(dot) {
-                dot.addEventListener('click', function() {
-                    var index = parseInt(dot.getAttribute('data-index'));
-                    carousel.scrollTo({ left: index * carousel.offsetWidth, behavior: 'smooth' });
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+            function goToSlide(index) {
+                currentIndex = index;
+                track.scrollTo({ left: index * track.offsetWidth, behavior: 'smooth' });
+                updateDots();
+            }
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
                 });
+            }
+
+            // Sync dots on scroll
+            let scrollTimeout;
+            track.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    const scrollLeft = track.scrollLeft;
+                    const slideWidth = track.offsetWidth;
+                    const newIndex = Math.round(scrollLeft / slideWidth);
+                    if (newIndex !== currentIndex && newIndex >= 0 && newIndex < slides.length) {
+                        currentIndex = newIndex;
+                        updateDots();
+                    }
+                }, 50);
             });
+
+            // Auto-advance only when visible
+            let autoPlay = null;
+            let isHovered = false;
+
+            function startAutoPlay() {
+                if (autoPlay || isHovered) return;
+                autoPlay = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    goToSlide(currentIndex);
+                }, 4000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlay);
+                autoPlay = null;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startAutoPlay();
+                    } else {
+                        stopAutoPlay();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(carousel);
+
+            // Pause auto-advance on hover/touch
+            carousel.addEventListener('mouseenter', () => { isHovered = true; stopAutoPlay(); });
+            carousel.addEventListener('mouseleave', () => { isHovered = false; startAutoPlay(); });
+            carousel.addEventListener('touchstart', () => { isHovered = true; stopAutoPlay(); }, { passive: true });
         });
-    })();
+    });
     </script>
+    <script src="analytics.js"></script>
 </body>
 </html>

@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan Bowden -- Building 0 to 1 on Trust (Dark)</title>
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-99253GG63F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-99253GG63F');
+    </script>
+    <link rel="stylesheet" href="styles.css?v=12">
+    <style>
+        .clip-cta {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-navy);
+            cursor: pointer;
+            transition: opacity var(--transition);
+        }
+        .clip-cta:hover {
+            opacity: 0.6;
+        }
+        .project-ctas {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.75rem;
+        }
+        @media (max-width: 600px) {
+            .project-ctas {
+                gap: 1.5rem;
+            }
+        }
+        .video-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        .video-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .video-modal {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+        }
+        .video-modal-close {
+            position: absolute;
+            top: -2.5rem;
+            right: 0;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .video-modal-close:hover {
+            opacity: 1;
+        }
+        .video-modal-embed {
+            position: relative;
+            padding-bottom: 56.13%;
+            height: 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .video-modal-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ---- Dark hero overrides ---- */
+
+        /* Halftone dot clusters - variable size, organic density like the reference */
+        .hero-grain {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.14;
+            mix-blend-mode: screen;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='halftone' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='1' seed='9' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix in='noise' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 40 -24' result='mask'/%3E%3CfeComposite in='SourceGraphic' in2='mask' operator='in'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='white' filter='url(%23halftone)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 320px 480px;
+        }
+
+        html, body { background: #0A0812; }
+        .nav {
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: none;
+        }
+        .nav-logo { color: rgba(255, 255, 255, 0.88); transition: color 0.4s ease; }
+        .nav-logo.active::before { background: rgba(255, 255, 255, 0.5); transition: background 0.4s ease; }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.6875rem;
+            letter-spacing: 2px;
+            transition: color 0.4s ease;
+        }
+        .nav-link:hover { color: rgba(255, 255, 255, 0.8); }
+        .nav-link svg { stroke-width: 2.5; transition: stroke-width 0.4s ease; }
+        .nav.nav-scrolled .nav-link svg { stroke-width: 1.5; }
+
+        /* Projects breathing room below logo bar */
+        .projects {
+            padding-top: 0;
+        }
+
+        /* Fix carousel videos shrinking on mobile */
+        .carousel-slide.carousel-slide-video video {
+            object-fit: cover !important;
+            object-position: center top !important;
+        }
+
+        /* Content that scrolls over the fixed hero */
+        .logo-bar, .projects, .contact, .video-modal-overlay {
+            position: relative;
+            z-index: 2;
+            background: var(--color-bg);
+        }
+
+        /* Nav scrolled past hero - dark text */
+        .nav.nav-scrolled .nav-logo { color: #000; }
+        .nav.nav-scrolled .nav-logo.active::before { background: #000; }
+        .nav.nav-scrolled .nav-link { color: #111; }
+        .nav.nav-scrolled .nav-link:hover { color: var(--color-navy); }
+        .nav.nav-scrolled {
+            background: rgba(255, 255, 255, 0.93);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .nav { z-index: 100; }
+
+        .hero.hero-split {
+            background: #080808;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            align-items: center;
+            height: auto !important;
+            min-height: auto !important;
+            padding-top: clamp(4rem, 8vh, 7rem);
+            padding-bottom: 1.5rem;
+            z-index: 1;
+        }
+        .hero-spacer {
+            display: block;
+        }
+        /* Light-leak color fields: hot white/yellow left, teal center, crimson right */
+        .hero.hero-split::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                /* Hot white-yellow bloom, hard left */
+                radial-gradient(ellipse 55% 130% at -8% 65%, rgba(255, 255, 240, 0.95) 0%, rgba(255, 210, 20, 0.7) 20%, rgba(200, 80, 10, 0.4) 45%, transparent 65%),
+                /* Teal-slate column, center */
+                radial-gradient(ellipse 35% 140% at 50% 45%, rgba(60, 100, 95, 0.75) 0%, rgba(40, 75, 72, 0.55) 40%, transparent 75%),
+                /* Deep crimson, right column */
+                radial-gradient(ellipse 40% 120% at 88% 50%, rgba(160, 20, 20, 0.85) 0%, rgba(110, 12, 12, 0.6) 40%, transparent 70%),
+                /* Secondary crimson flare top-right */
+                radial-gradient(ellipse 28% 50% at 95% 15%, rgba(140, 25, 18, 0.7) 0%, transparent 60%),
+                /* Warm orange transition zone */
+                radial-gradient(ellipse 25% 60% at 28% 75%, rgba(180, 70, 10, 0.35) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* Irregular dot fields + vignette */
+        .hero.hero-split::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                /* Top crush */
+                linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 22%, transparent 40%),
+                /* Bottom fade */
+                linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 35%),
+                /* Right edge crush */
+                linear-gradient(to left, rgba(0,0,0,0.55) 0%, transparent 30%);
+            background-size: 100% 100%, 100% 100%, 100% 100%;
+            background-position: 0 0, 0 0, 0 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-text, .hero-reel { position: relative; z-index: 1; }
+
+        /* 3D angled iPhone mockup */
+        .hero-reel {
+            perspective: 1200px;
+        }
+        .hero-reel-phone {
+            position: relative;
+            width: 280px;
+            aspect-ratio: 1178 / 2530;
+            border-radius: 44px;
+            background: #1a1a1a;
+            box-shadow:
+                0 0 0 2px #333,
+                0 0 0 4px #111,
+                0 40px 80px rgba(0,0,0,0.6),
+                0 20px 40px rgba(0,0,0,0.4);
+            overflow: hidden;
+            transform: rotateY(-18deg) rotateX(4deg) rotateZ(1deg);
+            transform-style: preserve-3d;
+        }
+        /* Screen bezel inset */
+        .hero-reel-phone::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 44px;
+            box-shadow: inset 0 0 0 6px #1a1a1a;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .hero-reel-phone .hero-reel-video {
+            position: absolute;
+            top: 5px;
+            left: 4px;
+            width: calc(100% - 8px);
+            height: calc(100% - 10px);
+            object-fit: contain;
+            border-radius: 40px;
+            background: #000;
+            z-index: 1;
+        }
+        /* Side button details */
+        .hero-reel-phone-btn-right {
+            position: absolute;
+            right: -3px;
+            top: 140px;
+            width: 3px;
+            height: 60px;
+            background: #333;
+            border-radius: 0 2px 2px 0;
+            z-index: 4;
+        }
+        .hero-reel-phone-btn-left-1 {
+            position: absolute;
+            left: -3px;
+            top: 120px;
+            width: 3px;
+            height: 28px;
+            background: #333;
+            border-radius: 2px 0 0 2px;
+            z-index: 4;
+        }
+        .hero-reel-phone-btn-left-2 {
+            position: absolute;
+            left: -3px;
+            top: 170px;
+            width: 3px;
+            height: 44px;
+            background: #333;
+            border-radius: 2px 0 0 2px;
+            z-index: 4;
+        }
+        .hero-reel-phone-btn-left-3 {
+            position: absolute;
+            left: -3px;
+            top: 224px;
+            width: 3px;
+            height: 44px;
+            background: #333;
+            border-radius: 2px 0 0 2px;
+            z-index: 4;
+        }
+
+        @media (min-width: 1200px) {
+            .hero-split .hero-text {
+                flex: 1 1 auto;
+                max-width: 70%;
+            }
+            .hero-split .hero-reel {
+                flex: 0 0 auto;
+                margin-right: -140px;
+            }
+            .hero-reel-phone {
+                width: 300px;
+            }
+        }
+        @media (min-width: 1600px) {
+            /* Contain content via padding so backgrounds stay full-width */
+            .hero.hero-split {
+                padding: 5rem max(8rem, calc((100% - 1600px) / 2)) 3.5rem;
+                min-height: 120vh;
+            }
+            .hero-split .hero-text {
+                max-width: 75%;
+            }
+            .hero-title {
+                font-size: 8.5rem !important;
+            }
+            .hero-label {
+                font-size: 1.25rem;
+            }
+            .hero-sub-typewriter {
+                font-size: 1.35rem;
+            }
+            .hero-split .hero-reel {
+                padding-top: 3rem;
+                padding-bottom: 5rem;
+            }
+            .hero-reel-phone {
+                width: 360px;
+                border-radius: 52px;
+            }
+            .hero-reel-phone::after {
+                border-radius: 52px;
+                box-shadow: inset 0 0 0 7px #1a1a1a;
+            }
+            .hero-reel-phone .hero-reel-video {
+                border-radius: 52px;
+            }
+            .project {
+                padding-left: max(2rem, calc((100% - 1600px) / 2));
+                padding-right: max(2rem, calc((100% - 1600px) / 2));
+            }
+            .project-alt .project-info {
+                padding-left: 6rem;
+            }
+            .contact {
+                padding-left: max(10rem, calc((100% - 1600px) / 2));
+                padding-right: max(2rem, calc((100% - 1600px) / 2));
+            }
+        }
+        @media (max-width: 1199px) and (min-width: 601px) {
+            .hero.hero-split {
+                padding: 1.5rem 32px 4rem 64px !important;
+                gap: 0;
+                align-items: flex-start !important;
+            }
+            .hero-reel-phone {
+                width: 299px;
+                border-radius: 40px;
+                transform: rotateY(-12deg) rotateX(3deg);
+            }
+            .hero-reel-phone::after {
+                border-radius: 40px;
+            }
+            .hero-reel-phone .hero-reel-video {
+                border-radius: 36px;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero.hero-split {
+                padding: 0 20px 2.5rem 35px !important;
+                margin-top: -12px;
+                gap: 0;
+                align-items: flex-start !important;
+            }
+        }
+        @media (max-width: 1199px) {
+            .hero-split .hero-reel {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-self: center;
+                margin-top: 1.2rem;
+                margin-bottom: -1.5rem;
+            }
+            .hero-split .hero-text {
+                margin-bottom: 1rem;
+                width: 100%;
+            }
+            .hero-label {
+                margin-left: 0.1em;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero-reel-phone {
+                width: 173px;
+                border-radius: 26px;
+                transform: rotateY(-12deg) rotateX(3deg);
+            }
+            .hero-reel-phone::after {
+                border-radius: 26px;
+            }
+            .hero-reel-phone .hero-reel-video {
+                border-radius: 23px;
+            }
+        }
+        .hero-label { color: rgba(255, 255, 255, 0.35); }
+        .hero-title {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(2.5rem, 5.5vw, 7rem) !important;
+            line-height: 1.15;
+        }
+        @media (max-width: 1199px) and (min-width: 601px) {
+            .hero-title {
+                font-size: clamp(2.5rem, 5.5vw, 4rem) !important;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: clamp(1.75rem, 7.5vw, 2.5rem) !important;
+            }
+        }
+        .hero-scroll-hint { position: relative; z-index: 1; }
+        .hero-scroll-label, .hero-scroll-arrow { color: rgba(255, 255, 255, 0.3); }
+
+        /* Claude bot icon in headline */
+        .claude-bot {
+            display: inline-block;
+            width: 0.89em;
+            height: 0.89em;
+            margin-left: 0.35em;
+            vertical-align: -0.2em;
+            opacity: 0.85;
+            transition: opacity 0.4s ease;
+            animation: botIdle 3s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+        /* Idle: gentle breathing float */
+        @keyframes botIdle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-2px) rotate(1deg); }
+            50% { transform: translateY(-4px) rotate(0deg); }
+            75% { transform: translateY(-2px) rotate(-1deg); }
+        }
+
+        /* === DELIGHT: gentle typewriter pecking === */
+        .claude-bot.typing-delight {
+            opacity: 1;
+            animation: botTypewriter 0.22s steps(2) infinite;
+        }
+        @keyframes botTypewriter {
+            0% { transform: translateY(0) rotate(-1deg); }
+            25% { transform: translateY(-2px) rotate(0.5deg); }
+            50% { transform: translateY(0.5px) rotate(-0.5deg); }
+            75% { transform: translateY(-2.5px) rotate(1deg); }
+            100% { transform: translateY(0) rotate(-1deg); }
+        }
+        .claude-bot.done-delight {
+            opacity: 1;
+            animation: botTypewriterDing 0.6s ease 1;
+        }
+        @keyframes botTypewriterDing {
+            0% { transform: translateY(0) scale(1); }
+            20% { transform: translateY(-8px) scale(1.1); }
+            50% { transform: translateY(-4px) rotate(8deg) scale(1.05); }
+            100% { transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        /* === SHENANIGANS: playful wobble === */
+        .claude-bot.typing-shenanigans {
+            opacity: 1;
+            animation: botChaos 0.5s ease infinite;
+        }
+        @keyframes botChaos {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            10% { transform: translate(3px, -4px) rotate(10deg) scale(1.04); }
+            20% { transform: translate(-2px, -2px) rotate(-8deg) scale(0.96); }
+            30% { transform: translate(2px, -6px) rotate(12deg) scale(1.06); }
+            40% { transform: translate(-3px, -3px) rotate(-10deg) scale(0.94); }
+            50% { transform: translate(2px, -5px) rotate(8deg) scale(1.04); }
+            60% { transform: translate(-2px, -1px) rotate(-12deg) scale(0.97); }
+            70% { transform: translate(2px, -5px) rotate(14deg) scale(1.05); }
+            80% { transform: translate(-3px, -3px) rotate(-6deg) scale(0.96); }
+            90% { transform: translate(1px, -5px) rotate(9deg) scale(1.03); }
+            100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        }
+        .claude-bot.done-shenanigans {
+            opacity: 1;
+            animation: botDizzy 0.7s ease 1;
+        }
+        @keyframes botDizzy {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(360deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* === WONDER: dreamy gentle float === */
+        .claude-bot.typing-wonder {
+            opacity: 1;
+            animation: botPaint 1.4s ease-in-out infinite;
+        }
+        @keyframes botPaint {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            15% { transform: translate(4px, -3px) rotate(6deg); }
+            30% { transform: translate(2px, -5px) rotate(-3deg); }
+            45% { transform: translate(-2px, -4px) rotate(-6deg); }
+            60% { transform: translate(-3px, -2px) rotate(4deg); }
+            75% { transform: translate(-1px, -5px) rotate(-2deg); }
+            90% { transform: translate(2px, -3px) rotate(3deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        .claude-bot.done-wonder {
+            opacity: 1;
+            animation: botStargazeFinish 0.8s ease 1;
+        }
+        @keyframes botStargazeFinish {
+            0% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(-10px) scale(1.12); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        /* === JOY: happy little bounces === */
+        .claude-bot.typing-joy {
+            opacity: 1;
+            animation: botBounceJoy 0.3s ease infinite;
+        }
+        @keyframes botBounceJoy {
+            0%, 100% { transform: translateY(0) scaleY(1) scaleX(1); }
+            30% { transform: translateY(-6px) scaleY(1.06) scaleX(0.95); }
+            50% { transform: translateY(-7px) scaleY(1.04) scaleX(0.97); }
+            70% { transform: translateY(1px) scaleY(0.94) scaleX(1.04); }
+        }
+        .claude-bot.done-joy {
+            opacity: 1;
+            animation: botJoyExplode 0.5s ease 1;
+        }
+        @keyframes botJoyExplode {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.15) rotate(-5deg) translateY(-4px); }
+            50% { transform: scale(0.95) rotate(5deg) translateY(-6px); }
+            75% { transform: scale(1.08) rotate(-2deg) translateY(-2px); }
+            100% { transform: scale(1) rotate(0deg) translateY(0); }
+        }
+
+        /* Conditional line breaks */
+        .break-xl { display: none; }
+        @media (min-width: 1200px) {
+            .break-xl { display: inline; }
+        }
+
+        /* Hero line breaks */
+        /* Hide breaks on small so title fits 2 lines */
+        .hero-break-lg { display: none; }
+        .hero-break-xl { display: none; }
+        /* Medium (tablet): hide break after "1", keep break before "&" */
+        @media (min-width: 601px) and (max-width: 1199px) {
+            .hero-break-lg { display: none; }
+            .hero-break-md { display: inline; }
+        }
+        /* Large: both breaks visible */
+        @media (min-width: 1200px) {
+            .hero-break-lg { display: inline; }
+        }
+        @media (min-width: 1600px) {
+            .hero-break-xl { display: inline; }
+        }
+
+        /* Inline rotating word in headline */
+        .rotating-word-inline {
+            display: inline;
+            color: rgba(255, 255, 255, 0.75);
+            font-style: italic;
+        }
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.85em;
+            background: rgba(255, 255, 255, 0.6);
+            margin-left: 2px;
+            vertical-align: baseline;
+            animation: cursorBlink 0.7s step-end infinite;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Logo bar - white bg, scrolling marquee */
+        .logo-bar {
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            padding: 24px 0;
+            overflow: hidden;
+        }
+        .logo-bar-track {
+            display: flex;
+            align-items: center;
+            gap: 13.5rem;
+            animation: marqueeScroll 50s linear infinite;
+            width: max-content;
+        }
+        .logo-bar-track:hover {
+            animation-play-state: paused;
+        }
+        .logo-bar-track img {
+            flex-shrink: 0;
+        }
+        .logo-bar-track .logo-nike {
+            filter: invert(39%) sepia(98%) saturate(2655%) hue-rotate(11deg) brightness(98%) contrast(99%);
+        }
+        .logo-bar-track .logo-bar-text {
+            font-family: var(--font-family);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #000;
+            white-space: nowrap;
+            letter-spacing: -0.01em;
+            flex-shrink: 0;
+        }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        /* Medium+: more vertical breathing room on work sections and logo bar */
+        @media (min-width: 601px) {
+            .project {
+                padding-top: 56px;
+                padding-bottom: 72px;
+            }
+            .logo-bar {
+                padding: 24px 0;
+            }
+        }
+        @media (min-width: 1200px) {
+            .project {
+                padding-top: 72px;
+                padding-bottom: 88px;
+            }
+            .logo-bar {
+                padding: 22px 0;
+            }
+        }
+        @media (min-width: 1600px) {
+            .project {
+                padding-top: 88px;
+                padding-bottom: 104px;
+            }
+            .logo-bar {
+                padding: 28px 0;
+            }
+        }
+        /* Logo bar responsive - tablet */
+        @media (max-width: 1199px) and (min-width: 601px) {
+            .logo-bar-track { gap: 6.75rem; }
+            .logo-bar-track img { transform: scale(0.9); }
+            .logo-bar-track .logo-bar-text { font-size: 0.95rem; }
+        }
+        /* Logo bar responsive - mobile */
+        @media (max-width: 600px) {
+            .logo-bar { padding: 14px 0; }
+            .logo-bar-track { gap: 5rem; }
+            .logo-bar-track img { transform: scale(0.8); }
+            .logo-bar-track .logo-bar-text { font-size: 0.85rem; }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo active">Jonathan Bowden</a>
+        <div class="nav-links">
+            <a href="play.html" class="nav-link" aria-label="Play"><svg width="18" height="18" style="position:relative;top:2px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></a>
+            <a href="diff.html" class="nav-link" aria-label="Diff"><svg width="18" height="18" style="position:relative;top:2px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></a>
+            <a href="mailto:jonathan.k.bowden@gmail.com" class="nav-link" aria-label="Email"><svg width="18" height="18" style="position:relative;top:2px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg></a>
+            <a href="https://www.linkedin.com/in/jonathankbowden/" class="nav-link" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" style="position:relative;top:2px" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+    </nav>
+
+    <section class="hero hero-left hero-split">
+        <div class="hero-grain" aria-hidden="true"></div>
+        <div class="hero-text">
+            <span class="hero-label">PRINCIPAL DESIGN DIRECTOR</span>
+            <h1 class="hero-title">Building 0 &rarr; 1<br class="hero-break-lg"> w/ design, code<br class="hero-break-lg hero-break-md"> &amp;&nbsp;<span class="rotating-word-inline"><span id="rotatingWordInline"></span><span class="typewriter-cursor"></span></span><img class="claude-bot" id="claudeBot" src="images/claudecode-color.svg" alt=""></h1>
+        </div>
+        <div class="hero-reel">
+            <div class="hero-reel-phone">
+                <video class="hero-reel-video" autoplay muted loop playsinline>
+                    <source src="images/hero-reel-trimmed.mp4" type="video/mp4">
+                </video>
+                <div class="hero-reel-phone-btn-right"></div>
+                <div class="hero-reel-phone-btn-left-1"></div>
+                <div class="hero-reel-phone-btn-left-2"></div>
+                <div class="hero-reel-phone-btn-left-3"></div>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <span class="hero-scroll-arrow">&#8964;</span>
+            <span class="hero-scroll-label">Swipe to explore</span>
+            <span class="hero-scroll-arrow">&#8964;</span>
+        </div>
+    </section>
+    <div class="hero-spacer" id="heroSpacer"></div>
+
+    <!-- Logo bar - scrolling marquee -->
+    <section class="logo-bar">
+        <div class="logo-bar-track">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Expedia_Logo_2023.svg" alt="Expedia" height="22">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" height="24">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Cond%C3%A9_Nast_logo.svg" alt="Cond&eacute; Nast" height="24">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Vrbo.svg" alt="Vrbo" height="22">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" height="18">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike" height="24" class="logo-nike">
+            <span class="logo-bar-text" style="font-size:1.15rem">Welldoc</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Amazon_Alexa_Logo_2024.svg" alt="Amazon Alexa" height="28">
+            <span class="logo-bar-text" style="font-size:1.15rem">Novo Nordisk</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Amgen.svg" alt="Amgen" height="20">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" height="22">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Perplexity_AI_logo.svg" alt="Perplexity" height="28">
+            <!-- Duplicate for seamless loop -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Expedia_Logo_2023.svg" alt="Expedia" height="22">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" height="24">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Cond%C3%A9_Nast_logo.svg" alt="Cond&eacute; Nast" height="24">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Vrbo.svg" alt="Vrbo" height="22">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" height="18">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike" height="24" class="logo-nike">
+            <span class="logo-bar-text" style="font-size:1.15rem">Welldoc</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Amazon_Alexa_Logo_2024.svg" alt="Amazon Alexa" height="28">
+            <span class="logo-bar-text" style="font-size:1.15rem">Novo Nordisk</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Amgen.svg" alt="Amgen" height="20">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" height="22">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Perplexity_AI_logo.svg" alt="Perplexity" height="28">
+        </div>
+    </section>
+
+    <section class="projects">
+        <!-- Project 1: Creators -->
+        <div class="project-link-wrapper">
+            <div class="project project-surface">
+                <div class="project-image">
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="carousel-slide carousel-slide-video" data-duration="19"><video muted playsinline preload="none" data-src-2x="images/creators_video_1@2x.mp4" data-src-1x="images/creators_video_1@1x.mp4"><source src="images/creators_video_1@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide"><img src="images/creators_shop_v1_2@2x.png" alt="Creators - Shop curation"></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="17"><video muted playsinline preload="none" data-src-2x="images/creators_video_2@2x.mp4" data-src-1x="images/creators_video_2@1x.mp4"><source src="images/creators_video_2@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide"><img src="images/Creators_hero_5.png" alt="Creators - Mobile experience"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-label">01</span>
+                    <h2 class="project-title">Travel discovery via influencers</h2>
+                    <p class="project-desc">New generations of travelers were starting discovery on social platforms, not Expedia. I led a team of 9 XD professionals to build a dual-sided creator platform from scratch. 10k+ Travel Shops launched, 2x conversion rate, 3x save rate.</p>
+                    <a href="https://creator.expediagroup.com" class="project-meta" target="_blank" rel="noopener" style="display:inline-block; margin-top:0.25rem;">creator.expediagroup.com &rarr;</a>
+                    <span class="project-meta">10k+ Travel Shops &nbsp; &middot; &nbsp; 2x Conversion &nbsp; &middot; &nbsp; 3x Saves</span>
+                    <div class="project-ctas" onclick="event.stopPropagation();">
+                        <span class="clip-cta" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('https://www.loom.com/embed/ef340366ebbd41efbcbfe26e5dd16636');">Watch Case Study &rarr;</span>
+                        <a href="https://tinyurl.com/5c6r34yc" class="clip-cta" onclick="event.stopPropagation();" target="_blank" rel="noopener">Deep Dive &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2: Partnerships -->
+        <div class="project-link-wrapper">
+            <div class="project project-alt">
+                <div class="project-image">
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="carousel-slide carousel-slide-video" data-duration="16"><video muted playsinline preload="none" data-src-2x="images/partners_video_1@2x.mp4" data-src-1x="images/partners_video_1@1x.mp4"><source src="images/partners_video_1@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="26"><video muted playsinline preload="none" data-src-2x="images/partners_video_2@2x.mp4" data-src-1x="images/partners_video_2@1x.mp4"><source src="images/partners_video_2@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="10"><video muted playsinline preload="none" data-src-2x="images/partners_video_3@2x.mp4" data-src-1x="images/partners_video_3@1x.mp4"><source src="images/partners_video_3@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="6"><video muted playsinline preload="none" data-src-2x="images/partners_video_4@2x.mp4" data-src-1x="images/partners_video_4@1x.mp4"><source src="images/partners_video_4@1x.mp4" type="video/mp4"></video></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-label">02</span>
+                    <h2 class="project-title">Partnerships<br class="break-xl"> as On-ramps</h2>
+                    <p class="project-desc">The next billion travelers are starting their journey on ChatGPT, Alexa+, Cond&eacute; Nast and more. I lead the XD team working with partners product and commercial teams to ideate and execute on both incremental improvements and grand visions. Over $7 billion revenue in 2025 alone.</p>
+                    <span class="project-meta">$7B Annual Revenue &nbsp; &middot; &nbsp; ai Partnerships &nbsp; &middot; &nbsp; Voice Flows</span>
+                    <div class="project-ctas" onclick="event.stopPropagation();">
+                        <span class="clip-cta" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('https://www.loom.com/embed/6ae92d813c184d3a8b235775a7dc48a1');">Watch Case Study &rarr;</span>
+                        <a href="https://tinyurl.com/5c6r34yc" class="clip-cta" onclick="event.stopPropagation();" target="_blank" rel="noopener">Deep Dive &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 3: Intelligence -->
+        <div class="project-link-wrapper">
+            <div class="project project-surface">
+                <div class="project-image">
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="carousel-slide carousel-slide-video" data-duration="5"><video muted playsinline preload="none" data-src-2x="images/intel_video_1@2x.mp4" data-src-1x="images/intel_video_1@1x.mp4"><source src="images/intel_video_1@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="8"><video muted playsinline preload="none" data-src-2x="images/intel_video_2@2x.mp4" data-src-1x="images/intel_video_2@1x.mp4"><source src="images/intel_video_2@1x.mp4" type="video/mp4"></video></div>
+                            <div class="carousel-slide carousel-slide-video" data-duration="14"><video muted playsinline preload="none" data-src-2x="images/intel_video_3@2x.mp4" data-src-1x="images/intel_video_3@1x.mp4"><source src="images/intel_video_3@1x.mp4" type="video/mp4"></video></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="project-label">03</span>
+                    <h2 class="project-title"><s>Artificial</s> Augmented Intelligence</h2>
+                    <p class="project-desc">Expedia&rsquo;s search was playing out the org chart: flights, hotels, cars. We had a new capability for open-ended search via voice or text, but no one had heard of &lsquo;AI&rsquo; yet. I led an XD team of 5 to explore incremental and breakthrough ways to introduce this to millions of travelers. It became the foundation for Expedia&rsquo;s AI roadmap.</p>
+                    <span class="project-meta">ai &nbsp; &middot; &nbsp; Search &nbsp; &middot; &nbsp; Voice Input</span>
+                    <div class="project-ctas" onclick="event.stopPropagation();">
+                        <span class="clip-cta" onclick="event.preventDefault(); event.stopPropagation(); openVideoModal('https://www.loom.com/embed/174aa2848fee4856a108b6b304577630');">Watch Case Study &rarr;</span>
+                        <a href="https://tinyurl.com/5c6r34yc" class="clip-cta" onclick="event.stopPropagation();" target="_blank" rel="noopener">Deep Dive &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Video Modal -->
+    <div class="video-modal-overlay" id="videoModal">
+        <div class="video-modal">
+            <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Close">&times;</button>
+            <div class="video-modal-embed">
+                <iframe id="videoIframe" src="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function openVideoModal(url) {
+        var modal = document.getElementById('videoModal');
+        var iframe = document.getElementById('videoIframe');
+        iframe.src = url;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeVideoModal() {
+        var modal = document.getElementById('videoModal');
+        var iframe = document.getElementById('videoIframe');
+        modal.classList.remove('active');
+        iframe.src = '';
+        document.body.style.overflow = '';
+    }
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+        if (e.target === this) closeVideoModal();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeVideoModal();
+    });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('[data-carousel]').forEach(carousel => {
+            const track = carousel.querySelector('.carousel-track');
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+            let currentIndex = 0;
+
+            slides[0].classList.add('active');
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Slide ${i + 1}`);
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    goToSlide(i);
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+            function goToSlide(index) {
+                currentIndex = index;
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === currentIndex);
+                });
+                updateDots();
+                manageVideos();
+            }
+
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function manageVideos() {
+                slides.forEach((slide, i) => {
+                    const video = slide.querySelector('video');
+                    if (!video) return;
+                    if (i === currentIndex) {
+                        if (video.preload === 'none') {
+                            var src2x = video.getAttribute('data-src-2x');
+                            var src1x = video.getAttribute('data-src-1x');
+                            if (src2x && src1x) {
+                                var use2x = window.innerWidth >= 901 || window.devicePixelRatio >= 2;
+                                var source = video.querySelector('source');
+                                source.src = use2x ? src2x : src1x;
+                                video.load();
+                            }
+                            video.preload = 'auto';
+                        }
+                        video.currentTime = 0;
+                        video.play().catch(() => {});
+                    } else {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+            }
+
+            let autoPlayTimer = null;
+            let isHovered = false;
+
+            function scheduleNext() {
+                if (autoPlayTimer || isHovered) return;
+                var slide = slides[currentIndex];
+                var duration = slide ? slide.getAttribute('data-duration') : null;
+                var delay = duration ? parseInt(duration) * 1000 : 4000;
+                autoPlayTimer = setTimeout(() => {
+                    autoPlayTimer = null;
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    goToSlide(currentIndex);
+                    scheduleNext();
+                }, delay);
+            }
+
+            function startAutoPlay() {
+                if (autoPlayTimer || isHovered) return;
+                scheduleNext();
+            }
+
+            function stopAutoPlay() {
+                clearTimeout(autoPlayTimer);
+                autoPlayTimer = null;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startAutoPlay();
+                        manageVideos();
+                    } else {
+                        stopAutoPlay();
+                        slides.forEach(slide => {
+                            const v = slide.querySelector('video');
+                            if (v) { v.pause(); v.currentTime = 0; }
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(carousel);
+
+            carousel.addEventListener('mouseenter', () => { isHovered = true; stopAutoPlay(); });
+            carousel.addEventListener('mouseleave', () => { isHovered = false; startAutoPlay(); });
+
+            // Swipe/drag gesture support (touch + mouse)
+            let dragStartX = 0;
+            let dragStartY = 0;
+            let isDragging = false;
+
+            function handleSwipe(dx, dy) {
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                    if (dx < 0 && currentIndex < slides.length - 1) {
+                        goToSlide(currentIndex + 1);
+                    } else if (dx > 0 && currentIndex > 0) {
+                        goToSlide(currentIndex - 1);
+                    }
+                }
+            }
+
+            // Touch events
+            carousel.addEventListener('touchstart', (e) => {
+                dragStartX = e.touches[0].clientX;
+                dragStartY = e.touches[0].clientY;
+                stopAutoPlay();
+            }, { passive: true });
+            carousel.addEventListener('touchend', (e) => {
+                handleSwipe(e.changedTouches[0].clientX - dragStartX, e.changedTouches[0].clientY - dragStartY);
+                startAutoPlay();
+            }, { passive: true });
+
+            // Mouse drag events
+            carousel.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                e.preventDefault();
+            });
+            document.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                handleSwipe(e.clientX - dragStartX, e.clientY - dragStartY);
+            });
+
+            // Trackpad two-finger swipe (wheel events)
+            let wheelAccum = 0;
+            let wheelTimer = null;
+            let wheelLocked = false;
+            carousel.addEventListener('wheel', (e) => {
+                var dx = Math.abs(e.deltaX);
+                var dy = Math.abs(e.deltaY);
+                // Use whichever axis has more movement
+                var delta = dx >= dy ? e.deltaX : e.deltaY;
+                if (dx < 5 && dy < 5) return;
+                e.preventDefault();
+                if (wheelLocked) return;
+                wheelAccum += delta;
+                clearTimeout(wheelTimer);
+                wheelTimer = setTimeout(() => {
+                    if (Math.abs(wheelAccum) > 20) {
+                        wheelLocked = true;
+                        handleSwipe(-wheelAccum, 0);
+                        setTimeout(() => { wheelLocked = false; }, 600);
+                    }
+                    wheelAccum = 0;
+                }, 80);
+            }, { passive: false });
+        });
+    });
+    </script>
+    <script>
+    /* Hero reel — serve 1x on mobile, 2x on large/retina */
+    (function() {
+        var video = document.querySelector('.hero-reel-video');
+        if (!video) return;
+        var src2x = video.getAttribute('data-src-2x');
+        var src1x = video.getAttribute('data-src-1x');
+        if (!src2x || !src1x) return;
+        var useMobile = window.innerWidth < 901 && window.devicePixelRatio < 2;
+        if (useMobile) {
+            var source = video.querySelector('source');
+            if (source) source.src = src1x;
+            video.load();
+        }
+    })();
+    </script>
+    <script>
+    /* Size the spacer to match the fixed hero height */
+    (function() {
+        var hero = document.querySelector('.hero.hero-split');
+        var spacer = document.getElementById('heroSpacer');
+        if (!hero || !spacer) return;
+        function sync() {
+            spacer.style.height = (hero.offsetHeight - 16) + 'px';
+        }
+        sync();
+        window.addEventListener('resize', sync);
+        window.addEventListener('load', sync);
+    })();
+    </script>
+    <script>
+    (function() {
+        var hint = document.querySelector('.hero-scroll-hint');
+        if (!hint) return;
+        var dismissed = false;
+        window.addEventListener('scroll', function() {
+            if (!dismissed && window.scrollY > 10) {
+                dismissed = true;
+                hint.classList.add('hidden');
+            }
+        }, { passive: true });
+    })();
+    </script>
+    <script src="analytics.js"></script>
+    <script>
+    /* Nav color switch on scroll past hero (watches spacer since hero is fixed) */
+    (function() {
+        var nav = document.querySelector('.nav');
+        var spacer = document.getElementById('heroSpacer');
+        if (!nav || !spacer) return;
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    nav.classList.remove('nav-scrolled');
+                } else {
+                    nav.classList.add('nav-scrolled');
+                }
+            });
+        }, { threshold: 0.05 });
+        observer.observe(spacer);
+    })();
+    </script>
+    <script>
+    /* Typewriter rotation for hero subheadline */
+    (function() {
+        var words = ['delight', 'shenanigans', 'wonder', 'joy', 'clarity', 'curiosity', 'courage', 'confidence'];
+        // Shuffle on each page load
+        for (var i = words.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = words[i]; words[i] = words[j]; words[j] = tmp;
+        }
+        var el = document.getElementById('rotatingWordInline');
+        var bot = document.getElementById('claudeBot');
+        if (!el) return;
+
+        var wordIndex = 0;
+        var charIndex = 0;
+        var isDeleting = false;
+        var pauseAfterType = 2200;
+        var pauseAfterDelete = 400;
+        var typeSpeed = 80;
+        var deleteSpeed = 50;
+
+        function tick() {
+            var currentWord = words[wordIndex];
+
+            var animStyles = ['delight', 'shenanigans', 'wonder', 'joy'];
+
+            function clearBotClasses() {
+                if (!bot) return;
+                animStyles.forEach(function(w) {
+                    bot.classList.remove('typing-' + w, 'done-' + w);
+                });
+            }
+            function getAnimStyle() {
+                return animStyles[wordIndex % animStyles.length];
+            }
+
+            if (!isDeleting) {
+                // Typing
+                charIndex++;
+                el.textContent = currentWord.substring(0, charIndex);
+                if (bot) {
+                    clearBotClasses();
+                    bot.classList.add('typing-' + getAnimStyle());
+                }
+
+                if (charIndex === currentWord.length) {
+                    // Done typing - celebrate per word!
+                    if (bot) {
+                        clearBotClasses();
+                        bot.classList.add('done-' + getAnimStyle());
+                        setTimeout(function() { clearBotClasses(); }, 900);
+                    }
+                    setTimeout(function() {
+                        isDeleting = true;
+                        tick();
+                    }, pauseAfterType);
+                    return;
+                }
+                setTimeout(tick, typeSpeed + Math.random() * 40);
+            } else {
+                // Deleting
+                charIndex--;
+                el.textContent = currentWord.substring(0, charIndex);
+                if (bot) {
+                    clearBotClasses();
+                    bot.classList.add('typing-' + getAnimStyle());
+                }
+
+                if (charIndex === 0) {
+                    // Done deleting, move to next word
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    if (bot) clearBotClasses();
+                    setTimeout(tick, pauseAfterDelete);
+                    return;
+                }
+                setTimeout(tick, deleteSpeed);
+            }
+        }
+
+        // Start after a brief delay
+        setTimeout(tick, 800);
+    })();
+    </script>
+</body>
+</html>

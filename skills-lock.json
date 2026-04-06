@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "soleio-design-hiring": {
+      "source": "kylezantos/soleio-design-hiring",
+      "sourceType": "github",
+      "computedHash": "de537cd8121e5170289e302804ce9733f2f2ac730fcb71ae91794825f9530cae"
+    }
+  }
+}
