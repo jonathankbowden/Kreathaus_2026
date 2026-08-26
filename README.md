@@ -2,6 +2,9 @@
 
 Personal portfolio site showcasing design leadership work.
 
+Also home to [Kreathaus Money](advisor/README.md) (`/advisor/`) — a private,
+Monarch-style personal-finance dashboard with a Claude-powered advisor.
+
 ## Stack
 
 - HTML5

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Kreathaus Money — Personal Financial Advisor</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232a78d6'/%3E%3Ctext x='16' y='23' font-size='19' font-weight='800' font-family='system-ui,sans-serif' fill='white' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">K</span>
+      <span class="brand-name">Kreathaus <em>Money</em></span>
+    </div>
+    <nav class="tabs" id="tabs" role="tablist">
+      <button class="tab active" data-view="dashboard" role="tab">Dashboard</button>
+      <button class="tab" data-view="spending" role="tab">Spending</button>
+      <button class="tab" data-view="recurring" role="tab">Recurring</button>
+      <button class="tab" data-view="budgets" role="tab">Budgets</button>
+      <button class="tab" data-view="transactions" role="tab">Transactions</button>
+      <button class="tab" data-view="advisor" role="tab">Advisor</button>
+    </nav>
+    <div class="topbar-actions">
+      <button class="btn ghost" id="btn-import">Import CSV</button>
+      <button class="btn ghost icon" id="btn-settings" aria-label="Settings">⚙</button>
+    </div>
+  </header>
+
+  <div class="filterbar" id="filterbar">
+    <div class="segmented" id="range-picker" role="group" aria-label="Date range">
+      <button data-range="3m">3M</button>
+      <button data-range="6m" class="active">6M</button>
+      <button data-range="12m">12M</button>
+      <button data-range="ytd">YTD</button>
+      <button data-range="all">All</button>
+    </div>
+    <select id="account-picker" aria-label="Account">
+      <option value="all">All accounts</option>
+    </select>
+    <span class="demo-badge" id="demo-badge" hidden>Demo data</span>
+  </div>
+
+  <main id="view" class="view"></main>
+
+  <!-- empty state -->
+  <section id="empty-state" class="empty-state" hidden>
+    <div class="empty-card" id="drop-zone">
+      <h1>Your money, your advisor.</h1>
+      <p class="lede">A private Monarch-style dashboard. Import your Empower transaction
+        export and get cash-flow analytics, subscription tracking, budgets, and a
+        Claude-powered financial advisor — all stored only in this browser.</p>
+      <div class="drop-hint">
+        <strong>Drop your CSV here</strong> or
+        <button class="btn primary" id="btn-import-2">Choose file</button>
+        <button class="btn ghost" id="btn-demo">Explore with demo data</button>
+      </div>
+      <details class="howto">
+        <summary>How to export from Empower</summary>
+        <ol>
+          <li>Sign in to the Empower Personal Dashboard on the web.</li>
+          <li>Open <strong>Banking → Transactions</strong> (or Accounts → All transactions).</li>
+          <li>Set the date range you want — a year or more gives the advisor the best picture.</li>
+          <li>Click the <strong>CSV download</strong> icon above the transaction list.</li>
+          <li>Drop the downloaded <code>transactions.csv</code> here. Mint, Monarch, and most bank CSVs work too.</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <input type="file" id="file-input" accept=".csv,text/csv" multiple hidden>
+
+  <!-- settings -->
+  <dialog id="settings-dialog" class="dialog">
+    <form method="dialog">
+      <h2>Settings</h2>
+
+      <h3>Claude advisor</h3>
+      <label class="field">
+        <span>Anthropic API key</span>
+        <input type="password" id="set-apikey" placeholder="sk-ant-…" autocomplete="off">
+        <small>Stored only in this browser's localStorage and sent only to api.anthropic.com.
+        Get one at console.anthropic.com. Aggregated totals (never raw account numbers) are
+        sent as context when you chat.</small>
+      </label>
+      <label class="field">
+        <span>Model</span>
+        <select id="set-model">
+          <option value="claude-opus-5">Claude Opus 5 (recommended)</option>
+          <option value="claude-sonnet-5">Claude Sonnet 5 (faster, cheaper)</option>
+          <option value="claude-haiku-4-5">Claude Haiku 4.5 (cheapest)</option>
+        </select>
+      </label>
+
+      <h3>Transfers &amp; exclusions</h3>
+      <p class="hint">Checked categories are treated as transfers between your own accounts
+        and excluded from income/spending math.</p>
+      <div id="set-exclusions" class="exclusion-list"></div>
+
+      <h3>Data</h3>
+      <div class="row gap">
+        <button type="button" class="btn ghost" id="btn-export">Export JSON</button>
+        <button type="button" class="btn danger" id="btn-clear">Delete all data</button>
+      </div>
+
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost">Cancel</button>
+        <button value="save" class="btn primary" id="btn-save-settings">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/csv.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/insights.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/claude.js"></script>
+  <script src="js/demo.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
