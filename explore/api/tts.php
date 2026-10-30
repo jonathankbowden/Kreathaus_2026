@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['voices'])) {
             $labels = is_array($v['labels'] ?? null) ? $v['labels'] : [];
             $bits = [];
             foreach (['accent', 'description', 'age'] as $k) {
-                if (!empty($labels[$k]) && is_string($labels[$k])) { $bits[] = ucfirst($labels[$k]); }
+                if (!empty($labels[$k]) && is_string($labels[$k])) { $bits[] = ucfirst(str_replace(['_', '-'], ' ', $labels[$k])); }
             }
             if (!preg_match('/^[A-Za-z0-9]{8,64}$/', (string) ($v['voice_id'] ?? ''))) { continue; }
             $out['voices'][] = ['id' => $v['voice_id'], 'name' => (string) ($v['name'] ?? 'Voice'), 'note' => implode(' · ', $bits)];
