@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Interior">
-<meta name="build" content="2026-10-30.4">
+<meta name="build" content="2026-10-30.5">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <title>Interior</title>
@@ -412,7 +412,7 @@
           <span class="label">Tap twice</span>
         </button>
       </div>
-      <p class="label" style="padding: 28px 0 8px;">Interior · prototype · Internal Family Systems after R. Schwartz</p>
+      <p class="label" style="padding: 28px 0 8px;" id="build-line">Interior · prototype · Internal Family Systems after R. Schwartz</p>
     </div>
     <nav class="nav" aria-label="Primary">
       <button data-go="home" aria-label="Today"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="11" r="7.5"></circle></svg></button>
@@ -1420,6 +1420,22 @@
     if (typeof synth.onvoiceschanged !== 'undefined') synth.onvoiceschanged = loadVoices;
     setTimeout(loadVoices, 600);
   }
+
+  /* Home-screen mode: size the shell to the real window, not to what iOS
+     thinks the viewport is (it sometimes leaves a toolbar-sized gap). */
+  function fitViewport() {
+    var standalone = navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+    var app = $('app');
+    if (!standalone || !window.innerHeight) return;
+    app.style.top = '0'; app.style.bottom = 'auto'; app.style.height = window.innerHeight + 'px';
+  }
+  window.addEventListener('resize', fitViewport);
+  window.addEventListener('orientationchange', function () { setTimeout(fitViewport, 300); });
+  fitViewport();
+  (function () {
+    var m = document.querySelector('meta[name="build"]'); var b = $('build-line');
+    if (m && b) b.textContent += ' · build ' + m.getAttribute('content') + (navigator.standalone ? ' · home screen' : '');
+  })();
 
   load();
   initFirebase();
