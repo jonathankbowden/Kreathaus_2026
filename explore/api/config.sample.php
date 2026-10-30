@@ -1,6 +1,6 @@
 <?php
 /**
- * Interior — server configuration
+ * Explore — server configuration
  *
  * 1. Copy this file to config.php (same folder).
  * 2. Paste your ElevenLabs API key below (elevenlabs.io → Profile → API keys).

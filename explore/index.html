@@ -6,11 +6,11 @@
 <meta name="theme-color" content="#F2EEE7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Interior">
-<meta name="build" content="2026-10-30.11">
+<meta name="apple-mobile-web-app-title" content="Explore">
+<meta name="build" content="2026-10-30.12">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
-<title>Interior</title>
+<title>Explore</title>
 <script src="config.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
@@ -131,11 +131,14 @@
   .sechead { display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--stone); }
 
   /* bottom nav */
+  /* pinned to the bottom edge of the app, independent of the screen's own layout */
   .nav {
+    position: absolute; left: 0; right: 0; bottom: 0;
     display: flex; justify-content: space-around; align-items: center; min-height: 60px;
-    margin: 0 -28px; padding: 0 28px env(safe-area-inset-bottom, 0px); border-top: 1px solid var(--stone);
+    margin: 0; padding: 0 28px env(safe-area-inset-bottom, 0px); border-top: 1px solid var(--stone);
+    background: var(--bone);
   }
-  #s-home, #s-parts, #s-settings { padding-bottom: 0; }
+  #s-home, #s-parts, #s-settings { padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); }
   .nav button { position: relative; width: 64px; height: 56px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; color: var(--ash); cursor: pointer; transition: color 300ms var(--ease); }
   .nav button svg { stroke: currentColor; }
   .nav button.current { color: var(--umber); }
@@ -148,10 +151,11 @@
   .feelrow .now { color: var(--moss); border-bottom: 1px solid var(--moss); padding-bottom: 2px; }
 
   /* session */
-  .orb { position: relative; width: 200px; height: 200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+  .orb { position: relative; width: 150px; height: 150px; margin: 0 auto; display: flex; align-items: center; justify-content: center; transition: transform 900ms var(--ease), opacity 900ms var(--ease); }
   .orb .ring1 { position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--night-line); }
-  .orb .ring2 { position: absolute; inset: 32px; border-radius: 50%; border: 1px solid #7A736A; }
-  .orb .core { width: 84px; height: 84px; border-radius: 50%; background: var(--bone); opacity: .9; }
+  .orb .ring2 { position: absolute; inset: 26px; border-radius: 50%; border: 1px solid #7A736A; }
+  .orb .core { width: 62px; height: 62px; border-radius: 50%; background: var(--bone); opacity: .9; }
+  .is-listening .orb { transform: scale(.78); opacity: .7; }
   .orb .ring1, .orb .ring2, .orb .core { animation: breathe 8s var(--ease) infinite; }
   .orb .ring2 { animation-delay: .6s; }
   .orb .core { animation-name: breathe-core; }
@@ -160,8 +164,14 @@
   @keyframes breathe-core { 0%, 100% { transform: scale(.94); opacity: .78; } 50% { transform: scale(1.06); opacity: .95; } }
 
   .guide { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-  .guide .line { font-family: var(--serif); font-weight: 300; font-size: 28px; line-height: 1.2; margin: 0; transition: opacity 500ms var(--ease); }
+  .guide .line { font-family: var(--serif); font-weight: 300; font-size: 25px; line-height: 1.22; margin: 0; max-width: 340px; transition: opacity 500ms var(--ease), font-size 600ms var(--ease); }
+  .guide .line.long { font-size: 22px; }
+  .is-listening .guide .line { font-size: 20px; opacity: .8; }
   .guide .line.fading { opacity: 0; }
+  .is-listening .skiprow { opacity: 0; pointer-events: none; }
+  .skiprow { transition: opacity 500ms var(--ease); }
+  .is-listening .answer { padding-bottom: 64px; }
+  .answer { transition: padding 700ms var(--ease); }
   .status { display: inline-flex; align-items: center; gap: 12px; min-height: 24px; }
   .wave { display: inline-flex; align-items: center; gap: 4px; height: 14px; }
   .wave i { display: block; width: 1.25px; height: 4px; background: var(--night-ash); border-radius: 1px; transition: height 300ms var(--ease); }
@@ -200,13 +210,14 @@
   .tnum { font-variant-numeric: tabular-nums; letter-spacing: .12em; font-size: 11px; color: var(--night-ash); }
 
   #s-session { overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  @media (max-height: 760px) {
-    .orb { width: 150px; height: 150px; }
-    .orb .ring2 { inset: 24px; }
-    .orb .core { width: 64px; height: 64px; }
-    .guide .line { font-size: 25px; }
+  @media (max-height: 720px) {
+    .orb { width: 120px; height: 120px; }
+    .orb .ring2 { inset: 20px; }
+    .orb .core { width: 50px; height: 50px; }
+    .guide .line { font-size: 22px; }
+    .guide .line.long { font-size: 20px; }
   }
-  .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 20%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 800ms var(--ease); }
+  .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 24%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 800ms var(--ease); }
   .waves.on { opacity: 1; }
   .overlay {
     position: fixed; inset: 0; background: rgba(28, 26, 24, .97); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;
@@ -216,7 +227,7 @@
   .overlay .stack { width: 100%; display: flex; flex-direction: column; gap: 14px; }
 
   .toast {
-    position: absolute; left: 28px; right: 28px; bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+    position: absolute; left: 28px; right: 28px; top: calc(env(safe-area-inset-top, 0px) + 64px);
     text-align: center; font-size: 12px; line-height: 1.5; color: var(--ash); z-index: 5;
     opacity: 0; transition: opacity 500ms var(--ease); pointer-events: none;
   }
@@ -291,7 +302,7 @@
   <!-- PARTS -->
   <section id="s-parts" class="screen bone">
     <div class="hdr">
-      <div class="wordmark">Interior</div>
+      <div class="wordmark">Explore</div>
       <button class="textbtn" id="btn-journal" data-go="journal">Journal</button>
     </div>
     <h1 class="serif-xl" style="margin-top: 40px;">Parts</h1>
@@ -341,7 +352,7 @@
   <!-- SETTINGS -->
   <section id="s-settings" class="screen bone">
     <div class="hdr">
-      <div class="wordmark">Interior</div>
+      <div class="wordmark">Explore</div>
     </div>
     <h1 class="serif-xl" style="margin-top: 40px;">Settings</h1>
     <div class="scroll" style="margin-top: 16px;">
@@ -408,7 +419,7 @@
           <span class="label">Tap twice</span>
         </button>
       </div>
-      <p class="label" style="padding: 28px 0 8px;" id="build-line">Interior · prototype · Internal Family Systems after R. Schwartz</p>
+      <p class="label" style="padding: 28px 0 8px;" id="build-line">Explore · prototype · Internal Family Systems after R. Schwartz</p>
     </div>
     <nav class="nav" aria-label="Primary">
       <button data-go="home" aria-label="Today"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="11" r="7.5"></circle></svg></button>
@@ -459,7 +470,7 @@
   <section id="s-summary" class="screen bone">
     <div class="hdr">
       <div class="label" id="sum-head">Session complete</div>
-      <div class="wordmark">Interior</div>
+      <div class="wordmark">Explore</div>
     </div>
     <div class="scroll" style="margin-top: 32px;" id="sum-body"></div>
     <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
@@ -815,12 +826,14 @@
       rec.onend = function () { stopListening(); };
       rec.start();
       listening = true; setStatus('listening'); setMic(true);
+      $('s-session').classList.add('is-listening');
       wavesStart();
     } catch (e) { toast('Voice input isn’t available here. Type below.'); stopListening(); }
   }
   function stopListening() {
     listening = false; setMic(false);
     if (rec) { try { rec.onend = null; rec.stop(); } catch (e) {} rec = null; }
+    $('s-session').classList.remove('is-listening');
     wavesStop();
     setStatus('quiet');
   }
@@ -1184,7 +1197,7 @@
   function setLine(text) {
     var line = $('guide-line');
     line.classList.add('fading');
-    setTimeout(function () { line.textContent = text; line.classList.remove('fading'); }, 260);
+    setTimeout(function () { line.textContent = text; line.classList.toggle('long', text.length > 150); line.classList.remove('fading'); }, 260);
   }
   var currentText = '';
   function sayStep(text) {
@@ -1246,7 +1259,7 @@
     mic.addEventListener('click', function () { if (listening) stopListening(); else startListening(t); });
     row.appendChild(mic);
     a.appendChild(row);
-    var skipRow = el('div'); skipRow.style.cssText = 'display:flex;justify-content:center';
+    var skipRow = el('div', 'skiprow'); skipRow.style.cssText = 'display:flex;justify-content:center';
     var skip = el('button', 'textbtn'); skip.type = 'button'; skip.style.cssText = 'min-height:36px;margin:0';
     skip.textContent = step.kind === 'name' ? 'Leave it unnamed' : 'Nothing came forward';
     skip.addEventListener('click', function () { hush(); stopListening(); record(step, step.kind === 'name' ? '' : '—'); next(); });

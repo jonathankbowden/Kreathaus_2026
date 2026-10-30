@@ -1,4 +1,4 @@
-name: Deploy Interior (explore/) to kreathaus.com
+name: Deploy Explore (explore/) to kreathaus.com
 
 # Uploads explore/ to ftp.kreathaus.com whenever it changes on these branches,
 # or on demand from the Actions tab. One-time setup: repository secrets

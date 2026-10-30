@@ -1,6 +1,6 @@
 <?php
 /**
- * Interior — guide voice proxy
+ * Explore — guide voice proxy
  *
  * POST  { "text": "...", "voice": "<elevenlabs voice id>", "speed": 0.9 }
  * →     audio/mpeg (generated once, then served from api/cache/ forever)

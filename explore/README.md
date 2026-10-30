@@ -1,4 +1,4 @@
-# Interior — kreathaus.com/explore
+# Explore — kreathaus.com/explore
 
 A voice-guided Internal Family Systems practice. Single static page + one PHP file.
 No build step. Upload the whole `explore/` folder to `public_html/explore/`.
@@ -23,7 +23,7 @@ Paste its voice ID into `config.js` → `voices`.
    → Web app → config**. Paste the values into `config.js` → `firebase`.
 2. **Authentication → Sign-in method**: Google is already enabled for /daily. Confirm
    **Authorized domains** includes `kreathaus.com` and `www.kreathaus.com`.
-3. **Firestore → Rules**: add this block alongside the existing rules. Interior keeps its data in
+3. **Firestore → Rules**: add this block alongside the existing rules. Explore keeps its data in
    its own `interior_users` collection, so nothing in /daily is touched.
 
 ```
