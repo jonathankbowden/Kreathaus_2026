@@ -35,6 +35,7 @@
     --fade: 700ms;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   html, body { height: 100%; }
   body {
     margin: 0;
@@ -130,12 +131,14 @@
 
   /* bottom nav */
   .nav {
-    display: flex; justify-content: space-between; align-items: center; min-height: 60px;
-    margin: 0 -28px; padding: 0 44px env(safe-area-inset-bottom, 0px); border-top: 1px solid var(--stone);
+    display: flex; justify-content: space-around; align-items: center; min-height: 60px;
+    margin: 0 -28px; padding: 0 28px env(safe-area-inset-bottom, 0px); border-top: 1px solid var(--stone);
   }
-  #s-home, #s-parts, #s-journal { padding-bottom: 0; }
-  .nav button { background: transparent; border: 0; border-bottom: 1px solid transparent; min-height: 44px; padding: 0; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ash); cursor: pointer; }
-  .nav button.current { color: var(--umber); border-bottom-color: var(--umber); }
+  #s-home, #s-parts, #s-settings { padding-bottom: 0; }
+  .nav button { position: relative; width: 64px; height: 56px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; color: var(--ash); cursor: pointer; transition: color 300ms var(--ease); }
+  .nav button svg { stroke: currentColor; }
+  .nav button.current { color: var(--umber); }
+  .nav button.current::after { content: ''; position: absolute; bottom: 8px; left: 50%; width: 3px; height: 3px; margin-left: -1.5px; border-radius: 50%; background: currentColor; }
 
   /* part detail blocks */
   .block { display: flex; flex-direction: column; gap: 10px; padding: 24px 0; border-bottom: 1px solid var(--stone); }
@@ -264,7 +267,7 @@
   <section id="s-home" class="screen bone">
     <div class="hdr">
       <div class="label" id="home-date">Thursday evening</div>
-      <button class="textbtn" id="home-account">Settings</button>
+      <button class="textbtn" id="home-account" hidden>Sign in</button>
     </div>
     <div style="margin-top: 48px; display: flex; flex-direction: column; gap: 22px;">
       <h1 class="serif-xl" id="home-greeting">Good evening.<br>The house is quiet.</h1>
@@ -277,15 +280,14 @@
     <div class="scroll" style="margin-top: 56px;">
       <div class="sechead">
         <div class="label">Parts you’ve met</div>
-        <button class="textbtn" data-go="parts" style="margin-right: -8px;">All</button>
       </div>
       <div class="rows" id="home-parts"></div>
       <p class="serif-it moss" style="font-family: var(--serif); font-size: 18px; margin: 32px 0 16px;">Curiosity before correction.</p>
     </div>
     <nav class="nav" aria-label="Primary">
-      <button class="current" data-go="home">Today</button>
-      <button data-go="parts">Parts</button>
-      <button data-go="journal">Journal</button>
+      <button class="current" data-go="home" aria-label="Today" aria-current="page"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="11" r="7.5"></circle></svg></button>
+      <button data-go="parts" aria-label="Parts"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="6.75" r="3.5"></circle><circle cx="6" cy="15.25" r="3.5"></circle><circle cx="16" cy="15.25" r="3.5"></circle></svg></button>
+      <button data-go="settings" aria-label="Settings"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25" stroke-linecap="round"><line x1="3" y1="7.5" x2="19" y2="7.5"></line><circle cx="13.5" cy="7.5" r="2.25" style="fill: var(--bone)"></circle><line x1="3" y1="14.5" x2="19" y2="14.5"></line><circle cx="8.5" cy="14.5" r="2.25" style="fill: var(--bone)"></circle></svg></button>
     </nav>
   </section>
 
@@ -293,7 +295,7 @@
   <section id="s-parts" class="screen bone">
     <div class="hdr">
       <div class="wordmark">Interior</div>
-      <button class="textbtn" id="btn-begin-2">New session</button>
+      <button class="textbtn" id="btn-journal" data-go="journal">Journal</button>
     </div>
     <h1 class="serif-xl" style="margin-top: 40px;">Parts</h1>
     <p class="body muted" style="margin-top: 10px; max-width: 320px;">Every part has a job. Every job began as protection. The work is not to remove them, but to meet them.</p>
@@ -301,9 +303,9 @@
       <div class="rows" id="parts-list"></div>
     </div>
     <nav class="nav" aria-label="Primary">
-      <button data-go="home">Today</button>
-      <button class="current" data-go="parts">Parts</button>
-      <button data-go="journal">Journal</button>
+      <button data-go="home" aria-label="Today"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="11" r="7.5"></circle></svg></button>
+      <button class="current" data-go="parts" aria-label="Parts" aria-current="page"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="6.75" r="3.5"></circle><circle cx="6" cy="15.25" r="3.5"></circle><circle cx="16" cy="15.25" r="3.5"></circle></svg></button>
+      <button data-go="settings" aria-label="Settings"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25" stroke-linecap="round"><line x1="3" y1="7.5" x2="19" y2="7.5"></line><circle cx="13.5" cy="7.5" r="2.25" style="fill: var(--bone)"></circle><line x1="3" y1="14.5" x2="19" y2="14.5"></line><circle cx="8.5" cy="14.5" r="2.25" style="fill: var(--bone)"></circle></svg></button>
     </nav>
   </section>
 
@@ -326,7 +328,10 @@
   <!-- JOURNAL -->
   <section id="s-journal" class="screen bone">
     <div class="hdr">
-      <div class="wordmark">Interior</div>
+      <button class="textbtn" data-go="parts">
+        <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5 1 1 5l4 4"></path><line x1="1" y1="5" x2="13" y2="5"></line></svg>
+        Parts
+      </button>
       <div class="label" id="journal-count"></div>
     </div>
     <h1 class="serif-xl" style="margin-top: 40px;">Journal</h1>
@@ -334,20 +339,11 @@
     <div class="scroll" style="margin-top: 20px;">
       <div id="journal-list"></div>
     </div>
-    <nav class="nav" aria-label="Primary">
-      <button data-go="home">Today</button>
-      <button data-go="parts">Parts</button>
-      <button class="current" data-go="journal">Journal</button>
-    </nav>
   </section>
 
   <!-- SETTINGS -->
   <section id="s-settings" class="screen bone">
     <div class="hdr">
-      <button class="textbtn" data-go="home">
-        <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5 1 1 5l4 4"></path><line x1="1" y1="5" x2="13" y2="5"></line></svg>
-        Today
-      </button>
       <div class="wordmark">Interior</div>
     </div>
     <h1 class="serif-xl" style="margin-top: 40px;">Settings</h1>
@@ -417,6 +413,11 @@
       </div>
       <p class="label" style="padding: 28px 0 8px;">Interior · prototype · Internal Family Systems after R. Schwartz</p>
     </div>
+    <nav class="nav" aria-label="Primary">
+      <button data-go="home" aria-label="Today"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="11" r="7.5"></circle></svg></button>
+      <button data-go="parts" aria-label="Parts"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="6.75" r="3.5"></circle><circle cx="6" cy="15.25" r="3.5"></circle><circle cx="16" cy="15.25" r="3.5"></circle></svg></button>
+      <button class="current" data-go="settings" aria-label="Settings" aria-current="page"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25" stroke-linecap="round"><line x1="3" y1="7.5" x2="19" y2="7.5"></line><circle cx="13.5" cy="7.5" r="2.25" style="fill: var(--bone)"></circle><line x1="3" y1="14.5" x2="19" y2="14.5"></line><circle cx="8.5" cy="14.5" r="2.25" style="fill: var(--bone)"></circle></svg></button>
+    </nav>
   </section>
 
   <!-- SESSION -->
@@ -792,7 +793,7 @@
   function renderHome() {
     var now = new Date(), p = period(now);
     $('home-date').textContent = DAYS[now.getDay()] + ' ' + (p === 'night' ? 'night' : p);
-    $('home-account').textContent = (fb.ready && !fb.user) ? 'Sign in' : 'Settings';
+    $('home-account').hidden = !(fb.ready && !fb.user);
     var g = $('home-greeting'); clear(g);
     var name = firstName();
     g.appendChild(document.createTextNode(greetingWord(now) + (name ? ', ' + name : '') + '.'));
@@ -1412,7 +1413,6 @@
   /* ---------- wiring ---------- */
   $('home-account').addEventListener('click', function () { if (fb.ready && !fb.user) signIn(); else go('settings'); });
   $('btn-begin').addEventListener('click', function () { startSession(null); });
-  $('btn-begin-2').addEventListener('click', function () { startSession(null); });
 
   if (synth) {
     loadVoices();
