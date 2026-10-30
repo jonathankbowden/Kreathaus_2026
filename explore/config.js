@@ -1,21 +1,20 @@
 /* Explore — client configuration
  *
- * FIREBASE: paste the web config from the Firebase project you use for
- * kreathaus.com/daily (Project settings → Your apps → Web app → config).
- * Same project is fine: Explore keeps its data in its own
- * "interior_users" collection. Leave apiKey empty to run without sign-in.
+ * FIREBASE: the web config of the "Explore" Firebase project (explore-ea7ca).
+ * These are public client values, locked to kreathaus.com in Firebase Auth;
+ * the Firestore rules decide who can read or write.
  *
- * VOICES: ElevenLabs voice IDs. Keep three to audition in Settings, or paste
- * any voice from your own ElevenLabs library (including a designed voice).
+ * VOICES: the three default ElevenLabs voices. Anything added to the ElevenLabs
+ * library appears in Settings automatically (api/tts.php?voices=1).
  */
 window.INTERIOR_CONFIG = {
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyDMJKB3qoZ4x-wXXeC50e6u8sRYsSFw9w4",
+    authDomain: "explore-ea7ca.firebaseapp.com",
+    projectId: "explore-ea7ca",
+    storageBucket: "explore-ea7ca.firebasestorage.app",
+    messagingSenderId: "352442765131",
+    appId: "1:352442765131:web:341795ba8ce055c1ea22ce"
   },
   ttsEndpoint: "api/tts.php",
   voices: [
