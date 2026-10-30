@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Explore">
-<meta name="build" content="2026-10-30.13">
+<meta name="build" content="2026-10-30.14">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <title>Explore</title>
@@ -278,7 +278,7 @@
     }
     .scroll { margin-left: auto; margin-right: auto; padding-left: 0; padding-right: 0; }
     .hdr, .foot { width: 100%; max-width: none; }
-    .nav { justify-content: space-between; padding: 0 56px; min-height: 72px; }
+    .nav { justify-content: center; gap: 112px; padding: 0 56px; min-height: 72px; }
     .nav button { width: 72px; }
     .serif-xl { font-size: 56px; }
     .guide .line { font-size: 28px; max-width: 520px; }
@@ -310,7 +310,7 @@
     <div class="grow"></div>
     <div style="display: flex; flex-direction: column; gap: 22px;">
       <h1 class="serif-xl" id="home-greeting">Good evening.<br>The house is quiet.</h1>
-      <p class="serif-md serif-it muted">Would you like to go inside?</p>
+      <p class="serif-md serif-it muted">Would you like to explore?</p>
     </div>
     <button class="hairline" id="btn-begin" style="margin-top: 44px; justify-content: center;">
       <span>Begin</span>
@@ -1022,7 +1022,7 @@
     });
   }
   function rateWord(r) { return r <= 0.85 ? 'Very slow' : r <= 0.95 ? 'Unhurried' : r <= 1.0 ? 'Even' : 'Brisk'; }
-  function sampleLine() { return greetingWord(new Date()) + (firstName() ? ', ' + firstName() : '') + '. The house is quiet. Would you like to go inside?'; }
+  function sampleLine() { return greetingWord(new Date()) + (firstName() ? ', ' + firstName() : '') + '. The house is quiet. Would you like to explore?'; }
   function renderVoiceRows() {
     var rows = $('voice-rows'); clear(rows);
     var note = $('voice-engine-note');
@@ -1152,7 +1152,7 @@
     var steps = [];
     if (!part) {
       steps.push({ key: 'settle', label: 'Settle', kind: 'ack', btn: 'I’m settled',
-        text: hello + '. Before we begin, let your body settle. Soften your eyes, or close them. Take three slow breaths, and when you’re ready, we’ll go inside.' });
+        text: hello + '. Before we begin, let your body settle. Soften your eyes, or close them. Take three slow breaths, and when you’re ready, we’ll begin to explore.' });
       steps.push({ key: 'find', label: 'Find · 1 of 6', kind: 'input', ph: 'What came forward…',
         text: 'Turn your attention inward. Is there a part of you asking for attention — a feeling, a thought that keeps returning, a tightness somewhere in the body? Take your time. When something comes forward, tell me what you notice.' });
       steps.push({ key: 'focus', label: 'Focus · 2 of 6', kind: 'input', ph: 'Where, and how…',
