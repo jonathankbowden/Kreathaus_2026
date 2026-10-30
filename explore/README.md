@@ -35,6 +35,15 @@ match /interior_users/{uid} {
 Each account gets one document: name, chosen voice, parts, sessions. Signing in on a
 second device merges, never overwrites.
 
+## Updating the live site
+cPanel → Terminal, one line (keeps `api/config.php` and the audio cache):
+
+```
+rm -rf /tmp/khx && git clone -q --depth 1 -b claude/interior-explore https://github.com/jonathankbowden/Kreathaus_2026 /tmp/khx && cp -r /tmp/khx/explore/. ~/public_html/explore/ && rm -rf /tmp/khx && echo updated
+```
+
+Then force-quit and relaunch the home-screen app on the phone.
+
 ## Files
 - `index.html` — the app
 - `config.js` — Firebase config + voice IDs (safe to commit; these are client-side values)
