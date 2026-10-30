@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Interior">
-<meta name="build" content="2026-10-30.10">
+<meta name="build" content="2026-10-30.11">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <title>Interior</title>
@@ -595,7 +595,8 @@
   }
   function pickVoice() {
     if (!voices.length) return null;
-    if (state.voice.uri) for (var i = 0; i < voices.length; i++) if (voices[i].voiceURI === state.voice.uri) return voices[i];
+    var uri = (state && state.voice) ? state.voice.uri : null;
+    if (uri) for (var i = 0; i < voices.length; i++) if (voices[i].voiceURI === uri) return voices[i];
     for (var p = 0; p < PREF.length; p++) for (var j = 0; j < voices.length; j++) if (voices[j].name.indexOf(PREF[p]) === 0) return voices[j];
     for (var k = 0; k < voices.length; k++) if (voices[k].default) return voices[k];
     return voices[0];
@@ -1493,11 +1494,15 @@
   $('home-account').addEventListener('click', function () { if (fb.ready && !fb.user) signIn(); else go('settings'); });
   $('btn-begin').addEventListener('click', function () { startSession(null); });
 
-  if (synth) {
-    loadVoices();
-    if (typeof synth.onvoiceschanged !== 'undefined') synth.onvoiceschanged = loadVoices;
-    setTimeout(loadVoices, 600);
-  }
+  // Settings first: everything below may read them.
+  load();
+  try {
+    if (synth) {
+      loadVoices();
+      if (typeof synth.onvoiceschanged !== 'undefined') synth.onvoiceschanged = loadVoices;
+      setTimeout(loadVoices, 600);
+    }
+  } catch (e) {}
 
   /* Home-screen mode: size the shell to the real window, not to what iOS
      thinks the viewport is (it sometimes leaves a toolbar-sized gap). */
@@ -1522,14 +1527,13 @@
   }
   window.addEventListener('resize', fitViewport);
   window.addEventListener('orientationchange', function () { setTimeout(fitViewport, 300); });
-  fitViewport();
-  (function () {
-    var m = document.querySelector('meta[name="build"]'); var b = $('build-line');
-    if (m && b) b.textContent += ' · build ' + m.getAttribute('content') + (navigator.standalone ? ' · home screen · ' + viewportDiag : '');
-  })();
+  try { fitViewport(); } catch (e) {}
+  try {
+    var bm = document.querySelector('meta[name="build"]'); var bl = $('build-line');
+    if (bm && bl) bl.textContent += ' · build ' + bm.getAttribute('content') + (navigator.standalone ? ' · home screen · ' + viewportDiag : '');
+  } catch (e) {}
 
-  load();
-  initFirebase();
+  try { initFirebase(); } catch (e) {}
   go('home');
   // first paint without fade
   document.body.offsetHeight;
