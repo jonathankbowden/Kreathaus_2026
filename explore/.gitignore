@@ -1,0 +1,4 @@
+api/config.php
+api/cache/*.mp3
+api/cache/_quota_*
+api/cache/*.tmp

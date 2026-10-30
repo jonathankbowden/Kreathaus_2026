@@ -1,0 +1,9 @@
+Options -Indexes
+
+<FilesMatch "^_quota_">
+  Require all denied
+</FilesMatch>
+
+<FilesMatch "\.mp3$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
