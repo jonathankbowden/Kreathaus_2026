@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Interior">
-<meta name="build" content="2026-10-30.8">
+<meta name="build" content="2026-10-30.9">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <title>Interior</title>
@@ -206,6 +206,8 @@
     .orb .core { width: 64px; height: 64px; }
     .guide .line { font-size: 25px; }
   }
+  .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 20%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 800ms var(--ease); }
+  .waves.on { opacity: 1; }
   .overlay {
     position: fixed; inset: 0; background: rgba(28, 26, 24, .97); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;
     padding: 28px; opacity: 0; visibility: hidden; transition: opacity 500ms var(--ease), visibility 0s linear 500ms;
@@ -417,6 +419,7 @@
 
   <!-- SESSION -->
   <section id="s-session" class="screen night" aria-live="off">
+    <canvas id="waves" class="waves" aria-hidden="true"></canvas>
     <div class="hdr">
       <div class="label" id="sess-step">Settle</div>
       <button class="textbtn" id="btn-pause">Pause</button>
@@ -626,10 +629,24 @@
   var SILENT = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjYwLjE2LjEwMAAAAAAAAAAAAAAA//NwwAAAAAAAAAAAAEluZm8AAAAPAAAADAAAAfAAa2tra2tra2t5eXl5eXl5eYaGhoaGhoaGlJSUlJSUlJSUoaGhoaGhoaGurq6urq6urry8vLy8vLy8vMnJycnJycnJ19fX19fX19fl5eXl5eXl5eXy8vLy8vLy8v//////////AAAAAExhdmM2MC4zMQAAAAAAAAAAAAAAACQDNwAAAAAAAAHwgaEhFwAAAAAAAAAAAAAAAAD/8xDEAAAAA0gAAAAATEFNRTMuMTAwVVVVVf/zEsQNAAADSAAAAABVVVVVVVVVVVVVVVVVVf/zEMQbAAADSAAAAABVVVVVVVVVVVVVVVVV//MQxCgAAANIAAAAAFVVVVVVVVVVVVVVVVX/8xDENQAAA0gAAAAAVVVVVVVVVVVVVVVVVf/zEMRCAAADSAAAAABVVVVVVVVVVVVVVVVV//MQxE8AAANIAAAAAFVVVVVVVVVVVVVVVVX/8xDEXAAAA0gAAAAAVVVVVVVVVVVVVVVVVf/zEMRpAAADSAAAAABVVVVVVVVVVVVVVVVV//MSxHYAAANIAAAAAFVVVVVVVVVVVVVVVVVV//MQxIQAAANIAAAAAFVVVVVVVVVVVVVVVVX/8xDEkQAAA0gAAAAAVVVVVVVVVVVVVVVVVQ==';
   var audioEl = null, audioUnlocked = false, ttsFailures = 0, ttsWarned = false;
   var clipCache = {};
-  function guideAvailable() { return !!(CFG.ttsEndpoint && VOICES.length && ttsFailures < 2); }
+  var LIB_VOICES = null; // voices added to the ElevenLabs library, fetched once per visit
+  function allVoices() {
+    var seen = {}, out = [];
+    VOICES.concat(LIB_VOICES || []).forEach(function (v) { if (v && v.id && !seen[v.id]) { seen[v.id] = 1; out.push(v); } });
+    return out;
+  }
+  function loadLibraryVoices(cb) {
+    if (LIB_VOICES !== null || !CFG.ttsEndpoint) { if (cb) cb(); return; }
+    fetch(CFG.ttsEndpoint + '?voices=1', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : { voices: [] }; })
+      .then(function (j) { LIB_VOICES = (j && j.voices) ? j.voices : []; if (cb) cb(); })
+      .catch(function () { LIB_VOICES = []; if (cb) cb(); });
+  }
+  function guideAvailable() { return !!(CFG.ttsEndpoint && allVoices().length && ttsFailures < 2); }
   function currentVoice() {
-    for (var i = 0; i < VOICES.length; i++) if (VOICES[i].id === state.voice.guide) return VOICES[i];
-    return VOICES[0] || null;
+    var list = allVoices();
+    for (var i = 0; i < list.length; i++) if (list[i].id === state.voice.guide) return list[i];
+    return list[0] || null;
   }
   function unlockAudio() {
     if (!audioEl) { audioEl = new Audio(); audioEl.preload = 'auto'; audioEl.setAttribute('playsinline', ''); }
@@ -699,6 +716,67 @@
   function hushAudio() { if (audioEl) { try { audioEl.onended = null; audioEl.pause(); audioEl.currentTime = 0; } catch (e) {} } }
   function hush() { speakToken++; hushAudio(); try { if (synth) synth.cancel(); } catch (e) {} if (!listening) setStatus('quiet'); }
 
+  /* ---------- mic waves: three soft lines in the bottom fifth, moved by the mic level ---------- */
+  var waves = { ctx: null, raf: 0, amp: 0, t: 0, pulse: 0, on: false, analyser: null, data: null, stream: null, actx: null, levelsBroken: false };
+  function wavesStart() {
+    var c = $('waves'); if (!c) return;
+    var dpr = window.devicePixelRatio || 1, w = c.clientWidth, h = c.clientHeight;
+    if (!w || !h) return;
+    c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+    waves.ctx = c.getContext('2d'); waves.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    waves.on = true; c.classList.add('on');
+    cancelAnimationFrame(waves.raf); waves.raf = requestAnimationFrame(wavesDraw);
+    if (waves.levelsBroken || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+      if (!waves.on) { stream.getTracks().forEach(function (t) { t.stop(); }); return; }
+      var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+      try {
+        waves.actx = waves.actx || new AC();
+        if (waves.actx.state === 'suspended') waves.actx.resume().catch(function () {});
+        var src = waves.actx.createMediaStreamSource(stream);
+        var an = waves.actx.createAnalyser(); an.fftSize = 512; an.smoothingTimeConstant = 0.8;
+        src.connect(an);
+        waves.stream = stream; waves.analyser = an; waves.data = new Uint8Array(an.fftSize);
+      } catch (e) { stream.getTracks().forEach(function (t) { t.stop(); }); }
+    }).catch(function () {});
+  }
+  function wavesStop() {
+    waves.on = false;
+    var c = $('waves'); if (c) c.classList.remove('on');
+    if (waves.stream) { try { waves.stream.getTracks().forEach(function (t) { t.stop(); }); } catch (e) {} waves.stream = null; }
+    waves.analyser = null;
+  }
+  function wavesDraw() {
+    var c = $('waves'), ctx = waves.ctx; if (!c || !ctx) return;
+    var w = c.clientWidth, h = c.clientHeight, level = 0;
+    if (waves.analyser) {
+      waves.analyser.getByteTimeDomainData(waves.data);
+      var sum = 0; for (var i = 0; i < waves.data.length; i++) { var v = (waves.data[i] - 128) / 128; sum += v * v; }
+      level = Math.min(1, Math.sqrt(sum / waves.data.length) * 4);
+    } else {
+      waves.pulse *= 0.94; level = 0.1 + waves.pulse * 0.8;
+    }
+    waves.amp += ((waves.on ? level : 0) - waves.amp) * 0.12;
+    waves.t += 0.018 + waves.amp * 0.03;
+    ctx.clearRect(0, 0, w, h);
+    var mid = h * 0.55, maxA = h * 0.34;
+    var lines = [[0.22, 1.0, 0], [0.13, 0.72, 1.7], [0.07, 0.5, 3.1]];
+    for (var L = 0; L < lines.length; L++) {
+      var alpha = lines[L][0], scale = lines[L][1], phase = lines[L][2];
+      ctx.beginPath();
+      for (var x = 0; x <= w; x += 3) {
+        var env = Math.sin(Math.PI * x / w); env = env * env;
+        var y = mid
+          + Math.sin(x / w * Math.PI * 4 + waves.t * 1.6 + phase) * (0.05 + waves.amp) * maxA * scale * env
+          + Math.sin(x / w * Math.PI * 9 - waves.t * 2.3 + phase) * waves.amp * maxA * 0.35 * scale * env;
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = 'rgba(242, 238, 231, ' + alpha + ')'; ctx.lineWidth = 1; ctx.stroke();
+    }
+    if (waves.on || waves.amp > 0.004) waves.raf = requestAnimationFrame(wavesDraw);
+    else ctx.clearRect(0, 0, w, h);
+  }
+
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
   var rec = null, listening = false, baseText = '', voiceWarned = false;
   function startListening(target) {
@@ -717,11 +795,16 @@
         }
         if (fin) { baseText = (baseText + fin).replace(/\s+$/, '') + ' '; interim = ''; }
         target.value = baseText + interim;
+        waves.pulse = 1;
         autosize(target); updateContinue();
       };
       rec.onerror = function (ev) {
         var code = ev && ev.error;
-        if (code === 'not-allowed' || code === 'service-not-allowed' || code === 'audio-capture') {
+        if (waves.stream && (code === 'aborted' || code === 'audio-capture')) {
+          // The level meter and the recogniser fought over the mic on this device: give the meter up.
+          waves.levelsBroken = true;
+          toast('Tap the microphone once more.');
+        } else if (code === 'not-allowed' || code === 'service-not-allowed' || code === 'audio-capture') {
           if (!voiceWarned) { voiceWarned = true; toast('The microphone isn’t available here. Type instead — the guide will still speak.'); }
         } else if (code === 'no-speech') {
           toast('Nothing was heard. Take your time, then try again or type.');
@@ -731,11 +814,13 @@
       rec.onend = function () { stopListening(); };
       rec.start();
       listening = true; setStatus('listening'); setMic(true);
+      wavesStart();
     } catch (e) { toast('Voice input isn’t available here. Type below.'); stopListening(); }
   }
   function stopListening() {
     listening = false; setMic(false);
     if (rec) { try { rec.onend = null; rec.stop(); } catch (e) {} rec = null; }
+    wavesStop();
     setStatus('quiet');
   }
   function setStatus(s) {
@@ -903,9 +988,11 @@
   function renderVoiceRows() {
     var rows = $('voice-rows'); clear(rows);
     var note = $('voice-engine-note');
-    if (!VOICES.length) { note.textContent = 'No guide voices are configured in config.js yet; the device voice is used.'; return; }
+    if (LIB_VOICES === null) loadLibraryVoices(function () { if (current === 'settings') renderVoiceRows(); });
+    var list = allVoices();
+    if (!list.length) { note.textContent = 'No guide voices are configured yet; the device voice is used.'; return; }
     var cur = currentVoice();
-    VOICES.forEach(function (v) {
+    list.forEach(function (v) {
       var r = el('div', 'vrow' + (cur && cur.id === v.id ? ' sel' : ''));
       var pick = el('button', 'pick'); pick.type = 'button';
       var nm = el('div', 'vname'); nm.appendChild(document.createTextNode(v.name)); nm.appendChild(el('span', 'state', 'Chosen'));
@@ -922,7 +1009,9 @@
       r.appendChild(pick); r.appendChild(hear);
       rows.appendChild(r);
     });
-    note.textContent = guideAvailable() ? 'Generated once per line on kreathaus.com, then played instantly.' : 'The guide’s voice couldn’t be reached this session; the device voice is standing in.';
+    note.textContent = guideAvailable()
+      ? 'Any voice you add to your ElevenLabs library appears here within a few minutes. Lines are generated once, then played instantly.'
+      : 'The guide’s voice couldn’t be reached this session; the device voice is standing in.';
   }
   function renderAccount() {
     var b = $('account-body'); clear(b);

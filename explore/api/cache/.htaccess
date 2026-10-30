@@ -1,6 +1,6 @@
 Options -Indexes
 
-<FilesMatch "^_quota_">
+<FilesMatch "^_">
   Require all denied
 </FilesMatch>
 

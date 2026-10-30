@@ -35,12 +35,8 @@ if ($apiKey === '' || $apiKey === 'PASTE_YOUR_ELEVENLABS_KEY_HERE') {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    header('Content-Type: application/json');
-    echo json_encode(['error' => 'method_not_allowed']);
-    exit;
-}
+$cacheDir = __DIR__ . '/cache';
+if (!is_dir($cacheDir)) { @mkdir($cacheDir, 0755, true); }
 
 // Only accept requests from the site itself (soft guard against drive-by quota burn).
 if ($allowedHosts) {
@@ -56,6 +52,52 @@ if ($allowedHosts) {
         echo json_encode(['error' => 'forbidden_origin']);
         exit;
     }
+}
+
+// GET ?voices=1 → the voices in this ElevenLabs library (everything but the stock premade set),
+// so a voice added at elevenlabs.io shows up in the app's Settings without a code change.
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['voices'])) {
+    header('Content-Type: application/json');
+    header('Cache-Control: no-store');
+    $vfile = $cacheDir . '/_voices.json';
+    if (is_file($vfile) && (time() - filemtime($vfile)) < 300) { readfile($vfile); exit; }
+    $ch = curl_init($apiBase . '/v1/voices');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_HTTPHEADER     => ['xi-api-key: ' . $apiKey, 'Accept: application/json'],
+    ]);
+    $res    = curl_exec($ch);
+    $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    $out = ['voices' => []];
+    if ($res !== false && $status === 200) {
+        $j = json_decode((string) $res, true);
+        foreach (($j['voices'] ?? []) as $v) {
+            if (($v['category'] ?? '') === 'premade') { continue; }
+            $labels = is_array($v['labels'] ?? null) ? $v['labels'] : [];
+            $bits = [];
+            foreach (['accent', 'description', 'age'] as $k) {
+                if (!empty($labels[$k]) && is_string($labels[$k])) { $bits[] = ucfirst($labels[$k]); }
+            }
+            if (!preg_match('/^[A-Za-z0-9]{8,64}$/', (string) ($v['voice_id'] ?? ''))) { continue; }
+            $out['voices'][] = ['id' => $v['voice_id'], 'name' => (string) ($v['name'] ?? 'Voice'), 'note' => implode(' · ', $bits)];
+        }
+        @file_put_contents($vfile, json_encode($out), LOCK_EX);
+    } else {
+        http_response_code(502);
+        $out['error'] = 'upstream';
+        $out['status'] = $status;
+    }
+    echo json_encode($out);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'method_not_allowed']);
+    exit;
 }
 
 $raw = file_get_contents('php://input');
@@ -81,9 +123,6 @@ if (!preg_match('/^[A-Za-z0-9]{8,64}$/', $voice)) {
     echo json_encode(['error' => 'bad_voice']);
     exit;
 }
-
-$cacheDir = __DIR__ . '/cache';
-if (!is_dir($cacheDir)) { @mkdir($cacheDir, 0755, true); }
 
 $key  = sha1($model . '|' . $voice . '|' . number_format($speed, 2, '.', '') . '|' . $text);
 $file = $cacheDir . '/' . $key . '.mp3';
