@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Explore">
-<meta name="build" content="2026-10-30.14">
+<meta name="build" content="2026-10-30.15">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <title>Explore</title>
@@ -309,8 +309,8 @@
     </div>
     <div class="grow"></div>
     <div style="display: flex; flex-direction: column; gap: 22px;">
-      <h1 class="serif-xl" id="home-greeting">Good evening.<br>The house is quiet.</h1>
-      <p class="serif-md serif-it muted">Would you like to explore?</p>
+      <h1 class="serif-xl" id="home-greeting">Good evening.</h1>
+      <p class="serif-md serif-it muted">A moment to pause?</p>
     </div>
     <button class="hairline" id="btn-begin" style="margin-top: 44px; justify-content: center;">
       <span>Begin</span>
@@ -914,8 +914,6 @@
     var g = $('home-greeting'); clear(g);
     var name = firstName();
     g.appendChild(document.createTextNode(greetingWord(now) + (name ? ', ' + name : '') + '.'));
-    g.appendChild(document.createElement('br'));
-    g.appendChild(document.createTextNode(p === 'morning' ? 'The day hasn’t started asking yet.' : p === 'afternoon' ? 'A pause in the middle of things.' : 'The house is quiet.'));
   }
   function renderParts() {
     var list = $('parts-list'); clear(list);
@@ -1022,7 +1020,7 @@
     });
   }
   function rateWord(r) { return r <= 0.85 ? 'Very slow' : r <= 0.95 ? 'Unhurried' : r <= 1.0 ? 'Even' : 'Brisk'; }
-  function sampleLine() { return greetingWord(new Date()) + (firstName() ? ', ' + firstName() : '') + '. The house is quiet. Would you like to explore?'; }
+  function sampleLine() { return greetingWord(new Date()) + (firstName() ? ', ' + firstName() : '') + '. A moment to pause?'; }
   function renderVoiceRows() {
     var rows = $('voice-rows'); clear(rows);
     var note = $('voice-engine-note');
