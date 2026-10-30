@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Interior">
-<meta name="build" content="2026-10-30.5">
+<meta name="build" content="2026-10-30.6">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <title>Interior</title>
@@ -267,24 +267,18 @@
   <!-- HOME -->
   <section id="s-home" class="screen bone">
     <div class="hdr">
-      <div class="label" id="home-date">Thursday evening</div>
+      <div></div>
       <button class="textbtn" id="home-account" hidden>Sign in</button>
     </div>
-    <div style="margin-top: 48px; display: flex; flex-direction: column; gap: 22px;">
+    <div class="grow"></div>
+    <div style="display: flex; flex-direction: column; gap: 22px;">
       <h1 class="serif-xl" id="home-greeting">Good evening.<br>The house is quiet.</h1>
       <p class="serif-md serif-it muted">Would you like to go inside?</p>
     </div>
-    <button class="hairline" id="btn-begin" style="margin-top: 40px;">
-      <span>Begin a session</span>
-      <span class="label">12 min · voice</span>
+    <button class="hairline" id="btn-begin" style="margin-top: 44px; justify-content: center;">
+      <span>Begin</span>
     </button>
-    <div class="scroll" style="margin-top: 56px;">
-      <div class="sechead">
-        <div class="label">Parts you’ve met</div>
-      </div>
-      <div class="rows" id="home-parts"></div>
-      <p class="serif-it moss" style="font-family: var(--serif); font-size: 18px; margin: 32px 0 16px;">Curiosity before correction.</p>
-    </div>
+    <div class="grow" style="flex-grow: 1.6;"></div>
     <nav class="nav" aria-label="Primary">
       <button class="current" data-go="home" aria-label="Today" aria-current="page"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="11" r="7.5"></circle></svg></button>
       <button data-go="parts" aria-label="Parts"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" fill="none" stroke-width="1.25"><circle cx="11" cy="6.75" r="3.5"></circle><circle cx="6" cy="15.25" r="3.5"></circle><circle cx="16" cy="15.25" r="3.5"></circle></svg></button>
@@ -793,17 +787,12 @@
   }
   function renderHome() {
     var now = new Date(), p = period(now);
-    $('home-date').textContent = DAYS[now.getDay()] + ' ' + (p === 'night' ? 'night' : p);
     $('home-account').hidden = !(fb.ready && !fb.user);
     var g = $('home-greeting'); clear(g);
     var name = firstName();
     g.appendChild(document.createTextNode(greetingWord(now) + (name ? ', ' + name : '') + '.'));
     g.appendChild(document.createElement('br'));
     g.appendChild(document.createTextNode(p === 'morning' ? 'The day hasn’t started asking yet.' : p === 'afternoon' ? 'A pause in the middle of things.' : 'The house is quiet.'));
-    var list = $('home-parts'); clear(list);
-    var ps = sortedParts().slice(0, 3);
-    if (!ps.length) { var e = el('p', 'body muted', 'No parts yet. The first session will introduce you.'); e.style.padding = '20px 0'; list.appendChild(e); }
-    ps.forEach(function (p) { list.appendChild(partRow(p)); });
   }
   function renderParts() {
     var list = $('parts-list'); clear(list);

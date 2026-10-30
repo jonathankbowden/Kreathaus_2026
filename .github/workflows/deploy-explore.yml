@@ -1,11 +1,12 @@
 name: Deploy Interior (explore/) to kreathaus.com
 
 # Uploads explore/ to ftp.kreathaus.com whenever it changes on these branches,
-# or on demand from the Actions tab. One-time setup: add two repository secrets
+# or on demand from the Actions tab. One-time setup: repository secrets
 # (Settings → Secrets and variables → Actions):
-#   FTP_USERNAME   e.g. jonathan@kreathaus.com
-#   FTP_PASSWORD   that account's password
-# Server-side files the repo doesn't own (api/config.php, cached audio) are never touched.
+#   FTP_USERNAME         e.g. jonathan@kreathaus.com
+#   FTP_PASSWORD         that account's password
+#   ELEVENLABS_API_KEY   optional; when present, api/config.php is written from it
+# Cached audio on the server is never touched.
 
 on:
   push:
@@ -38,6 +39,18 @@ jobs:
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
             echo "::notice title=Deploy skipped::Add the FTP_USERNAME and FTP_PASSWORD repository secrets, then re-run this workflow."
+          fi
+
+      - name: Write api/config.php from the ELEVENLABS_API_KEY secret
+        if: steps.check.outputs.configured == 'true'
+        env:
+          KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: |
+          if [ -n "$KEY" ]; then
+            sed "s|PASTE_YOUR_ELEVENLABS_KEY_HERE|$KEY|" explore/api/config.sample.php > explore/api/config.php
+            echo "api/config.php generated from the secret"
+          else
+            echo "::notice title=Guide voice not configured::Add an ELEVENLABS_API_KEY repository secret and the next deploy will write api/config.php for you."
           fi
 
       - name: Work out where the web root is on this FTP account
@@ -79,7 +92,6 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
-            api/config.php
             api/cache/*.mp3
             api/cache/_quota_*
             api/cache/*.tmp

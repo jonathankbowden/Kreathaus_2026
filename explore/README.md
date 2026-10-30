@@ -7,13 +7,13 @@ No build step. Upload the whole `explore/` folder to `public_html/explore/`.
 
 ### 1. The guide's voice (ElevenLabs)
 1. elevenlabs.io → your profile → **API keys** → create a key.
-2. Copy `api/config.sample.php` → `api/config.php` and paste the key into `ELEVENLABS_API_KEY`.
-3. Upload `api/config.php` by FTP. It is git-ignored — never commit it.
-4. Make sure `api/cache/` is writable by PHP (on InMotion/cPanel it is by default; if lines
-   never cache, set the folder to 755 or 775 in cPanel File Manager).
-5. On the phone: **Settings → The guide's voice → Hear** each one, choose, then
+2. GitHub → repo → Settings → Secrets and variables → Actions → add `ELEVENLABS_API_KEY`.
+   The next deploy writes `api/config.php` on the server from it. (Manual alternative:
+   copy `api/config.sample.php` to `api/config.php`, paste the key, upload by FTP.)
+3. On the phone: **Settings → The guide's voice → Hear** each one, choose, then
    **Prepare the guide's voice** once. Every line is generated on your server and cached as
    MP3, so sessions never wait and the ElevenLabs quota is spent once per line, not per session.
+4. If lines never cache, make `api/cache/` writable (755/775) in cPanel File Manager.
 
 Any voice from your ElevenLabs library works — including a designed or cloned voice.
 Paste its voice ID into `config.js` → `voices`.
