@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Interior">
-<meta name="build" content="2026-10-30.7">
+<meta name="build" content="2026-10-30.8">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <title>Interior</title>
@@ -1412,18 +1412,33 @@
 
   /* Home-screen mode: size the shell to the real window, not to what iOS
      thinks the viewport is (it sometimes leaves a toolbar-sized gap). */
+  var viewportDiag = '';
   function fitViewport() {
     var standalone = navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
     var app = $('app');
-    if (!standalone || !window.innerHeight) return;
-    app.style.top = '0'; app.style.bottom = 'auto'; app.style.height = window.innerHeight + 'px';
+    if (!standalone) return;
+    var probe = document.createElement('div');
+    probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;visibility:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)';
+    document.body.appendChild(probe);
+    var cs = getComputedStyle(probe);
+    var insetTop = parseFloat(cs.paddingTop) || 0, insetBottom = parseFloat(cs.paddingBottom) || 0;
+    document.body.removeChild(probe);
+    var ih = window.innerHeight || 0, iw = window.innerWidth || 0;
+    var portrait = ih >= iw;
+    var sh = portrait ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height);
+    // Drawn under the status bar (inset > 0) yet sized as if below it: iOS under-reports by about one bar. Use the screen.
+    var h = (insetTop > 0 && sh > ih && sh - ih < 120) ? sh : ih;
+    viewportDiag = 'ih ' + ih + ' · sh ' + sh + ' · top ' + Math.round(insetTop) + ' · bottom ' + Math.round(insetBottom) + ' → ' + h;
+    if (!h) return;
+    app.style.top = '0'; app.style.bottom = 'auto'; app.style.height = h + 'px';
+    var b = $('build-line'); if (b) b.setAttribute('data-diag', viewportDiag);
   }
   window.addEventListener('resize', fitViewport);
   window.addEventListener('orientationchange', function () { setTimeout(fitViewport, 300); });
   fitViewport();
   (function () {
     var m = document.querySelector('meta[name="build"]'); var b = $('build-line');
-    if (m && b) b.textContent += ' · build ' + m.getAttribute('content') + (navigator.standalone ? ' · home screen' : '');
+    if (m && b) b.textContent += ' · build ' + m.getAttribute('content') + (navigator.standalone ? ' · home screen · ' + viewportDiag : '');
   })();
 
   load();
