@@ -1,0 +1,85 @@
+name: Deploy Interior (explore/) to kreathaus.com
+
+# Uploads explore/ to ftp.kreathaus.com whenever it changes on these branches,
+# or on demand from the Actions tab. One-time setup: add two repository secrets
+# (Settings → Secrets and variables → Actions):
+#   FTP_USERNAME   e.g. jonathan@kreathaus.com
+#   FTP_PASSWORD   that account's password
+# Server-side files the repo doesn't own (api/config.php, cached audio) are never touched.
+
+on:
+  push:
+    branches: [claude/interior-explore, main]
+    paths:
+      - 'explore/**'
+      - '.github/workflows/deploy-explore.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-explore
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FTP_HOST: ftp.kreathaus.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check that the FTP secrets exist
+        id: check
+        env:
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if [ -n "$U" ] && [ -n "$P" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Deploy skipped::Add the FTP_USERNAME and FTP_PASSWORD repository secrets, then re-run this workflow."
+          fi
+
+      - name: Work out where the web root is on this FTP account
+        if: steps.check.outputs.configured == 'true'
+        id: probe
+        env:
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set +e
+          listing=$(curl -sS --ssl-reqd -k --ftp-pasv --list-only --user "$U:$P" "ftp://$FTP_HOST/" 2>/tmp/err)
+          rc=$?
+          set -e
+          if [ $rc -ne 0 ]; then
+            echo "::warning title=Could not list FTP root::$(cat /tmp/err) — assuming the account roots at public_html."
+            dir='explore/'
+          elif echo "$listing" | grep -qx 'public_html'; then
+            dir='public_html/explore/'
+          else
+            dir='explore/'
+          fi
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          echo "Uploading into FTP root → $dir"
+
+      - name: Upload explore/ over explicit FTPS
+        if: steps.check.outputs.configured == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ env.FTP_HOST }}
+          port: 21
+          protocol: ftps
+          security: loose
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./explore/
+          server-dir: ${{ steps.probe.outputs.dir }}
+          state-name: .ftp-deploy-sync-state.json
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            api/config.php
+            api/cache/*.mp3
+            api/cache/_quota_*
+            api/cache/*.tmp

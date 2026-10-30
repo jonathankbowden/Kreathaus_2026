@@ -36,13 +36,20 @@ Each account gets one document: name, chosen voice, parts, sessions. Signing in 
 second device merges, never overwrites.
 
 ## Updating the live site
-cPanel → Terminal, one line (keeps `api/config.php` and the audio cache):
+Automatic. `.github/workflows/deploy-explore.yml` uploads this folder to ftp.kreathaus.com
+on every push that touches `explore/` (branches `claude/interior-explore` and `main`), and can be
+run by hand from the repo's Actions tab. It never overwrites `api/config.php` or cached audio.
+
+One-time setup: GitHub → repo → Settings → Secrets and variables → Actions → add
+`FTP_USERNAME` and `FTP_PASSWORD`.
+
+Fallback without GitHub — cPanel → Terminal, one line:
 
 ```
 rm -rf /tmp/khx && git clone -q --depth 1 -b claude/interior-explore https://github.com/jonathankbowden/Kreathaus_2026 /tmp/khx && cp -r /tmp/khx/explore/. ~/public_html/explore/ && rm -rf /tmp/khx && echo updated
 ```
 
-Then force-quit and relaunch the home-screen app on the phone.
+After either, force-quit and relaunch the home-screen app on the phone.
 
 ## Files
 - `index.html` — the app

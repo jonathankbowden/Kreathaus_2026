@@ -1,5 +1,9 @@
 Options -Indexes
 
+<Files ".ftp-deploy-sync-state.json">
+  Require all denied
+</Files>
+
 # The app shell and its config must always be re-checked, so updates reach
 # home-screen installs on the next launch. Audio and icons may cache for a year.
 <FilesMatch "^(index\.html|config\.js)$">
