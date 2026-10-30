@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F2EEE7">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Interior">
-<meta name="build" content="2026-10-30.9">
+<meta name="build" content="2026-10-30.10">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-180.png">
 <title>Interior</title>
@@ -58,7 +58,7 @@
   .screen {
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
-    padding: calc(env(safe-area-inset-top, 0px) + 10px) 28px calc(env(safe-area-inset-bottom, 0px) + 12px);
+    padding: calc(env(safe-area-inset-top, 0px) + 14px) 28px calc(env(safe-area-inset-bottom, 0px) + 12px);
     opacity: 0; visibility: hidden;
     transition: opacity var(--fade) var(--ease), visibility 0s linear var(--fade);
   }
@@ -1515,12 +1515,10 @@
     var ih = window.innerHeight || 0, iw = window.innerWidth || 0;
     var portrait = ih >= iw;
     var sh = portrait ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height);
-    // Drawn under the status bar (inset > 0) yet sized as if below it: iOS under-reports by about one bar. Use the screen.
-    var h = (insetTop > 0 && sh > ih && sh - ih < 120) ? sh : ih;
-    viewportDiag = 'ih ' + ih + ' · sh ' + sh + ' · top ' + Math.round(insetTop) + ' · bottom ' + Math.round(insetBottom) + ' → ' + h;
-    if (!h) return;
-    app.style.top = '0'; app.style.bottom = 'auto'; app.style.height = h + 'px';
-    var b = $('build-line'); if (b) b.setAttribute('data-diag', viewportDiag);
+    // With an opaque status bar the window runs from below the clock to the bottom edge, and the
+    // fixed shell fills it exactly. Record what iOS reports so a mismatch is visible in Settings.
+    viewportDiag = 'ih ' + ih + ' · sh ' + sh + ' · top ' + Math.round(insetTop) + ' · bottom ' + Math.round(insetBottom);
+    app.style.top = ''; app.style.bottom = ''; app.style.height = '';
   }
   window.addEventListener('resize', fitViewport);
   window.addEventListener('orientationchange', function () { setTimeout(fitViewport, 300); });
